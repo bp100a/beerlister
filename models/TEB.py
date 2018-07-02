@@ -16,8 +16,8 @@ class TEBpage(BreweryPage):
     # "YEAST:"
     # "Misc:"
 
-    def __init__(self):
-        BreweryPage.__init__(self, url="https://www.twinelephant.com")
+    def __init__(self) -> None:
+        BreweryPage.__init__(self, url="https://www.twinelephant.com", brewery="Twin Elephant")
         assert(self._url is not None)
         self.read() # read the page
         assert(self._cached_response is not None)
