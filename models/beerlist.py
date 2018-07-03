@@ -1,20 +1,21 @@
 from lxml import html
 import requests
 import bs4 as bs
-
+import re
 
 # embodies everything we know about this beer
 class Beer():
     _name = None
     _style = None
     _abv = None
-    _hops = None
+    _hops = []
 
     def __init__(self, *args, **kwargs):
         self._name = kwargs.get('name')
         self._style = kwargs.get('style')
         self._abv = kwargs.get('abv')
-        self._hops = kwargs.get('hops')
+        if kwargs.get('hops') is not None:
+            self._hops = re.split('& |, ', kwargs.get('hops'))
 
 
 # a list of beers
@@ -71,8 +72,9 @@ class BreweryPage():
                     beer_str += ", a " + beer._style
             if beer._abv is not None:
                 beer_str += " that is " + beer._abv + " alcohol"
-            if beer._hops is not None:
-                beer_str += " hopped with " + beer._hops
+            if len(beer._hops) > 0:
+                beer_str += ", hopped with " + "{} and {}".format(", ".join(beer._hops[:-1]),  beer._hops[-1])
+
             beer_str +="."
 
         return beer_str
