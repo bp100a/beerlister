@@ -17,13 +17,12 @@ class UnTappdPage(BreweryPage):
     def __init__(self, *args, **kwargs) -> None:
         if kwargs.get('brewery') is not None:
             brewery = kwargs['brewery']
-        else:
-            brewery = 'Fort Nonsense Brewing'
+        assert(brewery is not None)
 
         # construct our URL
         loc_theme = brewery_info[brewery]
         url = "https://business.untappd.com/locations/{0}/themes/{1}/js".format(loc_theme[0], loc_theme[1])
-        BreweryPage.__init__(self, url=url, brewery=brewery)
+        BreweryPage.__init__(self, url=url, **kwargs)
         assert(self._url is not None)
         self.read() # read the page
         assert(self._cached_response is not None)
@@ -33,10 +32,10 @@ class UnTappdPage(BreweryPage):
         assert(menu_preloader is not None)
 
         start_string = 'container.innerHTML = "'
-        start_pos = self._cached_response.text.find(start_string)
-        end_pos = self._cached_response.text.find('(function (){')
-        end_pos2 = self._cached_response.text.rfind('"', 0, end_pos)
-        html_menu = self._cached_response.text[start_pos + len(start_string):end_pos2]
+        start_pos = self._cached_response.find(start_string)
+        end_pos = self._cached_response.find('(function (){')
+        end_pos2 = self._cached_response.rfind('"', 0, end_pos)
+        html_menu = self._cached_response[start_pos + len(start_string):end_pos2]
         html_menu = html_menu.replace('\\"', '"')
         html_menu = html_menu.replace('/\n', '\n')
         html_menu = html_menu.replace('\\/', '/')

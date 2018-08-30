@@ -22,6 +22,9 @@ class Beer():
         if kwargs.get('hops') is not None:
             self._hops = re.split('& |, ', kwargs.get('hops'))
 
+        if self._style is not None:
+            self._style = self._style.replace(u'\xc3\xb6', 'o') # fix umla in Kolsch
+
 
 # a list of beers
 class BeerList(list):
@@ -39,16 +42,25 @@ class BreweryPage():
         self._beer_list = BeerList()
         self._soup = None
         self._cached_response = None
+        self._mocked = kwargs.get('mocked', False)
 
     def read(self, session = None) -> bool:
         assert(self._url is not None)
-        if session is None:
-            session = requests.Session()
-        rsp = session.get(self._url)
-        assert(rsp is not None)
-        self._soup = bs.BeautifulSoup(rsp.text, "html.parser")
-        session.close()
-        self._cached_response = rsp
+        if not self._mocked:
+            if session is None:
+                session = requests.Session()
+            rsp = session.get(self._url)
+            assert(rsp is not None)
+            rsp_text = rsp.text
+            session.close()
+        else:
+            filename = self._brewery_name.replace(' ', '') + '.html'
+            fp = open('../data/' + filename, 'r')
+            assert(fp is not None)
+            rsp_text = fp.read()
+
+        self._soup = bs.BeautifulSoup(rsp_text, "html.parser")
+        self._cached_response = rsp_text
         return self._soup is not None
 
     def add_beer(self, beer: Beer) -> None:
