@@ -39,7 +39,8 @@ class UnTappdPage(BreweryPage):
         html_menu = html_menu.replace('\\"', '"')
         html_menu = html_menu.replace('/\n', '\n')
         html_menu = html_menu.replace('\\/', '/')
-        assert(end_pos is not -1)
+        if end_pos == -1:
+            assert(end_pos is not -1)
         self._soup = bs.BeautifulSoup(html_menu, "html.parser")
         assert(self._soup is not None)
         beer_div_list = self._soup.find_all("div", {"class": "beer"})
