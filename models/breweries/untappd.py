@@ -1,9 +1,8 @@
 
-from models.beerlist import BreweryPage
-from models.beerlist import Beer
-import string
+from models.breweries.beerlist import BreweryPage
+from models.breweries.beerlist import Beer
 import bs4 as bs
-import html.parser
+from controllers import brewerylist
 
 brewery_info = {"Fort Nonsense Brewing" : [14504, 53940],
                "Alementary Brewing" : [1192, 955],
@@ -14,20 +13,20 @@ brewery_info = {"Fort Nonsense Brewing" : [14504, 53940],
 class UnTappdPage(BreweryPage):
     # Untappd hosted brewery menus
 
-    def __init__(self, *args, **kwargs) -> None:
-        if kwargs.get('brewery') is not None:
-            brewery = kwargs['brewery']
+    def fetch_taplist(self, *args, **kwargs) -> None:
+        brewery = kwargs.get('brewery')
         assert(brewery is not None)
 
         # construct our URL
         loc_theme = brewery_info[brewery]
         url = "https://business.untappd.com/locations/{0}/themes/{1}/js".format(loc_theme[0], loc_theme[1])
-        BreweryPage.__init__(self, url=url, **kwargs)
+
+        # perform any pre-fetch initialization of base class
+        BreweryPage.fetch_taplist(self, url=url, **kwargs)
         assert(self._url is not None)
-        self.read() # read the page
+        self.read_page() # read the page
         assert(self._cached_response is not None)
         assert(self._soup is not None)
-#        menu_preloader = self._soup.find_all("script", "https://embed-menu-preloader.untappdapi.com/embed-menu-preloader.min.js")
         menu_preloader = self._soup.find_all("script", {"type":"{text/javascript"})
         assert(menu_preloader is not None)
 
@@ -76,3 +75,7 @@ class UnTappdPage(BreweryPage):
                                     beer_desc = i_beer_desc[2].strip()
 
             self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv, ibu=beer_ibu, desc=beer_desc))
+
+
+# add this to the list of breweries
+brewerylist.brewery_pages.add_brewery_page(UnTappdPage())

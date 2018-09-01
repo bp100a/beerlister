@@ -1,26 +1,28 @@
 from unittest import TestCase
-from models.untappd import UnTappdPage
-from models.untappd import brewery_info
+from models.breweries.untappd import UnTappdPage
+from models.breweries.untappd import brewery_info
 
 
 class TestUntappdpage(TestCase):
 
     def test_Untappd_read(self):
         for brewery in brewery_info:
-            ut = UnTappdPage(brewery=brewery)
+            ut = UnTappdPage(brewery=brewery, mocked=True)
             assert ut is not None
             ut = None
 
     def test_UnTappd_mocked_brewery(self):
+        ut = UnTappdPage(mocked=True)
         for brewery_name in brewery_info:
             # we are mocking the URL, reading a local test file (../tests/data/<brewery>.HTML)
-            ut = UnTappdPage(brewery=brewery_name, mocked=True)
             assert ut is not None
-            beer_string = ut.alexa_taplist()
+            ut.fetch_taplist(brewery=brewery_name)
+            beer_string = ut.ssml_taplist()
             assert beer_string is not None
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            fn = '../data/' + brewery_name.replace(' ', '') + '.SSML'
+            fn = '../beerlister/tests/data/' + brewery_name.replace(' ', '') + '.SSML'
             fp = open(fn, 'r')
             tst_data = fp.read()
+            fp.close()
             assert(tst_data == beer_string) # anything different, raise hell!
 

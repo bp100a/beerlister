@@ -1,5 +1,5 @@
 from unittest import TestCase
-from models.beerlist import BreweryPage
+from models.breweries.beerlist import BreweryPage
 import requests
 import requests_mock
 
@@ -12,8 +12,4 @@ class TestBreweryPage(TestCase):
         adapter = requests_mock.Adapter()
         s.mount('mock', adapter)
         adapter.register_uri('GET', mock_url, text='<html><body><div class="field-item"> <div class="beer-holder"></div></div></body></html>')
-        assert(bp.read(session=s) is True)
-
-    def test_TEBlive_read(self):
-        bp = BreweryPage(url="https://twinelephant.com")
-        assert(bp.read() is True)
+        assert(bp.read_page(in_session=s) is True)

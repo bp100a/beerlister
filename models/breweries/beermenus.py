@@ -1,9 +1,8 @@
 
-from models.beerlist import BreweryPage
-from models.beerlist import Beer
-import string
+from models.breweries.beerlist import BreweryPage
+from models.breweries.beerlist import Beer
 import bs4 as bs
-import html.parser
+from controllers import brewerylist
 
 brewery_info = {"Rinn Duin Brewing" : [17853]}
 
@@ -12,25 +11,23 @@ brewery_info = {"Rinn Duin Brewing" : [17853]}
 class BeerMenusPage(BreweryPage):
     # digital pour hosted brewery menus
 
-    def __init__(self, *args, **kwargs) -> None:
+    def fetch_taplist(self, *args, **kwargs) -> None:
         if kwargs.get('brewery') is not None:
             brewery = kwargs['brewery']
-        else:
-            brewery = 'Rinn Duin Brewing'
 
         # construct our URL
         loc_theme = brewery_info[brewery]
         url = "https://beermenus.com/menu_widgets/{0}".format(loc_theme[0])
-        BreweryPage.__init__(self, url=url, brewery=brewery)
+        BreweryPage.fetch_taplist(self, url=url, **kwargs)
         assert(self._url is not None)
-        self.read() # read the page
+        self.read_page() # read the page
         assert(self._cached_response is not None)
         assert(self._soup is not None)
         start_string = 'widgetDiv.innerHTML = \'\\n'
-        start_pos = self._cached_response.text.find(start_string)
+        start_pos = self._cached_response.find(start_string)
         end_string = ';\n}'
-        end_pos = self._cached_response.text.rfind(end_string)
-        html_menu = self._cached_response.text[start_pos+len(start_string):end_pos-1]
+        end_pos = self._cached_response.rfind(end_string)
+        html_menu = self._cached_response[start_pos+len(start_string):end_pos-1]
         html_menu = html_menu.replace('\\"', '"')
         html_menu = html_menu.replace('\\n', '\n')
         html_menu = html_menu.replace('\\/', '/')
@@ -48,4 +45,5 @@ class BeerMenusPage(BreweryPage):
                 beer_abv = cols[1].text.strip() + '%'
                 self.add_beer(Beer(name=beer_name, style=None, abv=beer_abv, ibu=None, desc=None))
 
-
+# add this to the list of breweries
+brewerylist.brewery_pages.add_brewery_page(BeerMenusPage())

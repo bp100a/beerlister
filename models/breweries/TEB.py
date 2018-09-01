@@ -1,6 +1,7 @@
-from models.beerlist import BreweryPage
-from models.beerlist import Beer
-import string
+from models.breweries.beerlist import BreweryPage
+from models.breweries.beerlist import Beer
+from controllers import brewerylist
+
 
 class TEBpage(BreweryPage):
     # Twin Elephant Brewing Company, Chatham NJ
@@ -16,10 +17,13 @@ class TEBpage(BreweryPage):
     # "YEAST:"
     # "Misc:"
 
-    def __init__(self) -> None:
-        BreweryPage.__init__(self, url="https://www.twinelephant.com", brewery="Twin Elephant")
+    def fetch_taplist(self, *args, **kwargs) -> None:
+        brewery = 'Twin Elephant'
+
+        # perform any pre-fetch initialization of base class
+        BreweryPage.fetch_taplist(self, url="https://www.twinelephant.com", brewery=brewery, **kwargs)
         assert(self._url is not None)
-        self.read() # read the page
+        self.read_page() # read the page
         assert(self._cached_response is not None)
         assert(self._soup is not None)
         beer_div_list = self._soup.find_all("div", {"class": "beer-holder"})
@@ -54,3 +58,7 @@ class TEBpage(BreweryPage):
 
         # we now have a list of beers for this brewery
         assert(self._beer_list is not None)
+
+
+# add this to the list of breweries
+brewerylist.brewery_pages.add_brewery_page(TEBpage())
