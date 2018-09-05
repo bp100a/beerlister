@@ -13,6 +13,16 @@ brewery_info = {"Fort Nonsense Brewing" : [14504, 53940],
 class UnTappdPage(BreweryPage):
     # Untappd hosted brewery menus
 
+    def __init__(self, *args, **kwargs):
+        BreweryPage.__init__(self, *args, **kwargs)
+
+        # initialize aliases
+        self._alias = {"Fort Nonsense Brewing" : ["Fort Nonsense", "Fort Nonsense Brewery"],
+        "Alementary Brewing" : ["Alementary", "Alementary Brewery"],
+        "Angry Erik" : ["Angry Erik Brewing", "Angry Erik Brewery"],
+        "Man Skirt Brewing" : ["Man Skirt", "Man Skirt Brewery"],
+        "Demented Brewing" : ["Demented", "Demented Brewery"]}
+
     def fetch_taplist(self, *args, **kwargs) -> None:
         brewery = kwargs.get('brewery')
         assert(brewery is not None)

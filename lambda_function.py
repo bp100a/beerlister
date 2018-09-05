@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
+from controllers import brewerylist # for clarity
+from models.breweries import *
 
 """ simple fact sample app """
 
 SKILL_NAME = "TapList"
 GET_TAPLIST_MESSAGE = "Here's your beer list: "
-HELP_MESSAGE = "You can say tell me a taplist, or, you can say exit... What can I help you with?"
+HELP_MESSAGE = "You can say what is ontap at brewery name, or you can say exit... What can I help you with?"
 HELP_REPROMPT = "What can I help you with?"
 STOP_MESSAGE = "Goodbye!"
 FALLBACK_MESSAGE = "The Taplist skill can't help you with that.  It can help you discover what beers are on tap at Twin Elephant Brewing. What can I help you with?"
 FALLBACK_REPROMPT = 'What can I help you with?'
-
-TEST_BEER_LIST = 'on tap at Twin Elephant YACHTER OTTER, a BROWN RYE ALE that is 5.8% alcohol. WEPEEL, an AMERICAN<say-as interpret-as="spell-out">IPA</say-as> that is 6.7% alcohol, hopped with Mosaic and El Dorado. WOODHOUSE, a FARMHOUSE<say-as interpret-as="spell-out">IPA</say-as> that is 6.3% alcohol, hopped with Kohatu, Galaxy and Citra. BARTER TOWN, an AMERICAN PALE that is 5.6% alcohol, hopped with Galaxy, Caliente  and Wakatu. LIL\' SHIMMY YE\', an AMERICAN PALE ALE that is 5.8% alcohol, hopped with Citra, Mosaic, Simcoe and Belma. WHAMMY, a HOPPY AMERICAN WHEAT that is 4.5% alcohol, hopped with  and Mosaic.'
 
 # --------------- App entry point -----------------
 
@@ -37,7 +37,7 @@ def on_intent(request, session):
     # process the intents
 
     if intent_name == "GetTapListIntent":
-        return get_taplist_response()
+        return get_taplist_response(request['intent'])
     elif intent_name == "AMAZON.HelpIntent":
         return get_help_response()
     elif intent_name == "AMAZON.StopIntent":
@@ -50,10 +50,14 @@ def on_intent(request, session):
         return get_help_response()
 
 
-def get_taplist_response():
+def get_taplist_response(intent : dict):
 
     """ return the taplist  """
-    speechOutput = GET_TAPLIST_MESSAGE + TEST_BEER_LIST
+    bobj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_name=intent['slots']['brewery'])
+    bobj._mocked = intent['mocked']
+    bobj.fetch_taplist(brewery=brewery_id)
+    beer_string = bobj.ssml_taplist()
+    speechOutput = beer_string
     return response(speech_response_ssml(speechOutput, True))
 
 def get_help_response():
@@ -200,7 +204,7 @@ def speech_response_prompt(output, reprompt_text, endsession):
         'shouldEndSession': endsession
     }
 
-def response(speech_message):
+def response(speech_message) -> dict:
 
     """ create a simple json response  """
 

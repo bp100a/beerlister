@@ -9,7 +9,13 @@ brewery_info = {"Rinn Duin Brewing" : [17853]}
 # https://www.beermenus.com/menu_widgets/17853
 
 class BeerMenusPage(BreweryPage):
-    # digital pour hosted brewery menus
+    # BeerMenus hosted brewery menus
+
+    def __init__(self, *args, **kwargs):
+        BreweryPage.__init__(self, *args, **kwargs)
+
+        # initialize aliases
+        self._alias = {"Rinn Duin Brewing" : ["Rinn Duin","Rinn Duin Brewery"]}
 
     def fetch_taplist(self, *args, **kwargs) -> None:
         if kwargs.get('brewery') is not None:

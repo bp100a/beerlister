@@ -5,8 +5,14 @@ from controllers import brewerylist
 class DepartedSolespage(BreweryPage):
     # Departed Soles Brewing, Jersey City NJ
 
+    def __init__(self, *args, **kwargs):
+        BreweryPage.__init__(self, *args, **kwargs)
+
+        # initialize aliases
+        self._alias = {"Departed Soles" : ["Departed Soles Brewing","Departed Soles Brewery"]}
+
     def fetch_taplist(self, *args, **kwargs) -> None:
-        BreweryPage.fetch_taplist(self, url="http://www.departedsoles.com/beer.html", brewery="Departed Soles", **kwargs)
+        BreweryPage.fetch_taplist(self, url="http://www.departedsoles.com/beer.html", **kwargs)
         assert(self._url is not None)
         self.read_page() # read the page
         assert(self._cached_response is not None)

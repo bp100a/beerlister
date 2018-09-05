@@ -42,11 +42,21 @@ class BreweryPage():
     _beer_list = None
     _mocked = False
     _include_hops = True
+    _alias = None
 
     def __init__(self, *args, **kwargs) -> None:
         self._include_hops = kwargs.get('hops')
         self._mocked = kwargs.get('mocked', False)
         self._url = kwargs.get('url', None)
+
+    def brewery_by_alias(self, brewery_name) -> str:
+        # search the alias list for what brewery
+        for brewery in self._alias:
+            if brewery_name == brewery:
+                return brewery
+            if brewery_name in self._alias[brewery]:
+                return brewery
+        return None
 
     def fetch_taplist(self, *args, **kwargs):
         self._beer_list = BeerList()
@@ -54,6 +64,13 @@ class BreweryPage():
         self._cached_response = None
         self._url = kwargs.get('url', None)
         self._brewery_name = kwargs.get('brewery', None)
+
+    def testdata_dir(self) -> str:
+        # return the test data directory from the current root
+        cwd = os.getcwd().replace('\\', '/')
+        root = cwd.split('/tests')[0]
+        path = root + '/tests/data/'
+        return path
 
     # read_page(): This will actually read in the web page without making
     #              any adjustments, just the raw data encoded UTF-8
@@ -72,8 +89,7 @@ class BreweryPage():
                 session.close()
         else:
             filename = self._brewery_name.replace(' ', '') + '.html'
-            cwd = os.getcwd()
-            fp = open('../beerlister/tests/data/' + filename, mode='r', encoding='utf8')
+            fp = open(self.testdata_dir() + filename, mode='r', encoding='utf8')
             assert(fp is not None)
             rsp_text = fp.read()
             fp.close()

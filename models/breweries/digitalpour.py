@@ -10,6 +10,12 @@ brewery_info = {"Village Idiot" : ['556fbbe55e002c0d44d5bd22', 1]}
 
 class DigitalPourPage(BreweryPage):
     # digital pour hosted brewery menus
+    def __init__(self, *args, **kwargs):
+        BreweryPage.__init__(self, *args, **kwargs)
+
+        # initialize aliases
+        self._alias = {"Village Idiot" : ["Village Idiot Brewery", "Village Idiot Brewing"]}
+
 
     def fetch_taplist(self, *args, **kwargs) -> None:
         if kwargs.get('brewery') is not None:

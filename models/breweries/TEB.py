@@ -17,11 +17,17 @@ class TEBpage(BreweryPage):
     # "YEAST:"
     # "Misc:"
 
+    def __init__(self, *args, **kwargs):
+        BreweryPage.__init__(self, *args, **kwargs)
+
+        # initialize aliases
+        self._alias = {"Twin Elephant" : ["TEB", "Twin Elephant Brewing","Twin Elephant Brewery"]}
+
     def fetch_taplist(self, *args, **kwargs) -> None:
         brewery = 'Twin Elephant'
 
         # perform any pre-fetch initialization of base class
-        BreweryPage.fetch_taplist(self, url="https://www.twinelephant.com", brewery=brewery, **kwargs)
+        BreweryPage.fetch_taplist(self, url="https://www.twinelephant.com", **kwargs)
         assert(self._url is not None)
         self.read_page() # read the page
         assert(self._cached_response is not None)
