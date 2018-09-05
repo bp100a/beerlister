@@ -38,6 +38,8 @@ def on_intent(request, session):
 
     if intent_name == "GetTapListIntent":
         return get_taplist_response(request['intent'])
+    elif intent_name == 'ListBreweries':
+        return list_of_breweries_response(request['intent'])
     elif intent_name == "AMAZON.HelpIntent":
         return get_help_response()
     elif intent_name == "AMAZON.StopIntent":
@@ -50,10 +52,18 @@ def on_intent(request, session):
         return get_help_response()
 
 
+def list_of_breweries_response(intent: dict):
+    list_of_breweries = brewerylist.brewery_pages.ssml_brewery_list()
+    return response(speech_response(list_of_breweries, True) )
+
 def get_taplist_response(intent : dict):
 
     """ return the taplist  """
-    bobj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_name=intent['slots']['brewery'])
+    bobj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_name=intent['slots']['brewery']['value'])
+    # if we couldn't find the brewery, respond with a the list of breweries we know
+    if brewery_id is None:
+        return list_of_breweries_response(intent)
+
     if 'mocked' in intent:
         bobj._mocked = intent['mocked']
     bobj.fetch_taplist(brewery=brewery_id)

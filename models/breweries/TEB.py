@@ -23,6 +23,11 @@ class TEBpage(BreweryPage):
         # initialize aliases
         self._alias = {"Twin Elephant" : ["TEB", "Twin Elephant Brewing","Twin Elephant Brewery"]}
 
+    def short_name(self) -> list:
+        shortlist = list()
+        shortlist.append("Twin Elephant")
+        return shortlist
+
     def fetch_taplist(self, *args, **kwargs) -> None:
         brewery = 'Twin Elephant'
 

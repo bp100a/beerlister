@@ -61,3 +61,11 @@ class TestUntappdpage(TestCase):
 
         found = ut.brewery_by_alias("Demented Brewery")
         assert(found == "Demented Brewing")
+
+    def test_shortnames(self):
+        ut = UnTappdPage()
+        short_names = ut.short_name()
+        assert('Man Skirt' in short_names)
+        assert('Demented' in short_names)
+        assert('Angry Erik' in short_names)
+        assert('Alementary' in short_names)

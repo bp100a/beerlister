@@ -49,3 +49,8 @@ class TestBeerMenuspage(TestCase):
         found = bp.brewery_by_alias("Rinn Duin Brewery")
         assert(found == "Rinn Duin Brewing")
 
+    def test_shortnames(self):
+        bp = BeerMenusPage()
+        short_names = bp.short_name()
+        assert ('Rinn Duin' in short_names)
+        assert(len(short_names) == 1)

@@ -52,5 +52,8 @@ class TestDigitalPourpage(TestCase):
         found = dp.brewery_by_alias("Village Idiot Brewery")
         assert(found == "Village Idiot")
 
-
-
+    def test_shortnames(self):
+        dp = DigitalPourPage()
+        short_names = dp.short_name()
+        assert ('Village Idiot' in short_names)
+        assert(len(short_names) == 1)

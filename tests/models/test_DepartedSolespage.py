@@ -47,3 +47,8 @@ class TestDepartedSolespage(TestCase):
         found = ds.brewery_by_alias("Departed Soles Brewery")
         assert(found == "Departed Soles")
 
+    def test_shortnames(self):
+        dp = DepartedSolespage()
+        short_names = dp.short_name()
+        assert ('Departed Soles' in short_names)
+        assert(len(short_names) == 1)

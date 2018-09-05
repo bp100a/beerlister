@@ -52,11 +52,23 @@ class BreweryPage():
     def brewery_by_alias(self, brewery_name) -> str:
         # search the alias list for what brewery
         for brewery in self._alias:
-            if brewery_name == brewery:
+            if brewery_name.lower() == brewery.lower():
                 return brewery
-            if brewery_name in self._alias[brewery]:
-                return brewery
+            for brewery_alias in self._alias[brewery]:
+                if brewery_name.lower() == brewery_alias.lower():
+                    return brewery
         return None
+
+    def short_name(self) -> list:
+        short_list = list()
+        for brewery in self._alias:
+            shortest_name = brewery
+            for alias in self._alias[brewery]:
+                if len(alias) < len(shortest_name):
+                    shortest_name = alias
+            short_list.append(shortest_name)
+
+        return short_list
 
     def fetch_taplist(self, *args, **kwargs):
         self._beer_list = BeerList()

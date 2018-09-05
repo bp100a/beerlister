@@ -74,3 +74,11 @@ class TestBreweryList(TestCase):
     def test_nobrewery(self):
         brewery_obj, brewery_id = brewerylist.brewery_pages.find_brewery("no such brewery")
         assert(brewery_obj is None and brewery_id is None)
+
+    def test_list_of_breweries(self):
+        bl = brewerylist.brewery_pages.list_of_breweries()
+        assert(len(bl) == 9)
+
+    def test_list_of_breweries_response(self):
+        resp = brewerylist.brewery_pages.ssml_brewery_list()
+        assert(resp is not None)

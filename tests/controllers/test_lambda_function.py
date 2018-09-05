@@ -1,7 +1,7 @@
 from unittest import TestCase
 import lambda_function
 import os
-
+import json
 
 class TestAWSlambda(TestCase):
 
@@ -13,16 +13,18 @@ class TestAWSlambda(TestCase):
         path = root + '/tests/data/'
         return path
 
-    def test_intent(self):
-        breweries = ["Twin Elephant", "Alementary Brewing", "Angry Erik", "Rinn Duin Brewing", "Departed Soles", "Demented Brewing", "Fort Nonsense Brewing"]
+    def test_gettaplistintent(self):
+        breweries = ["Twin Elephant", "Rinn Duin Brewing", "Alementary Brewing"]
 
         for brewery in breweries:
-            event = { 'session' : {'new' : True},
-                      'request' : {'type':'IntentRequest',
-                                   'intent':{'name': 'GetTapListIntent', 'slots' : {'brewery' : brewery}, 'mocked':True}}}
+            fn = self.data_dir() + 'GetTapListIntent_' + brewery.replace(' ', '') + '.json'
+            fp = open(fn, mode='r', encoding='utf8')
+            json_intent = fp.read()
+            fp.close()
+            event = json.loads(json_intent)
+            event['request']['intent']['mocked'] = True
             response = lambda_function.lambda_handler(event=event, context=None)
-            assert(response['version'] == '1.0')
-            assert(response['response']['outputSpeech'] is not None)
+            assert(response is not None)
 
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
             fn =  self.data_dir() + brewery.replace(' ', '') + '.SSML'
@@ -31,3 +33,26 @@ class TestAWSlambda(TestCase):
             fp.close()
             if (tst_data != response['response']['outputSpeech']['ssml']):
                 assert(False)# anything different, raise hell!
+
+    def test_listbreweries_intent(self):
+
+            fn = self.data_dir() + 'ListBreweries' + '.json'
+            fp = open(fn, mode='r', encoding='utf8')
+            json_intent = fp.read()
+            fp.close()
+            event = json.loads(json_intent)
+            event['request']['intent']['mocked'] = True
+            response = lambda_function.lambda_handler(event=event, context=None)
+            assert(response is not None)
+
+    def test_bogusbrewery(self):
+
+        fn = self.data_dir() + 'GetTapListIntent_BogusBrewery.json'
+        fp = open(fn, mode='r', encoding='utf8')
+        json_intent = fp.read()
+        fp.close()
+        event = json.loads(json_intent)
+        event['request']['intent']['mocked'] = True
+        response = lambda_function.lambda_handler(event=event, context=None)
+        assert(response is not None)
+        assert(response['response']['outputSpeech']['text'].startswith('Here are the breweries I know:'))

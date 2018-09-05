@@ -42,3 +42,9 @@ class TestTEBpage(TestCase):
 
         found = teb.brewery_by_alias("Twin Elephant")
         assert(found == "Twin Elephant")
+
+    def test_TEB_shortname(self):
+        teb = TEBpage()
+        names = teb.short_name()
+        assert(len(names) == 1)
+        assert(names[0] == 'Twin Elephant')
