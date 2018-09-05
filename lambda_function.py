@@ -54,7 +54,8 @@ def get_taplist_response(intent : dict):
 
     """ return the taplist  """
     bobj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_name=intent['slots']['brewery'])
-    bobj._mocked = intent['mocked']
+    if 'mocked' in intent:
+        bobj._mocked = intent['mocked']
     bobj.fetch_taplist(brewery=brewery_id)
     beer_string = bobj.ssml_taplist()
     speechOutput = beer_string

@@ -1,7 +1,6 @@
 from unittest import TestCase
-from controllers import brewerylist # for clarity
+from controllers import brewerylist  # for clarity
 from models.breweries import *
-
 
 
 class TestBreweryList(TestCase):
@@ -13,8 +12,8 @@ class TestBreweryList(TestCase):
                                 "<class \'models.breweries.beermenus.BeerMenusPage\'>",
                                 "<class \'models.breweries.digitalpour.DigitalPourPage\'>"]
         for brewery in brewerylist.brewery_pages.brewery_page_list:
-            object = str(type(brewery))
-            assert(object in brewery_page_objects)
+            bobj = str(type(brewery))
+            assert(bobj in brewery_page_objects)
 
     def test_find_breweries(self):
         # first define a list of breweries we should find
@@ -57,5 +56,21 @@ class TestBreweryList(TestCase):
                            }
 
         for brewery_alias in known_breweries:
-            brewery_obj = brewerylist.brewery_pages.find_brewery(brewery_alias)
+            brewery_obj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_alias)
             assert(str(type(brewery_obj)) == known_breweries[brewery_alias])
+
+    def test_brewerylist(self):
+        # clear the brewerylist
+        brewerylist.brewery_pages.brewery_page_list = []
+        brewerylist.brewery_pages.add_brewery_page(TEB.TEBpage())
+        brewerylist.brewery_pages.add_brewery_page(DepartedSoles.DepartedSolespage())
+        brewerylist.brewery_pages.add_brewery_page(digitalpour.DigitalPourPage())
+        brewerylist.brewery_pages.add_brewery_page(beermenus.BeerMenusPage())
+        brewerylist.brewery_pages.add_brewery_page(untappd.UnTappdPage())
+
+        # now that we added them, see if they are there
+        self.test_find_breweries()
+
+    def test_nobrewery(self):
+        brewery_obj, brewery_id = brewerylist.brewery_pages.find_brewery("no such brewery")
+        assert(brewery_obj is None and brewery_id is None)

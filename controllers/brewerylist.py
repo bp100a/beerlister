@@ -1,9 +1,11 @@
 import models.breweries.beerlist
 from typing import Tuple
 
-class BreweryLister():
+
+class BreweryLister:
 
     brewery_page_list = []
+
     def add_brewery_page(self, brewerypage : models.breweries.beerlist.BreweryPage) -> None:
         self.brewery_page_list.append(brewerypage)
 
@@ -14,7 +16,8 @@ class BreweryLister():
             if brewery_id is not None:
                 return breweryPage, brewery_id
 
-        return ((),)
+        return None, None
+
 
 # initialize a "global" so all brewerypages can add themselves to this list
 brewery_pages = BreweryLister()

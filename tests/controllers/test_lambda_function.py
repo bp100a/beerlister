@@ -9,8 +9,8 @@ class TestAWSlambda(TestCase):
     def data_dir() -> str:
         # return the test data directory from the current root
         cwd = os.getcwd().replace('\\', '/')
-        root = cwd.split('tests')[0]
-        path = root + 'tests/data/'
+        root = cwd.split('/tests')[0]
+        path = root + '/tests/data/'
         return path
 
     def test_intent(self):
