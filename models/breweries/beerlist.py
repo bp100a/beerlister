@@ -132,8 +132,8 @@ class BreweryPage():
             beer_str += ' ' + beer._name.replace('IT', '<sub alias="it"> IT </sub>')
 
             if beer._style is not None:
-                beer_style = beer._style.replace(' IPA', ' <say-as interpret-as="spell-out">IPA</say-as>')
-                beer_style = beer_style.replace(' DIPA', ' double <say-as interpret-as="spell-out">IPA</say-as>')
+                beer_style = beer._style.replace('IPA', '<say-as interpret-as="spell-out">IPA</say-as>')
+                beer_style = beer_style.replace('DIPA', 'double <say-as interpret-as="spell-out">IPA</say-as>')
                 if beer._style[0].lower() in vowels:
                     beer_str += ", an " + beer_style
                 else:
@@ -147,7 +147,7 @@ class BreweryPage():
                 else:
                     beer_str += "{} and {}".format(", ".join(beer._hops[:-1]),  beer._hops[-1])
 
-            beer_str +="."
+            beer_str += "."
 
         return beer_str
 

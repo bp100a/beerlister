@@ -5,11 +5,10 @@ from models.breweries import *
 """ simple fact sample app """
 
 SKILL_NAME = "TapList"
-GET_TAPLIST_MESSAGE = "Here's your beer list: "
 HELP_MESSAGE = "You can say what is ontap at brewery name, or you can say exit... What can I help you with?"
 HELP_REPROMPT = "What can I help you with?"
 STOP_MESSAGE = "Goodbye!"
-FALLBACK_MESSAGE = "The Taplist skill can't help you with that.  It can help you discover what beers are on tap at Twin Elephant Brewing. What can I help you with?"
+FALLBACK_MESSAGE = "The Taplist skill can't help you with that.  It can help you discover what beers are on tap at select breweries in North Jersey"
 FALLBACK_REPROMPT = 'What can I help you with?'
 
 # --------------- App entry point -----------------

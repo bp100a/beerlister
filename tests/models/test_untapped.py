@@ -31,7 +31,8 @@ class TestUntappdpage(TestCase):
             fp = open(fn, 'r')
             tst_data = fp.read()
             fp.close()
-            assert(tst_data == beer_string) # anything different, raise hell!
+            if tst_data != beer_string:
+                assert(tst_data == beer_string) # anything different, raise hell!
 
     def test_UnTappd_aliases(self):
         ut = UnTappdPage(mocked=True)
