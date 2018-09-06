@@ -15,7 +15,12 @@ You can ask the following:
 "ask TapList what breweries do you known?"
 "ask Taplist, what is on tap at {brewery name}?"
 
-I accept the obvious aliases for a brewery name e.g. "Alementary", "Alementary Brewery" and "Alementary Brewing"
+I accept the obvious aliases for a brewery name e.g. "Alementary", "Alementary Brewery" and "Alementary Brewing". The brewery list read back will use the "shortest" name specified for the brewery.
+
+TBD:
+- CACHEING! This is important as tap lists don't change often
+- robustness. This code, while well tested, doesn't handle problems gracefully. If the pages scrape change their structure, we'll do very bad things.
+
 
 If you have a favorite brewery you want included, send me a message!
 
