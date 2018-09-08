@@ -1,0 +1,1422 @@
+<html>
+<head>
+<link href='//fonts.googleapis.com/css?family=Roboto+Condensed&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<style>
+
+ body {
+     background: #E9EBEE;
+        margin: 0;
+     padding: 0;
+ }
+
+ .container {
+     max-width: 800px;
+     margin:0 auto;
+ }
+
+ ul {
+     width:100%;
+     margin:0;
+     padding:0;
+ }
+
+ li {
+     list-style-type: none;
+     margin: 0;
+     padding-bottom: 10px;
+     width:100%;
+     display: table;
+     horizontal-align: left;
+ }
+
+ div {
+     font-family: 'Roboto Condensed', sans-serif;
+     font-weight: 250;
+     color: #000000;
+ }
+
+ .banner {
+  width: 100%;
+  display: block;
+  margin: 0;
+  padding: 0;
+ }
+
+ .logoImage {
+        width:35%;
+        max-width:150px;
+        height:auto;
+        float: left;
+ }
+
+ .title {
+        width: 70%;
+        float: none;
+        text-align:center;
+ }
+
+ .tapList {
+        width: 100%;
+        display:block;
+     margin:0;
+     padding:0;
+    }
+
+ .lineItem {
+     display: table-row;
+     width:100%;
+     margin:0;
+     padding:0;
+ }
+
+ .tapName {
+  width:10%;
+     display: table-cell;
+        font-size: 1.5em;
+  vertical-align: middle;
+  text-align: center;
+ }
+
+ .beverageLogoWrapper {
+     width: 4%;
+     horizontal-align: left;
+  vertical-align: middle;
+     display: table-cell;
+ }
+
+ .beverageLogoBackground {
+     width: 50px;
+     height: 50px;
+     border-radius: 7px;
+     background: #FFFFFF;
+     border-radius: 7px;
+ }
+
+ .beverageLogo {
+     width: 50px;
+     height: 50px;
+     border-radius: 7px;
+ }
+
+ .beverageInfo {
+  padding-left: 10px;
+  width: 60%;
+     display: table-cell;
+ }
+
+ .producerName {
+  font-size: 1.2em;
+  float: left;
+  margin-right: 5px;
+ }
+
+ .beverageName {
+  font-size: 1.2em;
+  color: #EC702A;
+ }
+
+ .beverageColor {
+  width: 10px;
+  height: 10px;
+  margin-top: 1px;
+  float: left;
+  border-style : solid;
+  border-width: 1px;
+  border-color: #FFFFFF
+ }
+
+ .dryness {
+  font-size: .9em;
+  margin-left: 20px;
+ }
+
+ .beverageStyle {
+  font-size: .9em;
+  margin-left: 20px;
+ }
+
+
+ .producerLocation {
+  margin-left: 0;
+  font-size: .9em;
+  float: left;
+ }
+
+ .producerLocationMore {
+  margin-left: 10px;
+  font-size: .9em;
+  float: left;
+ }
+
+ .abv {
+  margin-left: 10px;
+  font-size: .9em;
+  float: left;
+ }
+
+ .ibu {
+  margin-left: 10px;
+  font-size: .9em;
+ }
+
+ .smv {
+  margin-left: 10px;
+  font-size: .9em;
+ }
+
+ .kegLevelWrapper {
+     width: 8%;
+     position: relative;
+    }
+
+ .kegLevel {
+  position:absolute;
+  bottom:7px;
+  left:10px;
+  width: 21px;
+  opacity: 0.7;
+ }
+
+ .justTapped {
+     display: table-cell;
+     width:10%;
+  color: #000000;
+  vertical-align: bottom;
+        padding-bottom: 7px;
+  font-size: .75em;
+ }
+
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="banner">
+            <figure class="logoImage" >
+            <img src="DigitalPour logo.png" />
+            </figure>
+            <div class="title"><h2>Current Tap List</h2></div>
+        </div>
+        <div class="tapList">
+            <ul>
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">1</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5581da605e002c0598a44298.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Bridgetown Blonde Ale</div>
+                            <div class="beverageColor" style="background:#DEAA23"></div>
+                            <div class="beverageStyle">Light Beer </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">4.8%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">23 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">4.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">4.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">4.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">4.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">4.8%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">4.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0.9963522569444444" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#FFEF28;height:17px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">2</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5b806909352726091069699c.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Muck City</div>
+                            <div class="beverageColor" style="background:#F2E72A"></div>
+                            <div class="beverageStyle">New England IPA </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">8%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">29 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">8%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#00FF28;height:37px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">3</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5581eff75e002c0b64adfaae.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Mullen&#x27;s Irish Red</div>
+                            <div class="beverageColor" style="background:#7A1414"></div>
+                            <div class="beverageStyle">Irish Red Ale </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">27 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#E6FF28;height:20px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">4</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/56212f4e5e002c080455de78.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Rich&#x27;s Revolutionary Rye</div>
+                            <div class="beverageColor" style="background:#EFC307"></div>
+                            <div class="beverageStyle">Rye Pale Ale </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">6.1%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">42 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.1%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.1%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.1%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">6.1%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.1%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">6.1%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#FFA628;height:12px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">5</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5582bde35e002c0b64ae1006.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">The Hoptimizer IPA</div>
+                            <div class="beverageColor" style="background:#EDC722"></div>
+                            <div class="beverageStyle">West Coast IPA </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">70 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#FF6728;height:7px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">6</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5939b4285e002c17dc41020c.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Summer Wind Wheat</div>
+                            <div class="beverageColor" style="background:#EFEF08"></div>
+                            <div class="beverageStyle">American Wheat Ale </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">5.5%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">15 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.5%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.5%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.5%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">5.5%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.5%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">5.5%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#FF5B28;height:6px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">7</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/561059ba5e002c04a8571b37.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Da Nick!</div>
+                            <div class="beverageColor" style="background:#F39C00"></div>
+                            <div class="beverageStyle">Rye IPA (Rye / IPA Blend) </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">5.9%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">41 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.9%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.9%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.9%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">5.9%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.9%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">5.9%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#F2FF28;height:19px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">8</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5581db7d5e002c0598a442b5.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Thong Remover Tripel</div>
+                            <div class="beverageColor" style="background:#FFFF00"></div>
+                            <div class="beverageStyle">Belgian Tripel </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">9.7%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">40 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">9.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">9.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">9.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">9.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">9.7%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">9.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#01FF28;height:36px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">9</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/59b470545e002c112812c44d.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Philly Pretzel</div>
+                            <div class="beverageColor" style="background:#F5AC2D"></div>
+                            <div class="beverageStyle">Traditional Ale </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">27 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">5.7%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#00FF28;height:37px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">10</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/56212e1b5e002c0f44d59d2a.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Hipster Lager</div>
+                            <div class="beverageColor" style="background:#F1D007"></div>
+                            <div class="beverageStyle">Hipster Lager (Pale / Blonde Blend) </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">5.3%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">31 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.3%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.3%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.3%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">5.3%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.3%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">5.3%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0.9965906365740741" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#ACFF28;height:24px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">11</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5635500e5e002c05280450f8.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Peanut Butter Cup</div>
+                            <div class="beverageColor" style="background:#371F08"></div>
+                            <div class="beverageStyle">Peanut Butter Chocolate Porter </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">29 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">6.8%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#FFAB28;height:12px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">12</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5650ba475e002c0ca46d8b57.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Monkey Breath Banana Bread</div>
+                            <div class="beverageColor" style="background:#9E670B"></div>
+                            <div class="beverageStyle">Banana Bread Ale </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">5.2%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">19 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">5.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">5.2%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">5.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#FFF028;height:17px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">13</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/57ae55685e002c0c1c4dc154.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Elvis is in the Building!</div>
+                            <div class="beverageColor" style="background:#371F08"></div>
+                            <div class="beverageStyle">Banana Peanut Butter  Porter </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">6%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">24 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">6%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">6%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">6%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#DFFF28;height:20px;" />
+                        </div>
+                    </div>
+                </li>
+            
+                <li>
+                    <div class="lineItem">
+                        <div class="tapName">14</div>
+                        <div class="beverageLogoWrapper" ><div class="beverageLogoBackground"><img class="beverageLogo" src="https://s3.amazonaws.com/digitalpourbeveragelogos/5582e6275e002c0e00d8ddf1.png" /></div></div>
+                        <div class="beverageInfo" name="beerLayout" style="display:table-cell">
+                            <div class="producerName">Village Idiot</div>
+                            <div class="beverageName">Oud Dublin Nitro Stout</div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle">Dry Irish Stout </div>
+                            <div class="producerLocation">Mount Holly, NJ</div>
+                            <div class="abv" style="visibility:inherit">4.2%&nbsp;&nbsp;</div>
+                            <div class="ibu" style="visibility:inherit">31 IBU</div>
+                        </div>
+                       <div class="beverageInfo" name="ciderLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="dryness"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">4.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="meadLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">4.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="softDrinkLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                        </div>
+                        <div class="beverageInfo" name="kombuchaLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">4.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="coffeeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="roasting">&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="wineLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="producerLocationMore"></div>
+                            <div class="abv" style="visibility:inherit">4.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="beverageInfo" name="sakeLayout" style="display:none">
+                            <div class="producerName"></div>
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="beverageStyle"></div>
+                            <div class="producerLocation"></div>
+                            <div class="abv" style="visibility:inherit">4.2%&nbsp;&nbsp;</div>
+                            <div class="smv" style="visibility:inherit"> SMV</div>
+                        </div>
+                        <div class="beverageInfo" name="customBeverageLayout" style="display:none">
+                            <div class="beverageName"></div>
+                            <div class="beverageColor" style="background:#000000"></div>
+                            <div class="abv" style="visibility:inherit">4.2%&nbsp;&nbsp;</div>
+                        </div>
+                        <div class="justTapped" style="opacity:0" >Just Tapped</div>
+                        <div class="kegLevelWrapper" style="display:table-cell">
+                            <img src="empty_keg_bottom.png" style="position:absolute;bottom:0px;width:40px;height=55px;" />
+                            <img src="empty_keg_front.png" style="position:absolute;bottom:0px;width:40px;height=55px;opacity:0.5;z-index:5;" />
+                            <div class="kegLevel" style="background:#00FF28;height:37px;" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+ </div>
+</body>
+<html>
