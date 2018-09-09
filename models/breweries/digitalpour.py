@@ -4,7 +4,7 @@ from models.breweries.beerlist import Beer
 import bs4 as bs
 from controllers import brewerylist
 
-brewery_info = {"Village Idiot" : ['556fbbe55e002c0d44d5bd22', 1]}
+BREWERY_INFO = {"Village Idiot" : ['556fbbe55e002c0d44d5bd22', 1]}
 
 # http://fbpage.digitalpour.com/?companyID=556fbbe55e002c0d44d5bd22&locationID=1
 
@@ -22,7 +22,7 @@ class DigitalPourPage(BreweryPage):
             brewery = kwargs['brewery']
 
         # construct our URL
-        loc_theme = brewery_info[brewery]
+        loc_theme = BREWERY_INFO[brewery]
         url = "http://fbpage.digitalpour.com/?companyID={0}&locationID={1}".format(loc_theme[0], loc_theme[1])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
         assert(self._url is not None)

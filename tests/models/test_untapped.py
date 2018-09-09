@@ -1,6 +1,6 @@
 from unittest import TestCase
 from models.breweries.untappd import UnTappdPage
-from models.breweries.untappd import brewery_info
+from models.breweries.untappd import BREWERY_INFO
 import os
 
 class TestUntappdpage(TestCase):
@@ -13,14 +13,14 @@ class TestUntappdpage(TestCase):
         return path
 
     def test_Untappd_read(self):
-        for brewery in brewery_info:
+        for brewery in BREWERY_INFO:
             ut = UnTappdPage(brewery=brewery, mocked=True)
             assert ut is not None
             ut = None
 
     def test_UnTappd_mocked_brewery(self):
         ut = UnTappdPage(mocked=True)
-        for brewery_name in brewery_info:
+        for brewery_name in BREWERY_INFO:
             # we are mocking the URL, reading a local test file (../tests/data/<brewery>.HTML)
             assert ut is not None
             ut.fetch_taplist(brewery=brewery_name)

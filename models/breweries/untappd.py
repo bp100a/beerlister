@@ -4,7 +4,7 @@ from models.breweries.beerlist import Beer
 import bs4 as bs
 from controllers import brewerylist
 
-brewery_info = {"Fort Nonsense Brewing" : [14504, 53940],
+BREWERY_INFO = {"Fort Nonsense Brewing" : [14504, 53940],
                "Alementary Brewing" : [1192, 955],
                "Angry Erik" : [11871,43606],
                 "Man Skirt Brewing" : [1576, 2092],
@@ -28,7 +28,7 @@ class UnTappdPage(BreweryPage):
         assert(brewery is not None)
 
         # construct our URL
-        loc_theme = brewery_info[brewery]
+        loc_theme = BREWERY_INFO[brewery]
         url = "https://business.untappd.com/locations/{0}/themes/{1}/js".format(loc_theme[0], loc_theme[1])
 
         # perform any pre-fetch initialization of base class

@@ -1,6 +1,6 @@
 from unittest import TestCase
 from models.breweries.beermenus import BeerMenusPage
-from models.breweries.beermenus import brewery_info
+from models.breweries.beermenus import BREWERY_INFO
 import os
 
 class TestBeerMenuspage(TestCase):
@@ -13,7 +13,7 @@ class TestBeerMenuspage(TestCase):
         return path
 
     def test_BeerMenus_read(self):
-        for brewery in brewery_info:
+        for brewery in BREWERY_INFO:
             ut = BeerMenusPage(brewery=brewery, mocked=True)
             assert ut is not None
             ut = None
@@ -21,7 +21,7 @@ class TestBeerMenuspage(TestCase):
     def test_BeerMenus_beerlist(self):
         ut = BeerMenusPage(mocked=True)
         assert ut is not None
-        for brewery in brewery_info:
+        for brewery in BREWERY_INFO:
             ut.fetch_taplist(brewery=brewery)
             beer_string = ut.ssml_taplist()
             assert beer_string is not None

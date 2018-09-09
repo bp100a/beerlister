@@ -4,7 +4,7 @@ from models.breweries.beerlist import Beer
 import bs4 as bs
 from controllers import brewerylist
 
-brewery_info = {"Rinn Duin Brewing" : [17853]}
+BREWERY_INFO = {"Rinn Duin Brewing" : [17853]}
 
 # https://www.beermenus.com/menu_widgets/17853
 
@@ -22,7 +22,7 @@ class BeerMenusPage(BreweryPage):
             brewery = kwargs['brewery']
 
         # construct our URL
-        loc_theme = brewery_info[brewery]
+        loc_theme = BREWERY_INFO[brewery]
         url = "https://beermenus.com/menu_widgets/{0}".format(loc_theme[0])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
         assert(self._url is not None)
