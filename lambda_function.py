@@ -2,7 +2,7 @@
 from controllers import brewerylist # for clarity
 from models.breweries import *
 
-""" simple fact sample app """
+""" The Taplist for Breweries! """
 
 SKILL_NAME = "TapList"
 HELP_MESSAGE = "You can say what is ontap at brewery name, or you can say exit... What can I help you with?"
@@ -52,14 +52,15 @@ def on_intent(request, session):
 
 
 def list_of_breweries_response(intent: dict):
-    list_of_breweries = brewerylist.brewery_pages.ssml_brewery_list()
+    """Return a list of breweries that we support"""
+    list_of_breweries = brewerylist.BREWERY_PAGES.ssml_brewery_list()
     return response(speech_response(list_of_breweries, True) )
 
 def get_taplist_response(intent: dict):
 
     """ return the taplist  """
     brewery_name = intent['slots']['brewery']['value']
-    bobj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_name=brewery_name)
+    bobj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery(brewery_name=brewery_name)
     # if we couldn't find the brewery, respond with a the list of breweries we know
     if brewery_id is None:
         return list_of_breweries_response(intent)

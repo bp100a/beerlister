@@ -21,22 +21,24 @@ class TEBpage(BreweryPage):
         BreweryPage.__init__(self, *args, **kwargs)
 
         # initialize aliases
-        self._alias = {"Twin Elephant" : ["TEB", "Twin Elephant Brewing","Twin Elephant Brewery"]}
+        self._alias = {"Twin Elephant": ["TEB", "Twin Elephant Brewing","Twin Elephant Brewery"]}
 
     def short_name(self) -> list:
+        """return short name for TEB as a single item list"""
         shortlist = list()
         shortlist.append("Twin Elephant")
         return shortlist
 
     def fetch_taplist(self, *args, **kwargs) -> None:
+        """fetch taplist for TEB, directly scraping their site and parsing"""
         brewery = 'Twin Elephant'
 
         # perform any pre-fetch initialization of base class
         BreweryPage.fetch_taplist(self, url="https://www.twinelephant.com", **kwargs)
-        assert(self._url is not None)
+        assert self._url is not None
         self.read_page() # read the page
-        assert(self._cached_response is not None)
-        assert(self._soup is not None)
+        assert self._cached_response is not None
+        assert self._soup is not None
         beer_div_list = self._soup.find_all("div", {"class": "beer-holder"})
         assert(beer_div_list is not None)
         for beer in beer_div_list:
@@ -68,8 +70,8 @@ class TEBpage(BreweryPage):
             self.add_beer(Beer(name=name, style=style, abv=abv, hops=hops) )
 
         # we now have a list of beers for this brewery
-        assert(self._beer_list is not None)
+        assert self._beer_list is not None
 
 
 # add this to the list of breweries
-brewerylist.brewery_pages.add_brewery_page(TEBpage())
+brewerylist.BREWERY_PAGES.add_brewery_page(TEBpage())

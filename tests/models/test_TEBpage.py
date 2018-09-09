@@ -1,6 +1,6 @@
 from unittest import TestCase
 import os
-from models.breweries.TEB import TEBpage
+from models.breweries.TwinElephant import TEBpage
 
 
 class TestTEBpage(TestCase):

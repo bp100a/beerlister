@@ -10,20 +10,20 @@ class TestBreweryList(TestCase):
         """ Test that all know brewery objects are listed in the global variable brewery_page_list"""
         brewery_page_objects = ["<class \'models.breweries.DepartedSoles.DepartedSolespage\'>",
                                 "<class \'models.breweries.untappd.UnTappdPage\'>",
-                                "<class \'models.breweries.TEB.TEBpage\'>",
+                                "<class \'models.breweries.TwinElephant.TEBpage\'>",
                                 "<class \'models.breweries.beermenus.BeerMenusPage\'>",
                                 "<class \'models.breweries.digitalpour.DigitalPourPage\'>"]
-        for brewery in brewerylist.brewery_pages.brewery_page_list:
+        for brewery in brewerylist.BREWERY_PAGES.brewery_page_list:
             bobj = str(type(brewery))
             assert bobj in brewery_page_objects
 
     def test_find_breweries(self):
         """Test that all known breweries and their alias can be properly found in the global brewery_page_list"""
         # first define a list of breweries we should find
-        known_breweries = {"Twin Elephant" : "<class \'models.breweries.TEB.TEBpage\'>",
-                           "TEB": "<class \'models.breweries.TEB.TEBpage\'>",
-                           "Twin Elephant Brewing": "<class \'models.breweries.TEB.TEBpage\'>",
-                           "Twin Elephant Brewery": "<class \'models.breweries.TEB.TEBpage\'>",
+        known_breweries = {"Twin Elephant" : "<class \'models.breweries.TwinElephant.TEBpage\'>",
+                           "TEB": "<class \'models.breweries.TwinElephant.TEBpage\'>",
+                           "Twin Elephant Brewing": "<class \'models.breweries.TwinElephant.TEBpage\'>",
+                           "Twin Elephant Brewery": "<class \'models.breweries.TwinElephant.TEBpage\'>",
 
                            "Departed Soles" : "<class \'models.breweries.DepartedSoles.DepartedSolespage\'>",
                            "Departed Soles Brewing": "<class \'models.breweries.DepartedSoles.DepartedSolespage\'>",
@@ -59,34 +59,34 @@ class TestBreweryList(TestCase):
                            }
 
         for brewery_alias in known_breweries:
-            brewery_obj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_alias)
+            brewery_obj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery(brewery_alias)
             assert str(type(brewery_obj)) == known_breweries[brewery_alias]
             assert brewery_id is not None
 
     def test_brewerylist(self):
         """We will clearn the brewery list then manually add all known objects, then verify"""
         # clear the brewerylist
-        brewerylist.brewery_pages.brewery_page_list = []
-        brewerylist.brewery_pages.add_brewery_page(TEB.TEBpage())
-        brewerylist.brewery_pages.add_brewery_page(DepartedSoles.DepartedSolespage())
-        brewerylist.brewery_pages.add_brewery_page(digitalpour.DigitalPourPage())
-        brewerylist.brewery_pages.add_brewery_page(beermenus.BeerMenusPage())
-        brewerylist.brewery_pages.add_brewery_page(untappd.UnTappdPage())
+        brewerylist.BREWERY_PAGES.brewery_page_list = []
+        brewerylist.BREWERY_PAGES.add_brewery_page(TwinElephant.TEBpage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(DepartedSoles.DepartedSolespage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(digitalpour.DigitalPourPage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(beermenus.BeerMenusPage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(untappd.UnTappdPage())
 
         # now that we added them, see if they are there
         self.test_find_breweries()
 
     def test_nobrewery(self):
         """Test that an unknown brewery is probably flagged"""
-        brewery_obj, brewery_id = brewerylist.brewery_pages.find_brewery("no such brewery")
+        brewery_obj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery("no such brewery")
         assert brewery_obj is None and brewery_id is None
 
     def test_list_of_breweries(self):
         """Test that known breweries conform to the # we expect"""
-        list_of_breweries = brewerylist.brewery_pages.list_of_breweries()
+        list_of_breweries = brewerylist.BREWERY_PAGES.list_of_breweries()
         assert len(list_of_breweries) == 9
 
     def test_list_of_breweries_response(self):
         """Test that we can generate an SSML for the list of known breweries"""
-        resp = brewerylist.brewery_pages.ssml_brewery_list()
+        resp = brewerylist.BREWERY_PAGES.ssml_brewery_list()
         assert resp is not None

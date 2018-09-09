@@ -1,15 +1,13 @@
-
+import bs4 as bs
 from models.breweries.beerlist import BreweryPage
 from models.breweries.beerlist import Beer
-import bs4 as bs
 from controllers import brewerylist
 
 BREWERY_INFO = {"Rinn Duin Brewing" : [17853]}
 
-# https://www.beermenus.com/menu_widgets/17853
 
 class BeerMenusPage(BreweryPage):
-    # BeerMenus hosted brewery menus
+    """BeerMenus hosted taplists"""
 
     def __init__(self, *args, **kwargs):
         BreweryPage.__init__(self, *args, **kwargs)
@@ -18,6 +16,7 @@ class BeerMenusPage(BreweryPage):
         self._alias = {"Rinn Duin Brewing" : ["Rinn Duin","Rinn Duin Brewery"]}
 
     def fetch_taplist(self, *args, **kwargs) -> None:
+        """fetch the taplist for this specific beer management software"""
         if kwargs.get('brewery') is not None:
             brewery = kwargs['brewery']
 
@@ -27,8 +26,8 @@ class BeerMenusPage(BreweryPage):
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
         assert(self._url is not None)
         self.read_page() # read the page
-        assert(self._cached_response is not None)
-        assert(self._soup is not None)
+        assert self._cached_response is not None
+        assert self._soup is not None
         start_string = 'widgetDiv.innerHTML = \'\\n'
         start_pos = self._cached_response.find(start_string)
         end_string = ';\n}'
@@ -37,9 +36,9 @@ class BeerMenusPage(BreweryPage):
         html_menu = html_menu.replace('\\"', '"')
         html_menu = html_menu.replace('\\n', '\n')
         html_menu = html_menu.replace('\\/', '/')
-        assert(end_pos is not -1)
+        assert end_pos is not -1
         self._soup = bs.BeautifulSoup(html_menu, "html.parser")
-        assert(self._soup is not None)
+        assert self._soup is not None
         ontap_list = self._soup.find_all("tbody", {"class": "on_tap"})
         taplist_table = self._soup.find('table', attrs={'class': 'on_tap-section'})
         table_body = taplist_table.find('tbody')
@@ -51,5 +50,6 @@ class BeerMenusPage(BreweryPage):
                 beer_abv = cols[1].text.strip() + '%'
                 self.add_beer(Beer(name=beer_name, style=None, abv=beer_abv, ibu=None, desc=None))
 
+
 # add this to the list of breweries
-brewerylist.brewery_pages.add_brewery_page(BeerMenusPage())
+brewerylist.BREWERY_PAGES.add_brewery_page(BeerMenusPage())
