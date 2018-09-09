@@ -6,6 +6,7 @@ from models.breweries import *
 class TestBreweryList(TestCase):
 
     def test_brewery_list(self):
+        """ Test that all know brewery objects are listed in the global variable brewery_page_list"""
         brewery_page_objects = ["<class \'models.breweries.DepartedSoles.DepartedSolespage\'>",
                                 "<class \'models.breweries.untappd.UnTappdPage\'>",
                                 "<class \'models.breweries.TEB.TEBpage\'>",
@@ -13,9 +14,10 @@ class TestBreweryList(TestCase):
                                 "<class \'models.breweries.digitalpour.DigitalPourPage\'>"]
         for brewery in brewerylist.brewery_pages.brewery_page_list:
             bobj = str(type(brewery))
-            assert(bobj in brewery_page_objects)
+            assert bobj in brewery_page_objects
 
     def test_find_breweries(self):
+        """Test that all known breweries and their alias can be properly found in the global brewery_page_list"""
         # first define a list of breweries we should find
         known_breweries = {"Twin Elephant" : "<class \'models.breweries.TEB.TEBpage\'>",
                            "TEB": "<class \'models.breweries.TEB.TEBpage\'>",
@@ -57,9 +59,11 @@ class TestBreweryList(TestCase):
 
         for brewery_alias in known_breweries:
             brewery_obj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_alias)
-            assert(str(type(brewery_obj)) == known_breweries[brewery_alias])
+            assert str(type(brewery_obj)) == known_breweries[brewery_alias]
+            assert brewery_id is not None
 
     def test_brewerylist(self):
+        """We will clearn the brewery list then manually add all known objects, then verify"""
         # clear the brewerylist
         brewerylist.brewery_pages.brewery_page_list = []
         brewerylist.brewery_pages.add_brewery_page(TEB.TEBpage())
@@ -72,13 +76,16 @@ class TestBreweryList(TestCase):
         self.test_find_breweries()
 
     def test_nobrewery(self):
+        """Test that an unknown brewery is probably flagged"""
         brewery_obj, brewery_id = brewerylist.brewery_pages.find_brewery("no such brewery")
-        assert(brewery_obj is None and brewery_id is None)
+        assert brewery_obj is None and brewery_id is None
 
     def test_list_of_breweries(self):
+        """Test that known breweries conform to the # we expect"""
         bl = brewerylist.brewery_pages.list_of_breweries()
-        assert(len(bl) == 9)
+        assert len(bl) == 9
 
     def test_list_of_breweries_response(self):
+        """Test that we can generate an SSML for the list of known breweries"""
         resp = brewerylist.brewery_pages.ssml_brewery_list()
-        assert(resp is not None)
+        assert resp is not None
