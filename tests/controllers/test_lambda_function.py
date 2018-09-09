@@ -1,7 +1,7 @@
 from unittest import TestCase
-import lambda_function
 import os
 import json
+import lambda_function
 
 
 class TestAWSlambda(TestCase):
@@ -26,10 +26,10 @@ class TestAWSlambda(TestCase):
             event = json.loads(json_intent)
             event['request']['intent']['mocked'] = True
             response = lambda_function.lambda_handler(event=event, context=None)
-            assert(response is not None)
+            assert response is not None
 
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            fn =  self.data_dir() + brewery.replace(' ', '') + '.SSML'
+            fn = self.data_dir() + brewery.replace(' ', '') + '.SSML'
             fp = open(fn, mode='r', encoding='utf8')
             tst_data = '<speak>' + fp.read() + '</speak>'
             fp.close()

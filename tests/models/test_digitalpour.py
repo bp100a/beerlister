@@ -15,12 +15,14 @@ class TestDigitalPourpage(TestCase):
         return path
 
     def test_DigitalPour_read(self):
+        """Test we can read all breweries for this provider"""
         for brewery in BREWERY_INFO:
             ut = DigitalPourPage(brewery=brewery, mocked=True)
             assert ut is not None
             ut = None
 
     def test_DigitalPour_beerlist(self):
+        """Test & validate beer list for this provider"""
         ut = DigitalPourPage(mocked=True)
         assert ut is not None
         for brewery in BREWERY_INFO:
@@ -33,27 +35,29 @@ class TestDigitalPourpage(TestCase):
             fp = open(fn, 'r')
             tst_data = fp.read()
             fp.close()
-            assert (tst_data == beer_string)  # anything different, raise hell!
+            assert tst_data == beer_string  # anything different, raise hell!
 
     def test_DigitalPour_aliases(self):
+        """Test we get proper aliases for this brewery"""
         dp = DigitalPourPage(mocked=True)
         assert dp is not None
 
         # see if aliases exist
         found = dp.brewery_by_alias("TEB")
-        assert(found is None)
+        assert found is None
 
         found = dp.brewery_by_alias("Village Idiot")
-        assert(found == "Village Idiot")
+        assert found == "Village Idiot"
 
         found = dp.brewery_by_alias("Village Idiot Brewing")
-        assert(found == "Village Idiot")
+        assert found == "Village Idiot"
 
         found = dp.brewery_by_alias("Village Idiot Brewery")
-        assert(found == "Village Idiot")
+        assert found == "Village Idiot"
 
     def test_shortnames(self):
+        """Test we get proper short name for this brewery"""
         dp = DigitalPourPage()
         short_names = dp.short_name()
-        assert ('Village Idiot' in short_names)
-        assert(len(short_names) == 1)
+        assert 'Village Idiot' in short_names
+        assert len(short_names) == 1

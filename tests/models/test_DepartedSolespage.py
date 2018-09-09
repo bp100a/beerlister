@@ -1,10 +1,12 @@
 from unittest import TestCase
-from models.breweries.DepartedSoles import DepartedSolespage
 import os
+from models.breweries.DepartedSoles import DepartedSolespage
+
 
 class TestDepartedSolespage(TestCase):
 
     def data_dir(self) -> str:
+        """common function to location test folder"""
         # return the test data directory from the current root
         cwd = os.getcwd().replace('\\', '/')
         root = cwd.split('/tests')[0]
@@ -12,10 +14,12 @@ class TestDepartedSolespage(TestCase):
         return path
 
     def test_DepartedSoles_read(self):
+        """Test that we can do basic read of page"""
         dsp = DepartedSolespage(mocked=True)
-        assert (dsp is not None)
+        assert dsp is not None
 
     def test_DepartedSoles_beerlist(self):
+        """Test we can get back a properly parsed beer list"""
         dsp = DepartedSolespage(mocked=True)
         assert dsp is not None
 
@@ -24,31 +28,33 @@ class TestDepartedSolespage(TestCase):
         assert beer_string is not None
 
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        fn =  self.data_dir() + dsp._brewery_name.replace(' ', '') + '.SSML'
-        fp = open(fn, 'r')
-        tst_data = fp.read()
-        fp.close()
-        assert (tst_data == beer_string)  # anything different, raise hell!
+        file_name = self.data_dir() + dsp._brewery_name.replace(' ', '') + '.SSML'
+        file_pointer = open(file_name, 'r')
+        tst_data = file_pointer.read()
+        file_pointer.close()
+        assert tst_data == beer_string  # anything different, raise hell!
 
     def test_DepartedSoles_aliases(self):
+        """Test that we cover all alias for this brewery"""
         ds = DepartedSolespage(mocked=True)
         assert ds is not None
 
         # see if aliases exist
         found = ds.brewery_by_alias("TEB")
-        assert(found is None)
+        assert found is None
 
         found = ds.brewery_by_alias("Departed Soles")
-        assert(found == "Departed Soles")
+        assert found == "Departed Soles"
 
         found = ds.brewery_by_alias("Departed Soles Brewing")
-        assert(found == "Departed Soles")
+        assert found == "Departed Soles"
 
         found = ds.brewery_by_alias("Departed Soles Brewery")
-        assert(found == "Departed Soles")
+        assert found == "Departed Soles"
 
     def test_shortnames(self):
+        """Test we get the correct short name for this brewery"""
         dp = DepartedSolespage()
         short_names = dp.short_name()
-        assert ('Departed Soles' in short_names)
-        assert(len(short_names) == 1)
+        assert 'Departed Soles' in short_names
+        assert len(short_names) == 1

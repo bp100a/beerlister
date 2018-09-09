@@ -4,6 +4,7 @@ from models.breweries import *
 
 
 class TestBreweryList(TestCase):
+    """everything we need to test our our list of breweries"""
 
     def test_brewery_list(self):
         """ Test that all know brewery objects are listed in the global variable brewery_page_list"""
@@ -82,8 +83,8 @@ class TestBreweryList(TestCase):
 
     def test_list_of_breweries(self):
         """Test that known breweries conform to the # we expect"""
-        bl = brewerylist.brewery_pages.list_of_breweries()
-        assert len(bl) == 9
+        list_of_breweries = brewerylist.brewery_pages.list_of_breweries()
+        assert len(list_of_breweries) == 9
 
     def test_list_of_breweries_response(self):
         """Test that we can generate an SSML for the list of known breweries"""

@@ -7,6 +7,7 @@ import os
 class TestBeerMenuspage(TestCase):
 
     def data_dir(self) -> str:
+        """common function to format location of test folder"""
         # return the test data directory from the current root
         cwd = os.getcwd().replace('\\', '/')
         root = cwd.split('/tests')[0]
@@ -60,5 +61,5 @@ class TestBeerMenuspage(TestCase):
         """Test that we get back the short name for our brewery"""
         bp = BeerMenusPage()
         short_names = bp.short_name()
-        assert ('Rinn Duin' in short_names)
+        assert 'Rinn Duin' in short_names
         assert len(short_names) == 1

@@ -1,10 +1,13 @@
 from unittest import TestCase
-from models.breweries.TEB import TEBpage
 import os
+from models.breweries.TEB import TEBpage
+
 
 class TestTEBpage(TestCase):
 
-    def data_dir(self) -> str:
+    @staticmethod
+    def data_dir() -> str:
+        """common function to find test folder"""
         # return the test data directory from the current root
         cwd = os.getcwd().replace('\\', '/')
         root = cwd.split('/tests')[0]
@@ -12,10 +15,12 @@ class TestTEBpage(TestCase):
         return path
 
     def test_TEB_read(self):
+        """Test simple instantiation of TEB page"""
         teb = TEBpage(mocked=True)
-        assert (teb is not None)
+        assert teb is not None
 
     def test_TEB_beerlist(self):
+        """Test we can read the Twin Elephant beer list!"""
         teb = TEBpage(mocked=True)
         assert teb is not None
         teb.fetch_taplist(brewery="Twin Elephant")
@@ -23,28 +28,30 @@ class TestTEBpage(TestCase):
         assert beer_string is not None
 
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        fn = self.data_dir() + teb._brewery_name.replace(' ', '') + '.SSML'
-        fp = open(fn, mode='r', encoding='utf8')
-        tst_data = fp.read()
-        fp.close()
-        assert (tst_data == beer_string)  # anything different, raise hell!
+        file_name = self.data_dir() + teb._brewery_name.replace(' ', '') + '.SSML'
+        file_pointer = open(file_name, mode='r', encoding='utf8')
+        tst_data = file_pointer.read()
+        file_pointer.close()
+        assert tst_data == beer_string  # anything different, raise hell!
 
     def test_TEB_aliases(self):
+        """Test to validate all aliases for brewery"""
         teb = TEBpage(mocked=True)
         assert teb is not None
 
         # see if aliases exist
         found = teb.brewery_by_alias("TEB")
-        assert(found == "Twin Elephant")
+        assert found == "Twin Elephant"
 
         found = teb.brewery_by_alias("Twin Elephant Brewing")
-        assert(found == "Twin Elephant")
+        assert found == "Twin Elephant"
 
         found = teb.brewery_by_alias("Twin Elephant")
-        assert(found == "Twin Elephant")
+        assert found == "Twin Elephant"
 
     def test_TEB_shortname(self):
+        """Test to return proper short name for brewery"""
         teb = TEBpage()
         names = teb.short_name()
-        assert(len(names) == 1)
-        assert(names[0] == 'Twin Elephant')
+        assert len(names) == 1
+        assert names[0] == 'Twin Elephant'
