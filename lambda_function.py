@@ -55,10 +55,11 @@ def list_of_breweries_response(intent: dict):
     list_of_breweries = brewerylist.brewery_pages.ssml_brewery_list()
     return response(speech_response(list_of_breweries, True) )
 
-def get_taplist_response(intent : dict):
+def get_taplist_response(intent: dict):
 
     """ return the taplist  """
-    bobj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_name=intent['slots']['brewery']['value'])
+    brewery_name = intent['slots']['brewery']['value']
+    bobj, brewery_id = brewerylist.brewery_pages.find_brewery(brewery_name=brewery_name)
     # if we couldn't find the brewery, respond with a the list of breweries we know
     if brewery_id is None:
         return list_of_breweries_response(intent)
