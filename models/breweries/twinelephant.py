@@ -58,7 +58,8 @@ class TEBpage(BreweryPage):
                             for inner_c in content.contents:
                                 if hasattr(inner_c, 'attrs'):
                                     if 'pure-u-1' in inner_c.attrs['class']:
-                                        # our string is "\nABV: 6.2%\n", we just want the '6.2%' portion
+                                        # our string is "\nABV: 6.2%\n",
+                                        # we just want the '6.2%' portion
                                         if inner_c.text.find('ABV:') != -1:
                                             abv = inner_c.text.split('ABV:')[1].strip()
                                             assert abv is not None

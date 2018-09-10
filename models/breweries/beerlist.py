@@ -164,8 +164,9 @@ class BreweryPage():
 
             if beer.style is not None:
                 if 'DIPA' in beer.style:
-                    beer_style = beer.style.replace('DIPA',
-                                                    'double <say-as interpret-as="spell-out">IPA</say-as>')
+                    beer_style = \
+                        beer.style.replace('DIPA',
+                                           'double <say-as interpret-as="spell-out">IPA</say-as>')
                 else:
                     beer_style = beer.style.replace('IPA',
                                                     '<say-as interpret-as="spell-out">IPA</say-as>')

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 """ The Taplist for Breweries! """
+# pylint: disable-msg=R0911
 from controllers import brewerylist # for clarity
 from models.breweries import *
 
 SKILL_NAME = "TapList"
-HELP_MESSAGE = "You can say what is ontap at brewery name, " + \
+HELP_MESSAGE = "You can ask what is on tap at brewery name, " + \
                "or you can say exit... What can I help you with?"
 HELP_REPROMPT = "What can I help you with?"
 STOP_MESSAGE = "Goodbye!"
@@ -89,7 +90,7 @@ def get_launch_response():
 
     """ get and return the help string  """
 
-    return get_taplist_response()
+    return response(HELP_MESSAGE)
 
 
 def get_stop_response():
