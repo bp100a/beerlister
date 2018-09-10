@@ -40,7 +40,6 @@ class TEBpage(BreweryPage):
         assert self._cached_response is not None
         assert self._soup is not None
         beer_div_list = self._soup.find_all("div", {"class": "beer-holder"})
-        assert beer_div_list is not None
         for beer in beer_div_list:
             assert beer is not None
             name = None

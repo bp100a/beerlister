@@ -22,16 +22,15 @@ class BeerMenusPage(BreweryPage):
             brewery = kwargs['brewery']
 
         # construct our URL
-        loc_theme = BREWERY_INFO[brewery]
-        url = "https://beermenus.com/menu_widgets/{0}".format(loc_theme[0])
+        url = "https://beermenus.com/menu_widgets/{0}".format(BREWERY_INFO[brewery][0])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
         self.read_page() # read the page
+
         assert self._cached_response is not None
         assert self._soup is not None
         start_string = 'widgetDiv.innerHTML = \'\\n'
         start_pos = self._cached_response.find(start_string)
-        end_string = ';\n}'
-        end_pos = self._cached_response.rfind(end_string)
+        end_pos = self._cached_response.rfind(';\n}')
         html_menu = self._cached_response[start_pos+len(start_string):end_pos-1]
         html_menu = html_menu.replace('\\"', '"')
         html_menu = html_menu.replace('\\n', '\n')
@@ -45,9 +44,8 @@ class BeerMenusPage(BreweryPage):
         for row in rows:
             cols = row.find_all('td')
             if len(row.contents) > 3:
-                beer_name = cols[0].text.strip().split('\n')[1]
-                beer_abv = cols[1].text.strip() + '%'
-                self.add_beer(Beer(name=beer_name, style=None, abv=beer_abv, ibu=None, desc=None))
+                self.add_beer(Beer(name=cols[0].text.strip().split('\n')[1], style=None,
+                                   abv=cols[1].text.strip() + '%', ibu=None, desc=None))
 
 
 # add this to the list of breweries

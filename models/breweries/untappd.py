@@ -55,9 +55,8 @@ class UnTappdPage(BreweryPage):
         assert brewery is not None
 
         # construct our URL
-        loc_theme = BREWERY_INFO[brewery]
         url = "https://business.untappd.com/locations/{0}/themes/{1}/js" \
-            .format(loc_theme[0], loc_theme[1])
+            .format(BREWERY_INFO[brewery][0], BREWERY_INFO[brewery][1])
 
         # perform any pre-fetch initialization of base class
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
@@ -65,8 +64,6 @@ class UnTappdPage(BreweryPage):
         self.read_page() # read the page
         assert self._cached_response is not None
         assert self._soup is not None
-        menu_preloader = self._soup.find_all("script", {"type":"{text/javascript"})
-        assert menu_preloader is not None
 
         start_string = 'container.innerHTML = "'
         start_pos = self._cached_response.find(start_string)
@@ -78,6 +75,7 @@ class UnTappdPage(BreweryPage):
         html_menu = html_menu.replace('\\/', '/')
         if end_pos == -1:
             assert end_pos is not -1
+
         self._soup = bs.BeautifulSoup(html_menu, "html.parser")
         assert self._soup is not None
         beer_div_list = self._soup.find_all("div", {"class": "beer"})

@@ -17,12 +17,8 @@ class DepartedSolespage(BreweryPage):
         BreweryPage.fetch_taplist(self, url="http://www.departedsoles.com/beer.html", **kwargs)
         assert self._url is not None
         self.read_page() # read the page
-        assert self._cached_response is not None
-        assert self._soup is not None
         beer_div_list = self._soup.find_all("div", {"class": "beersamples"})
-        assert beer_div_list is not None
         for beer in beer_div_list:
-            assert beer is not None
             name = None
             style = None
             abv = None
