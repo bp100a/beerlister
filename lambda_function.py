@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
+""" The Taplist for Breweries! """
 from controllers import brewerylist # for clarity
 from models.breweries import *
 
-""" The Taplist for Breweries! """
-
 SKILL_NAME = "TapList"
-HELP_MESSAGE = "You can say what is ontap at brewery name, or you can say exit... What can I help you with?"
+HELP_MESSAGE = "You can say what is ontap at brewery name, " + \
+               "or you can say exit... What can I help you with?"
 HELP_REPROMPT = "What can I help you with?"
 STOP_MESSAGE = "Goodbye!"
-FALLBACK_MESSAGE = "The Taplist skill can't help you with that.  It can help you discover what beers are on tap at select breweries in North Jersey"
+FALLBACK_MESSAGE = "The Taplist skill can't help you with that. " + \
+                   "It can help you discover what beers are on tap " + \
+                   "at select breweries in North Jersey"
 FALLBACK_REPROMPT = 'What can I help you with?'
 
 # --------------- App entry point -----------------
+
 
 def lambda_handler(event, context):
 
@@ -54,36 +57,40 @@ def on_intent(request, session):
 def list_of_breweries_response(intent: dict):
     """Return a list of breweries that we support"""
     list_of_breweries = brewerylist.BREWERY_PAGES.ssml_brewery_list()
-    return response(speech_response(list_of_breweries, True) )
+    return response(speech_response(list_of_breweries, True))
+
 
 def get_taplist_response(intent: dict):
-
     """ return the taplist  """
+
     brewery_name = intent['slots']['brewery']['value']
     bobj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery(brewery_name=brewery_name)
+
     # if we couldn't find the brewery, respond with a the list of breweries we know
-    if brewery_id is None:
+    if brewery_id is None or bobj is None:
         return list_of_breweries_response(intent)
 
     if 'mocked' in intent:
-        bobj._mocked = intent['mocked']
+        bobj.mocking = intent['mocked']
     bobj.fetch_taplist(brewery=brewery_id)
     beer_string = bobj.ssml_taplist()
-    speechOutput = beer_string
-    return response(speech_response_ssml(speechOutput, True))
+    speech_output = beer_string
+    return response(speech_response_ssml(speech_output, True))
+
 
 def get_help_response():
-
     """ get and return the help string  """
 
     speech_message = HELP_MESSAGE
     return response(speech_response_prompt(speech_message, speech_message, False))
+
 
 def get_launch_response():
 
     """ get and return the help string  """
 
     return get_taplist_response()
+
 
 def get_stop_response():
 
@@ -92,6 +99,7 @@ def get_stop_response():
     speech_output = STOP_MESSAGE
     return response(speech_response(speech_output, True))
 
+
 def get_fallback_response():
 
     """ end the session, user wants to quit """
@@ -99,17 +107,20 @@ def get_fallback_response():
     speech_output = FALLBACK_MESSAGE
     return response(speech_response(speech_output, False))
 
+
 def on_session_started():
 
     """" called when the session starts  """
 
     #print("on_session_started")
 
+
 def on_session_ended():
 
     """ called on session ends """
 
     #print("on_session_ended")
+
 
 def on_launch(request):
 
@@ -131,6 +142,7 @@ def speech_response_ssml(output, endsession):
         'shouldEndSession': endsession
     }
 
+
 def speech_response(output, endsession):
 
     """  create a simple json response  """
@@ -142,6 +154,7 @@ def speech_response(output, endsession):
         },
         'shouldEndSession': endsession
     }
+
 
 def dialog_response(endsession):
 
@@ -177,6 +190,7 @@ def speech_response_with_card(title, output, cardcontent, endsession):
         'shouldEndSession': endsession
     }
 
+
 def response_ssml_text_and_prompt(output, endsession, reprompt_text):
 
     """ create a Ssml response with prompt  """
@@ -194,6 +208,7 @@ def response_ssml_text_and_prompt(output, endsession, reprompt_text):
         },
         'shouldEndSession': endsession
     }
+
 
 def speech_response_prompt(output, reprompt_text, endsession):
 
@@ -215,6 +230,7 @@ def speech_response_prompt(output, reprompt_text, endsession):
         },
         'shouldEndSession': endsession
     }
+
 
 def response(speech_message) -> dict:
 

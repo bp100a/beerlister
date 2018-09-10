@@ -58,8 +58,18 @@ class BreweryPage():
     def __init__(self, **kwargs) -> None:
         """initialize our brewery page. Determine if testing or what attributes we have"""
         self._include_hops = kwargs.get('hops')
-        self._mocked = kwargs.get('mocked', False)
+        self.mocking = kwargs.get('mocked', False)
         self._url = kwargs.get('url', None)
+
+    @property
+    def mocking(self):
+        """our property setter for the internal mocked state"""
+        return self._mocked
+
+    @mocking.setter
+    def mocking(self, mocked: bool):
+        """so we can hid protected member"""
+        self._mocked = mocked
 
     def brewery_by_alias(self, brewery_name) -> str:
         """For this brewery page manager, find the brewrey by alias"""
