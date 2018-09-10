@@ -25,7 +25,6 @@ class BeerMenusPage(BreweryPage):
         loc_theme = BREWERY_INFO[brewery]
         url = "https://beermenus.com/menu_widgets/{0}".format(loc_theme[0])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
-        assert self._url is not None
         self.read_page() # read the page
         assert self._cached_response is not None
         assert self._soup is not None

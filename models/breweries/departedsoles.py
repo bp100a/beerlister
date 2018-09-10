@@ -26,13 +26,12 @@ class DepartedSolespage(BreweryPage):
             name = None
             style = None
             abv = None
-            hops = None
             if beer.contents[1].name == 'h4':
                 name = beer.contents[1].text
                 style = beer.contents[3].text.split(u'\u2022')[0].strip()
                 abv = beer.contents[3].text.split(u'\u2022')[1].strip()
                 # now add the beer to the list
-                self.add_beer(Beer(name=name, style=style, abv=abv, hops=hops))
+                self.add_beer(Beer(name=name, style=style, abv=abv, hops=None))
 
         # we now have a list of beers for this brewery
         assert self._beer_list is not None
