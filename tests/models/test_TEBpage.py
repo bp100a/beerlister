@@ -1,18 +1,9 @@
 from unittest import TestCase
 import os
-from models.breweries.TwinElephant import TEBpage
-
+from models.breweries.twinelephant import TEBpage
+from tests.models.common import data_dir
 
 class TestTEBpage(TestCase):
-
-    @staticmethod
-    def data_dir() -> str:
-        """common function to find test folder"""
-        # return the test data directory from the current root
-        cwd = os.getcwd().replace('\\', '/')
-        root = cwd.split('/tests')[0]
-        path = root + '/tests/data/'
-        return path
 
     def test_TEB_read(self):
         """Test simple instantiation of TEB page"""
@@ -28,7 +19,7 @@ class TestTEBpage(TestCase):
         assert beer_string is not None
 
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        file_name = self.data_dir() + teb._brewery_name.replace(' ', '') + '.SSML'
+        file_name = data_dir() + teb._brewery_name.replace(' ', '') + '.SSML'
         file_pointer = open(file_name, mode='r', encoding='utf8')
         tst_data = file_pointer.read()
         file_pointer.close()

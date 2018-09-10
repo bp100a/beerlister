@@ -1,3 +1,7 @@
+"""classes to manage our beers and list of beers.
+Also the brewery page is here, this is the base object
+for all brewery website scraping and is overridden
+for brewery specific needs"""
 import re
 import os
 import requests
@@ -6,27 +10,31 @@ import bs4 as bs
 
 class Beer():
     """the essence of a beer. A list of beers is the 'tap list' for brewery"""
-    _name = None
-    _style = None
-    _abv = None
-    _hops = []
-    _ibu = None
-    _desc = None
+    name = None
+    style = None
+    abv = None
+    hops = []
+    ibu = None
+    desc = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """our generic 'beer'. A small amount of parsing"""
-        self._name = kwargs.get('name')
-        self._style = kwargs.get('style')
-        self._abv = kwargs.get('abv')
+        self.name = kwargs.get('name')
+        self.style = kwargs.get('style')
+        self.abv = kwargs.get('abv')
         if kwargs.get('ibu') is not None:
-            self._ibu = kwargs.get('ibu')
+            self.ibu = kwargs.get('ibu')
         if kwargs.get('desc') is not None:
-            self._desc = kwargs.get('desc')
+            self.desc = kwargs.get('desc')
         if kwargs.get('hops') is not None:
-            self._hops = re.split('& |, ', kwargs.get('hops'))
+            self.hops = re.split('& |, ', kwargs.get('hops'))
 
-        if self._style is not None:
-            self._style = self._style.replace(u'\xf6', 'o') # fix umla in Kolsch
+        if self.style is not None:
+            self.style = self.style.replace(u'\xf6', 'o') # fix umla in Kolsch
+
+    def has_hops(self) -> bool:
+        """determine if hops have been specified for this beer"""
+        return self.hops is not None and len(self.hops) > 0
 
 
 class BeerList(list):
@@ -45,9 +53,9 @@ class BreweryPage():
     _beer_list = None
     _mocked = False
     _include_hops = True
-    _alias = None
+    _alias = [] # defined by derived classes in __init__() method
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self, **kwargs) -> None:
         """initialize our brewery page. Determine if testing or what attributes we have"""
         self._include_hops = kwargs.get('hops')
         self._mocked = kwargs.get('mocked', False)
@@ -76,7 +84,7 @@ class BreweryPage():
 
         return short_list
 
-    def fetch_taplist(self, *args, **kwargs):
+    def fetch_taplist(self, **kwargs):
         """retrieve the taplist for the brewery"""
         self._beer_list = BeerList()
         self._soup = None
@@ -84,7 +92,8 @@ class BreweryPage():
         self._url = kwargs.get('url', None)
         self._brewery_name = kwargs.get('brewery', None)
 
-    def testdata_dir(self) -> str:
+    @staticmethod
+    def testdata_dir() -> str:
         """return the directory where test data lives"""
         # return the test data directory from the current root
         cwd = os.getcwd().replace('\\', '/')
@@ -94,7 +103,7 @@ class BreweryPage():
 
     # read_page(): This will actually read in the web page without making
     #              any adjustments, just the raw data encoded UTF-8
-    def read_page(self, in_session:requests.sessions = None) -> bool:
+    def read_page(self, in_session: requests.sessions = None) -> bool:
         """Read the brewery page"""
         assert self._url is not None
         if not self._mocked:
@@ -110,7 +119,7 @@ class BreweryPage():
                 session.close()
         else:
             filename = self._brewery_name.replace(' ', '') + '.html'
-            file_pointer = open(self.testdata_dir() + filename, mode='r', encoding='utf8')
+            file_pointer = open(BreweryPage.testdata_dir() + filename, mode='r', encoding='utf8')
             assert file_pointer is not None
             rsp_text = file_pointer.read()
             file_pointer.close()
@@ -141,23 +150,27 @@ class BreweryPage():
         # okay, we have some beers, so iterate through them
         vowels = "aeiou"
         for beer in self._beer_list:
-            beer_str += ' ' + beer._name.replace('IT', '<sub alias="it"> IT </sub>')
+            beer_str += ' ' + beer.name.replace('IT', '<sub alias="it"> IT </sub>')
 
-            if beer._style is not None:
-                beer_style = beer._style.replace('IPA', '<say-as interpret-as="spell-out">IPA</say-as>')
-                beer_style = beer_style.replace('DIPA', 'double <say-as interpret-as="spell-out">IPA</say-as>')
-                if beer._style[0].lower() in vowels:
+            if beer.style is not None:
+                if 'DIPA' in beer.style:
+                    beer_style = beer.style.replace('DIPA',
+                                                    'double <say-as interpret-as="spell-out">IPA</say-as>')
+                else:
+                    beer_style = beer.style.replace('IPA',
+                                                    '<say-as interpret-as="spell-out">IPA</say-as>')
+                if beer.style[0].lower() in vowels:
                     beer_str += ", an " + beer_style
                 else:
                     beer_str += ", a " + beer_style
-            if beer._abv is not None:
-                beer_str += " that is " + beer._abv + " alcohol"
-            if len(beer._hops) > 0:
+            if beer.abv is not None:
+                beer_str += " that is " + beer.abv + " alcohol"
+            if beer.has_hops():
                 beer_str += ", hopped with "
-                if len(beer._hops) == 1:
-                    beer_str += beer._hops[0]
+                if len(beer.hops) == 1:
+                    beer_str += beer.hops[0]
                 else:
-                    beer_str += "{} and {}".format(", ".join(beer._hops[:-1]), beer._hops[-1])
+                    beer_str += "{} and {}".format(", ".join(beer.hops[:-1]), beer.hops[-1])
 
             beer_str += "."
 

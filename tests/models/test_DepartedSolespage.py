@@ -1,17 +1,11 @@
 from unittest import TestCase
 import os
-from models.breweries.DepartedSoles import DepartedSolespage
+from models.breweries.departedsoles import DepartedSolespage
+from tests.models.common import data_dir
 
 
 class TestDepartedSolespage(TestCase):
-
-    def data_dir(self) -> str:
-        """common function to location test folder"""
-        # return the test data directory from the current root
-        cwd = os.getcwd().replace('\\', '/')
-        root = cwd.split('/tests')[0]
-        path = root + '/tests/data/'
-        return path
+    """test for the departed soles web scraping page"""
 
     def test_DepartedSoles_read(self):
         """Test that we can do basic read of page"""
@@ -28,7 +22,7 @@ class TestDepartedSolespage(TestCase):
         assert beer_string is not None
 
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        file_name = self.data_dir() + dsp._brewery_name.replace(' ', '') + '.SSML'
+        file_name = data_dir() + dsp._brewery_name.replace(' ', '') + '.SSML'
         file_pointer = open(file_name, 'r')
         tst_data = file_pointer.read()
         file_pointer.close()

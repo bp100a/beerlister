@@ -1,3 +1,4 @@
+"""Read the tap list for breweries hosted by BeerMenus"""
 import bs4 as bs
 from models.breweries.beerlist import BreweryPage
 from models.breweries.beerlist import Beer
@@ -9,13 +10,13 @@ BREWERY_INFO = {"Rinn Duin Brewing" : [17853]}
 class BeerMenusPage(BreweryPage):
     """BeerMenus hosted taplists"""
 
-    def __init__(self, *args, **kwargs):
-        BreweryPage.__init__(self, *args, **kwargs)
+    def __init__(self, **kwargs):
+        BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Rinn Duin Brewing" : ["Rinn Duin","Rinn Duin Brewery"]}
+        self._alias = {"Rinn Duin Brewing" : ["Rinn Duin", "Rinn Duin Brewery"]}
 
-    def fetch_taplist(self, *args, **kwargs) -> None:
+    def fetch_taplist(self, **kwargs) -> None:
         """fetch the taplist for this specific beer management software"""
         if kwargs.get('brewery') is not None:
             brewery = kwargs['brewery']
@@ -24,7 +25,7 @@ class BeerMenusPage(BreweryPage):
         loc_theme = BREWERY_INFO[brewery]
         url = "https://beermenus.com/menu_widgets/{0}".format(loc_theme[0])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
-        assert(self._url is not None)
+        assert self._url is not None
         self.read_page() # read the page
         assert self._cached_response is not None
         assert self._soup is not None
@@ -39,7 +40,6 @@ class BeerMenusPage(BreweryPage):
         assert end_pos is not -1
         self._soup = bs.BeautifulSoup(html_menu, "html.parser")
         assert self._soup is not None
-        ontap_list = self._soup.find_all("tbody", {"class": "on_tap"})
         taplist_table = self._soup.find('table', attrs={'class': 'on_tap-section'})
         table_body = taplist_table.find('tbody')
         rows = table_body.find_all('tr')

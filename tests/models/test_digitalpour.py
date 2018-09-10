@@ -1,18 +1,10 @@
 from unittest import TestCase
+import os
 from models.breweries.digitalpour import DigitalPourPage
 from models.breweries.digitalpour import BREWERY_INFO
-import os
-
+from tests.models.common import data_dir
 
 class TestDigitalPourpage(TestCase):
-
-    @staticmethod
-    def data_dir() -> str:
-        # return the test data directory from the current root
-        cwd = os.getcwd().replace('\\', '/')
-        root = cwd.split('/tests')[0]
-        path = root + '/tests/data/'
-        return path
 
     def test_DigitalPour_read(self):
         """Test we can read all breweries for this provider"""
@@ -31,7 +23,7 @@ class TestDigitalPourpage(TestCase):
             assert beer_string is not None
 
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            fn = self.data_dir() + brewery.replace(' ', '') + '.SSML'
+            fn = data_dir() + brewery.replace(' ', '') + '.SSML'
             fp = open(fn, 'r')
             tst_data = fp.read()
             fp.close()

@@ -2,17 +2,10 @@ from unittest import TestCase
 import os
 from models.breweries.untappd import UnTappdPage
 from models.breweries.untappd import BREWERY_INFO
+from tests.models.common import data_dir
+
 
 class TestUntappdpage(TestCase):
-
-    @staticmethod
-    def data_dir() -> str:
-        """common function to location test folder"""
-        # return the test data directory from the current root
-        cwd = os.getcwd().replace('\\', '/')
-        root = cwd.split('/tests')[0]
-        path = root + '/tests/data/'
-        return path
 
     def test_Untappd_read(self):
         """Test we can access all breweries we know about"""
@@ -31,7 +24,7 @@ class TestUntappdpage(TestCase):
             beer_string = ut.ssml_taplist()
             assert beer_string is not None
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            file_name = self.data_dir() + brewery_name.replace(' ', '') + '.SSML'
+            file_name = data_dir() + brewery_name.replace(' ', '') + '.SSML'
             file_pointer = open(file_name, 'r')
             tst_data = file_pointer.read()
             file_pointer.close()

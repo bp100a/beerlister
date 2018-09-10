@@ -1,18 +1,10 @@
 from unittest import TestCase
+import os
 from models.breweries.beermenus import BeerMenusPage
 from models.breweries.beermenus import BREWERY_INFO
-import os
-
+from tests.models.common import data_dir
 
 class TestBeerMenuspage(TestCase):
-
-    def data_dir(self) -> str:
-        """common function to format location of test folder"""
-        # return the test data directory from the current root
-        cwd = os.getcwd().replace('\\', '/')
-        root = cwd.split('/tests')[0]
-        path = root + '/tests/data/'
-        return path
 
     def test_BeerMenus_read(self):
         """Test that we can read beer menu pages for all known breweries"""
@@ -31,7 +23,7 @@ class TestBeerMenuspage(TestCase):
             assert beer_string is not None
 
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            fn = self.data_dir() + brewery.replace(' ', '') + '.SSML'
+            fn = data_dir() + brewery.replace(' ', '') + '.SSML'
             fp = open(fn, mode='r', encoding='utf8')
             tst_data = fp.read()
             fp.close()

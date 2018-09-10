@@ -1,1 +1,2 @@
-__all__ = ["beermenus", "DepartedSoles", "TwinElephant", "untappd", "digitalpour"]
+"""List of all modules in this package, needed to do wildcard load"""
+__all__ = ["beermenus", "departedsoles", "twinelephant", "untappd", "digitalpour"]

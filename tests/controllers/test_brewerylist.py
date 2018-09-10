@@ -8,9 +8,9 @@ class TestBreweryList(TestCase):
 
     def test_brewery_list(self):
         """ Test that all know brewery objects are listed in the global variable brewery_page_list"""
-        brewery_page_objects = ["<class \'models.breweries.DepartedSoles.DepartedSolespage\'>",
+        brewery_page_objects = ["<class \'models.breweries.departedsoles.DepartedSolespage\'>",
                                 "<class \'models.breweries.untappd.UnTappdPage\'>",
-                                "<class \'models.breweries.TwinElephant.TEBpage\'>",
+                                "<class \'models.breweries.twinelephant.TEBpage\'>",
                                 "<class \'models.breweries.beermenus.BeerMenusPage\'>",
                                 "<class \'models.breweries.digitalpour.DigitalPourPage\'>"]
         for brewery in brewerylist.BREWERY_PAGES.brewery_page_list:
@@ -20,14 +20,14 @@ class TestBreweryList(TestCase):
     def test_find_breweries(self):
         """Test that all known breweries and their alias can be properly found in the global brewery_page_list"""
         # first define a list of breweries we should find
-        known_breweries = {"Twin Elephant" : "<class \'models.breweries.TwinElephant.TEBpage\'>",
-                           "TEB": "<class \'models.breweries.TwinElephant.TEBpage\'>",
-                           "Twin Elephant Brewing": "<class \'models.breweries.TwinElephant.TEBpage\'>",
-                           "Twin Elephant Brewery": "<class \'models.breweries.TwinElephant.TEBpage\'>",
+        known_breweries = {"Twin Elephant" : "<class \'models.breweries.twinelephant.TEBpage\'>",
+                           "TEB": "<class \'models.breweries.twinelephant.TEBpage\'>",
+                           "Twin Elephant Brewing": "<class \'models.breweries.twinelephant.TEBpage\'>",
+                           "Twin Elephant Brewery": "<class \'models.breweries.twinelephant.TEBpage\'>",
 
-                           "Departed Soles" : "<class \'models.breweries.DepartedSoles.DepartedSolespage\'>",
-                           "Departed Soles Brewing": "<class \'models.breweries.DepartedSoles.DepartedSolespage\'>",
-                           "Departed Soles Brewery": "<class \'models.breweries.DepartedSoles.DepartedSolespage\'>",
+                           "Departed Soles" : "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
+                           "Departed Soles Brewing": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
+                           "Departed Soles Brewery": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
 
                            "Man Skirt" : "<class \'models.breweries.untappd.UnTappdPage\'>",
                            "Man Skirt Brewing" : "<class \'models.breweries.untappd.UnTappdPage\'>",
@@ -67,8 +67,8 @@ class TestBreweryList(TestCase):
         """We will clearn the brewery list then manually add all known objects, then verify"""
         # clear the brewerylist
         brewerylist.BREWERY_PAGES.brewery_page_list = []
-        brewerylist.BREWERY_PAGES.add_brewery_page(TwinElephant.TEBpage())
-        brewerylist.BREWERY_PAGES.add_brewery_page(DepartedSoles.DepartedSolespage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(twinelephant.TEBpage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(departedsoles.DepartedSolespage())
         brewerylist.BREWERY_PAGES.add_brewery_page(digitalpour.DigitalPourPage())
         brewerylist.BREWERY_PAGES.add_brewery_page(beermenus.BeerMenusPage())
         brewerylist.BREWERY_PAGES.add_brewery_page(untappd.UnTappdPage())
