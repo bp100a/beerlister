@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """ The Taplist for Breweries! """
-# pylint: disable-msg=R0911
+# pylint: disable-msg=R0911, W0401
 from controllers import brewerylist # for clarity
 from models.breweries import *
 
@@ -30,6 +30,7 @@ def lambda_handler(event, context):
     elif event['request']['type'] == "SessionEndedRequest":
         return on_session_ended()
 
+    return None
 
 # --------------- Response handlers -----------------
 
@@ -42,7 +43,7 @@ def on_intent(request, session):
     if intent_name == "GetTapListIntent":
         return get_taplist_response(request['intent'])
     elif intent_name == 'ListBreweries':
-        return list_of_breweries_response(request['intent'])
+        return list_of_breweries_response()
     elif intent_name == "AMAZON.HelpIntent":
         return get_help_response()
     elif intent_name == "AMAZON.StopIntent":
@@ -51,11 +52,11 @@ def on_intent(request, session):
         return get_stop_response()
     elif intent_name == "AMAZON.FallbackIntent":
         return get_fallback_response()
-    else:
-        return get_help_response()
+
+    return get_help_response()
 
 
-def list_of_breweries_response(intent: dict):
+def list_of_breweries_response():
     """Return a list of breweries that we support"""
     list_of_breweries = brewerylist.BREWERY_PAGES.ssml_brewery_list()
     return response(speech_response(list_of_breweries, True))
@@ -69,7 +70,7 @@ def get_taplist_response(intent: dict):
 
     # if we couldn't find the brewery, respond with a the list of breweries we know
     if brewery_id is None or bobj is None:
-        return list_of_breweries_response(intent)
+        return list_of_breweries_response()
 
     if 'mocked' in intent:
         bobj.mocking = intent['mocked']
