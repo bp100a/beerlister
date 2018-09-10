@@ -12,7 +12,7 @@ I'm from Jersey so I'm concentrating on Jersey Breweries. I use BeautifulSoup (a
 
 You can ask the following:
 
-"ask TapList what breweries do you known?"
+"ask TapList what breweries do you know?"
 "ask Taplist, what is on tap at {brewery name}?"
 
 I accept the obvious aliases for a brewery name e.g. "Alementary", "Alementary Brewery" and "Alementary Brewing". The brewery list read back will use the "shortest" name specified for the brewery.
