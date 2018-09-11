@@ -5,7 +5,7 @@ from controllers import brewerylist # for clarity
 from models.breweries import *
 
 SKILL_NAME = "TapList"
-HELP_MESSAGE = "You can ask what is on tap at brewery name, " + \
+HELP_MESSAGE = "You can ask what is on tap at select breweries by name, " + \
                "or you can say exit... What can I help you with?"
 HELP_REPROMPT = "What can I help you with?"
 STOP_MESSAGE = "Goodbye!"
