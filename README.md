@@ -22,6 +22,7 @@ There's been a lot of testing and deployment incorporated into the codebase (not
 TBD:
 - CACHEING! This is important as tap lists don't change often
 - robustness. This code, while well tested, doesn't handle problems gracefully. If the pages scrape change their structure, we'll do very bad things.
+- more breweries!
 
 
 If you have a favorite brewery you want included, send me a message!
