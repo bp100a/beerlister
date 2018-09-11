@@ -25,7 +25,7 @@ rd /q /s "%WORKSPACE%\lambda_deploy\pylint-2.1.1.dist-info"
 rd /q /s "%WORKSPACE%\lambda_deploy\requests_mock"
 rd /q /s "%WORKSPACE%\lambda_deploy\requests_mock-1.5.0.dist-info"
 rd /q /s "%WORKSPACE%\lambda_deploy\astroid"
-rd /q /s "%WORKSPACE%\lambda_deploy\astroid-2.04.dist-info"
+rd /q /s "%WORKSPACE%\lambda_deploy\astroid-2.0.4.dist-info"
 rd /q /s "%WORKSPACE%\lambda_deploy\coverage"
 rd /q /s "%WORKSPACE%\lambda_deploy\coverage-4.5.1.dist-info"
 rd /q /s "%WORKSPACE%\lambda_deploy\colorama"
@@ -36,6 +36,10 @@ rd /q /s "%WORKSPACE%\lambda_deploy\lazy_object_proxy"
 rd /q /s "%WORKSPACE%\lambda_deploy\lazy_object_proxy-1.3.1.dist-info"
 rd /q /s "%WORKSPACE%\lambda_deploy\pip"
 rd /q /s "%WORKSPACE%\lambda_deploy\pip-18.0.dist-info"
+
+:: some miscellaneous cleanup
+rm /q "%WORKSPACE%\lambda_deploy\*.pyd"
+rd /q /s "%WORKSPACE%\lambda_deploy\__pycache__"
 
 :: Copy over code modules
 xcopy /s /y "%WORKSPACE%\controllers\*.*" "%WORKSPACE%\lambda_deploy\controllers\"
@@ -51,4 +55,3 @@ del /q "%WORKSPACE%\lambda_deploy\taplist.zip"
 
 :: Generate our deployment package
 "%ZIP_PROG%" a -r "%WORKSPACE%\lambda_deploy\taplist.zip" "%WORKSPACE%\lambda_deploy\*.*"
-
