@@ -17,6 +17,8 @@ You can ask the following:
 
 I accept the obvious aliases for a brewery name e.g. "Alementary", "Alementary Brewery" and "Alementary Brewing". The brewery list read back will use the "shortest" name specified for the brewery.
 
+There's been a lot of testing and deployment incorporated into the codebase (note passwords!)
+
 TBD:
 - CACHEING! This is important as tap lists don't change often
 - robustness. This code, while well tested, doesn't handle problems gracefully. If the pages scrape change their structure, we'll do very bad things.
