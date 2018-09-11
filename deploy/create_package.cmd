@@ -34,9 +34,21 @@ rd /q /s "%WORKSPACE%\lambda_deploy\httplib2"
 rd /q /s "%WORKSPACE%\lambda_deploy\httplib2-0.11.3.dist-info"
 rd /q /s "%WORKSPACE%\lambda_deploy\lazy_object_proxy"
 rd /q /s "%WORKSPACE%\lambda_deploy\lazy_object_proxy-1.3.1.dist-info"
+rd /q /s "%WORKSPACE%\lambda_deploy\pip"
+rd /q /s "%WORKSPACE%\lambda_deploy\pip-18.0.dist-info"
 
 :: Copy over code modules
 xcopy /s /y "%WORKSPACE%\controllers\*.*" "%WORKSPACE%\lambda_deploy\controllers\"
 xcopy /s /y "%WORKSPACE%\models\*.*" "%WORKSPACE%\lambda_deploy\models\"
 copy /y "%WORKSPACE%\*.py" "%WORKSPACE%\lambda_deploy\"
 copy /y "%WORKSPACE%\requirements.txt" "%WORKSPACE%\lambda_deploy\requirements.txt"
+
+:: Now zip it all up
+set ZIP_PROG=c:\Program Files\7-Zip\7z.exe
+
+:: Clean out pre-eixsting if any
+del /q "%WORKSPACE%\lambda_deploy\taplist.zip"
+
+:: Generate our deployment package
+"%ZIP_PROG%" a -r "%WORKSPACE%\lambda_deploy\taplist.zip" "%WORKSPACE%\lambda_deploy\*.*"
+
