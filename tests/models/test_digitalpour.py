@@ -23,10 +23,10 @@ class TestDigitalPourpage(TestCase):
             assert beer_string is not None
 
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            fn = data_dir() + brewery.replace(' ', '') + '.SSML'
-            fp = open(fn, 'r')
-            tst_data = fp.read()
-            fp.close()
+            file_name = data_dir() + brewery.replace(' ', '') + '.SSML'
+            file_pointer = open(file_name, 'r')
+            tst_data = file_pointer.read()
+            file_pointer.close()
             assert tst_data == beer_string  # anything different, raise hell!
 
     def test_DigitalPour_aliases(self):

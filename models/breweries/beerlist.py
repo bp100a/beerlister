@@ -160,8 +160,20 @@ class BreweryPage():
         # okay, we have some beers, so iterate through them
         vowels = "aeiou"
         for beer in self._beer_list:
-            beer_str += ' ' + beer.name.replace('IT', '<sub alias="it"> IT </sub>')
+            beer_name = beer.name.replace('IT', '<sub alias="it"> IT </sub>')
 
+            if 'NEIPA' in beer_name:
+                beer_name = \
+                    beer_name.replace('NEIPA',
+                                      'New England <say-as interpret-as="spell-out">IPA</say-as>')
+            elif 'DIPA' in beer_name:
+                beer_name = \
+                    beer_name.replace('DIPA',
+                                      'double <say-as interpret-as="spell-out">IPA</say-as>')
+            else:
+                beer_name = beer_name.replace('IPA',
+                                              '<say-as interpret-as="spell-out">IPA</say-as>')
+            beer_str += ' ' + beer_name
             if beer.style is not None:
                 if 'DIPA' in beer.style:
                     beer_style = \
