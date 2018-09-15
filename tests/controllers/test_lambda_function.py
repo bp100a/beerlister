@@ -58,3 +58,12 @@ class TestAWSlambda(TestCase):
         response = lambda_function.lambda_handler(event=event, context=None)
         assert response is not None
         assert response['response']['outputSpeech']['text'].startswith('Here are the breweries I know:')
+
+    def test_openskill(self):
+        fn = self.data_dir() + 'OpenTaplist.json'
+        fp = open(fn, mode='r', encoding='utf8')
+        json_intent = fp.read()
+        fp.close()
+        event = json.loads(json_intent)
+        response = lambda_function.lambda_handler(event=event['payload']['content']['invocationRequest']['body'], context=None)
+        assert response is not None

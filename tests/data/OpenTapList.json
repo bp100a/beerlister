@@ -1,0 +1,57 @@
+{
+    "header": {
+        "namespace": "SkillDebugger",
+        "name": "CaptureDebuggingInfo",
+        "messageId": "c73802bc-ef7c-4e4a-8cfa-1fe705c9f110"
+    },
+    "payload": {
+        "skillId": "amzn1.ask.skill.c7d624da-94bf-4175-8909-bf9d6f4ea085",
+        "timestamp": "2018-09-15T13:44:22.835Z",
+        "dialogRequestId": "5d96196b-5630-4bfb-abc5-2acfdf7d3445",
+        "skillRequestId": "amzn1.echo-api.request.84d35257-1d16-42f4-b5cd-1a3a3ed22ae8",
+        "type": "SkillExecutionInfo",
+        "content": {
+            "invocationRequest": {
+                "endpoint": "arn:aws:lambda:us-east-1:591188663968:function:TapList",
+                "body": {
+                    "version": "1.0",
+                    "session": {
+                        "new": true,
+                        "sessionId": "amzn1.echo-api.session.789c480f-d12b-4d36-a647-90a8e29aace0",
+                        "application": {
+                            "applicationId": "amzn1.ask.skill.c7d624da-94bf-4175-8909-bf9d6f4ea085"
+                        },
+                        "user": {
+                            "userId": "amzn1.ask.account.AE53V7JF7U5ZCQHJTUYDLHKNKIP23LBVJVA4UISZUZBMUP7APYXL4WINBAFUFO647ZCWWR7ECPWV7YGPQPITT7X5FULYHALENOJ5XQC75TEELCTXA332I2POGQFEUYKFRU7EGSFBQPKBM22YENJVVTUR2XNX2P7S7O6I3SKXFJE4XJ2GJZ4WXKP7YIOSRNGZGNJECFEJIN5XELY"
+                        }
+                    },
+                    "context": {
+                        "System": {
+                            "application": {
+                                "applicationId": "amzn1.ask.skill.c7d624da-94bf-4175-8909-bf9d6f4ea085"
+                            },
+                            "user": {
+                                "userId": "amzn1.ask.account.AE53V7JF7U5ZCQHJTUYDLHKNKIP23LBVJVA4UISZUZBMUP7APYXL4WINBAFUFO647ZCWWR7ECPWV7YGPQPITT7X5FULYHALENOJ5XQC75TEELCTXA332I2POGQFEUYKFRU7EGSFBQPKBM22YENJVVTUR2XNX2P7S7O6I3SKXFJE4XJ2GJZ4WXKP7YIOSRNGZGNJECFEJIN5XELY"
+                            },
+                            "device": {
+                                "deviceId": "amzn1.ask.device.AFCIRVZMA46R4CQ4TZ6GBXIP2H5SJMKY65FTK2OZ4QX5NHNP2RBSREZRV5SMMTT5VBZJXJVZDEWSXYVE642X43X5FO3MYQ6NUKZDV5G5EXVOZSRIRRMWLX4QUJ3LK2FV4WCW3PN4ZEE3OWNIHIBSHMNWO6JA",
+                                "supportedInterfaces": {}
+                            },
+                            "apiEndpoint": "https://api.amazonalexa.com",
+                            "apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmM3ZDYyNGRhLTk0YmYtNDE3NS04OTA5LWJmOWQ2ZjRlYTA4NSIsImV4cCI6MTUzNzAyMjY2MiwiaWF0IjoxNTM3MDE5MDYyLCJuYmYiOjE1MzcwMTkwNjIsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUZDSVJWWk1BNDZSNENRNFRaNkdCWElQMkg1U0pNS1k2NUZUSzJPWjRRWDVOSE5QMlJCU1JFWlJWNVNNTVRUNVZCWkpYSlZaREVXU1hZVkU2NDJYNDNYNUZPM01ZUTZOVUtaRFY1RzVFWFZPWlNSSVJSTVdMWDRRVUozTEsyRlY0V0NXM1BONFpFRTNPV05JSElCU0hNTldPNkpBIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUU1M1Y3SkY3VTVaQ1FISlRVWURMSEtOS0lQMjNMQlZKVkE0VUlTWlVaQk1VUDdBUFlYTDRXSU5CQUZVRk82NDdaQ1dXUjdFQ1BXVjdZR1BRUElUVDdYNUZVTFlIQUxFTk9KNVhRQzc1VEVFTENUWEEzMzJJMlBPR1FGRVVZS0ZSVTdFR1NGQlFQS0JNMjJZRU5KVlZUVVIyWE5YMlA3UzdPNkkzU0tYRkpFNFhKMkdKWjRXWEtQN1lJT1NSTkdaR05KRUNGRUpJTjVYRUxZIn19.TL8agxivGEAdoC4nfIwpWSBYkCadOWae3hGWm15i-h_Mg1bM8ObbYMSCAhYWnKpuJcNq7fIcz7EvD_TkXfKAO0O4-_wykZZMaLByy6u6gPcz3sg3fqSWVx0nfEnNeh9GD36nlTboL1ZLhrvTBvUQAAN_gHYifOt9Ufjuy_GeQpoYNOiWMwKiSQ8I18DAdh-J2QjJCbQhHHBes-rNQ8qJpKk443Xi94pQkzgQtRAL40_k9aFINWKvQoGsXUjpr9ugLDpwh3w8hM_fqUBSK-xZSdJX0T2I93xZl-6LcahKKRNihyHY2PbIvhfUdKf9aZ8yEkkS2EagiExSlzy6sQPR-g"
+                        }
+                    },
+                    "request": {
+                        "type": "LaunchRequest",
+                        "requestId": "amzn1.echo-api.request.84d35257-1d16-42f4-b5cd-1a3a3ed22ae8",
+                        "timestamp": "2018-09-15T13:44:22Z",
+                        "locale": "en-US",
+                        "shouldLinkResultBeReturned": false
+                    }
+                }
+            },
+            "invocationResponse": null,
+            "metrics": null
+        }
+    }
+}

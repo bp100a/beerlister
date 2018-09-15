@@ -91,7 +91,7 @@ def get_launch_response():
 
     """ get and return the help string  """
 
-    return response(HELP_MESSAGE)
+    return response(speech_response(HELP_MESSAGE, False))
 
 
 def get_stop_response():
