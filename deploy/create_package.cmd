@@ -58,4 +58,4 @@ del /q "%WORKSPACE%\lambda_deploy\taplist.zip"
 "%ZIP_PROG%" a -r "%WORKSPACE%\lambda_deploy\taplist.zip" "%WORKSPACE%\lambda_deploy\*.*"
 
 :: now push it up to the AWS
-aws lambda update-function-code --function-name TapList --zip-file fileb://taplist.zip
+aws lambda update-function-code --function-name TapList --zip-file fileb://lambda_deploy/taplist.zip
