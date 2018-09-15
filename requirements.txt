@@ -9,6 +9,7 @@ olefile==0.45.1
 pyasn1==0.4.2
 pyasn1-modules==0.2.1
 python-dateutil==2.7.3
+python-lambda-local==0.1.5
 requests==2.9.1
 requests-mock==1.5.0
 rsa==3.4.2
