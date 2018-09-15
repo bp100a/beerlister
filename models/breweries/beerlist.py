@@ -197,4 +197,6 @@ class BreweryPage():
 
             beer_str += "."
 
+        beer_str = beer_str.replace(' & ', ' and ')
+        beer_str = beer_str.replace('&', ' and ')
         return beer_str

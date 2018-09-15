@@ -16,7 +16,7 @@ class TestAWSlambda(TestCase):
 
     def test_gettaplistintent(self):
         """Test that we can get brewery response for a pre-canned intent object"""
-        breweries = ["Twin Elephant", "Rinn Duin Brewing", "Alementary Brewing"]
+        breweries = ["Twin Elephant", "Rinn Duin Brewing", "Alementary Brewing", "Village Idiot"]
 
         for brewery in breweries:
             fn = self.data_dir() + 'GetTapListIntent_' + brewery.replace(' ', '') + '.json'

@@ -1,0 +1,64 @@
+{
+	"version": "1.0",
+	"session": {
+		"new": true,
+		"sessionId": "amzn1.echo-api.session.f48c1793-317a-4f9a-b131-bd358d9bbe15",
+		"application": {
+			"applicationId": "amzn1.ask.skill.c7d624da-94bf-4175-8909-bf9d6f4ea085"
+		},
+		"user": {
+			"userId": "amzn1.ask.account.AE53V7JF7U5ZCQHJTUYDLHKNKIP23LBVJVA4UISZUZBMUP7APYXL4WINBAFUFO647ZCWWR7ECPWV7YGPQPITT7X5FULYHALENOJ5XQC75TEELCTXA332I2POGQFEUYKFRU7EGSFBQPKBM22YENJVVTUR2XNX2P7S7O6I3SKXFJE4XJ2GJZ4WXKP7YIOSRNGZGNJECFEJIN5XELY"
+		}
+	},
+	"context": {
+		"System": {
+			"application": {
+				"applicationId": "amzn1.ask.skill.c7d624da-94bf-4175-8909-bf9d6f4ea085"
+			},
+			"user": {
+				"userId": "amzn1.ask.account.AE53V7JF7U5ZCQHJTUYDLHKNKIP23LBVJVA4UISZUZBMUP7APYXL4WINBAFUFO647ZCWWR7ECPWV7YGPQPITT7X5FULYHALENOJ5XQC75TEELCTXA332I2POGQFEUYKFRU7EGSFBQPKBM22YENJVVTUR2XNX2P7S7O6I3SKXFJE4XJ2GJZ4WXKP7YIOSRNGZGNJECFEJIN5XELY"
+			},
+			"device": {
+				"deviceId": "amzn1.ask.device.AFCIRVZMA46R4CQ4TZ6GBXIP2H5SJMKY65FTK2OZ4QX5NHNP2RBSREZRV5SMMTT5VBZJXJVZDEWSXYVE642X43X5FO3MYQ6NUKZDV5G5EXVOZSRIRRMWLX4QUJ3LK2FV4WCW3PN4ZEE3OWNIHIBSHMNWO6JA",
+				"supportedInterfaces": {}
+			},
+			"apiEndpoint": "https://api.amazonalexa.com",
+			"apiAccessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJhdWQiOiJodHRwczovL2FwaS5hbWF6b25hbGV4YS5jb20iLCJpc3MiOiJBbGV4YVNraWxsS2l0Iiwic3ViIjoiYW16bjEuYXNrLnNraWxsLmM3ZDYyNGRhLTk0YmYtNDE3NS04OTA5LWJmOWQ2ZjRlYTA4NSIsImV4cCI6MTUzNzAzMTUyNiwiaWF0IjoxNTM3MDI3OTI2LCJuYmYiOjE1MzcwMjc5MjYsInByaXZhdGVDbGFpbXMiOnsiY29uc2VudFRva2VuIjpudWxsLCJkZXZpY2VJZCI6ImFtem4xLmFzay5kZXZpY2UuQUZDSVJWWk1BNDZSNENRNFRaNkdCWElQMkg1U0pNS1k2NUZUSzJPWjRRWDVOSE5QMlJCU1JFWlJWNVNNTVRUNVZCWkpYSlZaREVXU1hZVkU2NDJYNDNYNUZPM01ZUTZOVUtaRFY1RzVFWFZPWlNSSVJSTVdMWDRRVUozTEsyRlY0V0NXM1BONFpFRTNPV05JSElCU0hNTldPNkpBIiwidXNlcklkIjoiYW16bjEuYXNrLmFjY291bnQuQUU1M1Y3SkY3VTVaQ1FISlRVWURMSEtOS0lQMjNMQlZKVkE0VUlTWlVaQk1VUDdBUFlYTDRXSU5CQUZVRk82NDdaQ1dXUjdFQ1BXVjdZR1BRUElUVDdYNUZVTFlIQUxFTk9KNVhRQzc1VEVFTENUWEEzMzJJMlBPR1FGRVVZS0ZSVTdFR1NGQlFQS0JNMjJZRU5KVlZUVVIyWE5YMlA3UzdPNkkzU0tYRkpFNFhKMkdKWjRXWEtQN1lJT1NSTkdaR05KRUNGRUpJTjVYRUxZIn19.Zh_y0ONlSdofu7PrfvuIbjtFATdjO6lRazbm_QRDeP77YDLmEUrKGgPA5cVjHeP8XSmxnPxH5AmxgGnGFJ-sblAfoFTixxBvJIJeZ3ZyTL2uku5y3PaCsvsXUWSiqKvqvZaGrJ8YBZsa2T8LDLH3LspS1uNVh7REs_7WEmX0IoIfFGhzqFaItHqdAs8kPw-L7OGzdCVCXHkfnXnQNBwwbdpwrX9XU-Ah7iukNtLjZmGngfqOItcpF3-oOjwsOjcFENqPR0-kJMed-FHTaQE57jLZupHtrhbvASMoHy3Vj4OZyYm22QUbi5vBNPhzfXlFs7C8pKVx4w3nYafpyFUfZg"
+		}
+	},
+	"request": {
+		"type": "IntentRequest",
+		"requestId": "amzn1.echo-api.request.f4151363-1a31-48c0-9a9a-ef5760b4eff0",
+		"timestamp": "2018-09-15T16:12:06Z",
+		"locale": "en-US",
+		"intent": {
+			"name": "GetTapListIntent",
+			"confirmationStatus": "NONE",
+			"slots": {
+				"brewery": {
+					"name": "brewery",
+					"value": "village idiot",
+					"resolutions": {
+						"resolutionsPerAuthority": [
+							{
+								"authority": "amzn1.er-authority.echo-sdk.amzn1.ask.skill.c7d624da-94bf-4175-8909-bf9d6f4ea085.BreweryName",
+								"status": {
+									"code": "ER_SUCCESS_MATCH"
+								},
+								"values": [
+									{
+										"value": {
+											"name": "Village Idiot",
+											"id": "d7c6e39a83284b708875bbf3e3e441d5"
+										}
+									}
+								]
+							}
+						]
+					},
+					"confirmationStatus": "NONE"
+				}
+			}
+		}
+	}
+}
