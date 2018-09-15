@@ -59,7 +59,7 @@ def on_intent(request, session):
 def list_of_breweries_response():
     """Return a list of breweries that we support"""
     list_of_breweries = brewerylist.BREWERY_PAGES.ssml_brewery_list()
-    return response(speech_response(list_of_breweries, True))
+    return response(speech_response(list_of_breweries, False))
 
 
 def get_taplist_response(intent: dict):
@@ -77,7 +77,7 @@ def get_taplist_response(intent: dict):
     bobj.fetch_taplist(brewery=brewery_id)
     beer_string = bobj.ssml_taplist()
     speech_output = beer_string
-    return response(speech_response_ssml(speech_output, True))
+    return response(speech_response_ssml(speech_output, False))
 
 
 def get_help_response():
