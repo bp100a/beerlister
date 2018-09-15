@@ -8,6 +8,9 @@ Currently read the following formats:
 - Departed Soles (Jersey City, NJ)
 - Twin Elephant Brewing (Chatham, NJ)
 
+TBD:
+- Jersey Girl Brewery
+
 I'm from Jersey so I'm concentrating on Jersey Breweries. I use BeautifulSoup (awesome!) to parse the HTML I scrape from the brewery and create an internal list of beers. Not all breweries provide all the information, but when available we pull the name, style, abv, ibu and hops for each beer.
 
 You can ask the following:
