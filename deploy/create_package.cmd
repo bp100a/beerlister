@@ -36,6 +36,7 @@ rd /q /s "%WORKSPACE%\lambda_deploy\lazy_object_proxy"
 rd /q /s "%WORKSPACE%\lambda_deploy\lazy_object_proxy-1.3.1.dist-info"
 rd /q /s "%WORKSPACE%\lambda_deploy\pip"
 rd /q /s "%WORKSPACE%\lambda_deploy\pip-18.0.dist-info"
+rd /q /s "%WORKSPACE%\lambda_deploy\aws-cli"
 
 :: some miscellaneous cleanup
 rm /q "%WORKSPACE%\lambda_deploy\*.pyd"
