@@ -16,11 +16,22 @@ class UnTappdPage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Fort Nonsense Brewing": ["Fort Nonsense", "Fort Nonsense Brewery"],
-                       "Alementary Brewing": ["Alementary", "Alementary Brewery", "elementary", "elementary brewing", "elementary brewery"],
-                       "Angry Erik": ["Angry Erik Brewing", "Angry Erik Brewery", "Angry Eric", "Angry Eric Brewing", "Angry Eric Brewery"],
-                       "Man Skirt Brewing": ["Man Skirt", "Man Skirt Brewery"],
-                       "Demented Brewing": ["Demented", "Demented Brewery"]}
+        self._alias = {"Fort Nonsense Brewing": ["Fort Nonsense",
+                                                 "Fort Nonsense Brewery"],
+                       "Alementary Brewing": ["Alementary",
+                                              "Alementary Brewery",
+                                              "elementary",
+                                              "elementary brewing",
+                                              "elementary brewery"],
+                       "Angry Erik": ["Angry Erik Brewing",
+                                      "Angry Erik Brewery",
+                                      "Angry Eric",
+                                      "Angry Eric Brewing",
+                                      "Angry Eric Brewery"],
+                       "Man Skirt Brewing": ["Man Skirt",
+                                             "Man Skirt Brewery"],
+                       "Demented Brewing": ["Demented",
+                                            "Demented Brewery"]}
 
     def parse_inner_content(self, beer) -> None:
         """parse the content for beer information"""

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """ The Taplist for Breweries! """
-# pylint: disable-msg=R0911, W0401, R1705
+# pylint: disable-msg=R0911, W0401, R1705, W0613
 from controllers import brewerylist # for clarity
 from models.breweries import *
 
