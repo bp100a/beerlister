@@ -34,4 +34,6 @@ class DepartedSolespage(BreweryPage):
 
 
 # add this to the list of breweries
-brewerylist.BREWERY_PAGES.add_brewery_page(DepartedSolespage())
+# Note: Don't add departed soles, talked to brewer and it's not
+#       up to date.
+# brewerylist.BREWERY_PAGES.add_brewery_page(DepartedSolespage())
