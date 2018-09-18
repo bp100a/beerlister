@@ -5,7 +5,7 @@ Currently read the following formats:
 - UnTappd (Man Skirt, Alementary, Fort Nonsense & Angry Erik)
 - Digital Pour (Village Idiot)
 - Beer Menus (Rinn Duin)
-- Departed Soles (Jersey City, NJ)
+- ~~Departed Soles (Jersey City, NJ)~~ (taplists are not up to date)
 - Twin Elephant Brewing (Chatham, NJ)
 
 TBD:
