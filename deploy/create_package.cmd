@@ -39,7 +39,7 @@ rd /q /s "%WORKSPACE%\lambda_deploy\pip-18.0.dist-info"
 rd /q /s "%WORKSPACE%\lambda_deploy\aws-cli"
 
 :: some miscellaneous cleanup
-rm /q "%WORKSPACE%\lambda_deploy\*.pyd"
+rd /q "%WORKSPACE%\lambda_deploy\*.pyd"
 rd /q /s "%WORKSPACE%\lambda_deploy\__pycache__"
 
 :: Copy over code modules
