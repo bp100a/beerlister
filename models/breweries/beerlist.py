@@ -128,7 +128,7 @@ class BreweryPage():
             if in_session is not None:
                 session.close()
         else:
-            filename = self._brewery_name.replace(' ', '') + '.html'
+            filename = self._brewery_name.replace(' ', '') + '.HTML'
             file_pointer = open(BreweryPage.testdata_dir() + filename, mode='r', encoding='utf8')
             assert file_pointer is not None
             rsp_text = file_pointer.read()
