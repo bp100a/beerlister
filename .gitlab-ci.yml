@@ -1,6 +1,12 @@
-py36_nose:
-    image: python:3.6
-    script:
-      - apt-get update -q -y
-      - pip install -r requirements.txt
-      - nosetests -v --nocapture
+image: "python:3.5"
+before_script:
+  - python --version
+  - pip install virtualenv
+  - pip install nose
+  - pip install --quiet pylint
+  - pip install -q -r requirements.txt
+stages:
+  - test
+test:
+  stage: test
+  script: nosetests --with-coverage --with-xunit --cover-package models --cover-package controllers --cover-package lambda_function.py --cover-branches
