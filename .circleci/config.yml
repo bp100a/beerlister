@@ -51,8 +51,8 @@ jobs:
           command: |
             . venv/bin/activate
             mkdir test-reports
-            nosetests --with-xcoverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py --cover-erase --cover-branches
-            mv .coverage test-reports/.coverage
+            nosetests --with-xcoverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py --cover-erase --cover-branches --xcoverage-file=test-reports/coverage.xml --xunit-file=test-reports/nosetests.xml
+            # mv .coverage test-reports/.coverage
 
             # we can't control the error status out of PyLint, so the first time and log everything
             # the 2nd run only looks for errors and doesn't log
