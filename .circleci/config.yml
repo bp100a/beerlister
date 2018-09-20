@@ -35,6 +35,7 @@ jobs:
             pip install -r requirements.txt
             pip install nose
             pip install --quiet pylint
+            pip install --quiet nosexcover
 
       - save_cache:
           paths:
