@@ -53,7 +53,9 @@ jobs:
             mkdir test-reports
             nosetests --with-coverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py --cover-erase --cover-branches
             mv .coverage test-reports/.coverage
-            pylint -f parseable controllers models lambda_function.py > test-reports/pylint.out
-
+            
       - store_artifacts:
+          path: test-reports/
+
+      - store_test_results:
           path: test-reports/
