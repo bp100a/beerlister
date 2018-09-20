@@ -53,7 +53,11 @@ jobs:
             mkdir test-reports
             nosetests --with-coverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py --cover-erase --cover-branches
             mv .coverage test-reports/.coverage
-            pylint -f parseable controllers models lambda_function.py > test-reports/pylint.out
+
+            # we can't control the error status out of PyLint, so the first time and log everything
+            # the 2nd run only looks for errors and doesn't log
+            pylint --exit-zero -f parseable controllers models lambda_function.py > test-reports/pylint.out
+            pylint --errors-only -f parseable controllers models lambda_function.py
             # PyLint returns
             # 0 if everything went fine
             # 1 if some fatal message issued
@@ -64,12 +68,6 @@ jobs:
             # 32 on usage error
             #status 1 to 16 will be bit-ORed so you can know which different
             #categories has been issued by analysing pylint output status code
-            if [$? & (32+2+1)]; then
-               echo "error in pylint!" # pay attention to these errors!
-            else
-               echo "warning in pylint!" # ignore these errors
-               $? = 0
-            fi
 
       - store_artifacts:
           path: test-reports/
