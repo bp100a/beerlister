@@ -32,6 +32,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
+            pip install --upgrade pip
             pip install -r requirements.txt
             pip install nose
             pip install --quiet pylint
@@ -49,7 +50,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            nosetests --with-coverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py
+            nosetests --with-coverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py --cover-erase --cover-branches
             pylint -f parseable controllers models lambda_function.py > pylint.out
 
       - store_artifacts:
