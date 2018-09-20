@@ -50,9 +50,10 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
+            mkdir test-reports
             nosetests --with-coverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py --cover-erase --cover-branches --xcoverage-file=test-reports/coverage.xml
             pylint -f parseable controllers models lambda_function.py > test-reports/pylint.out
 
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
+          path: test-reports/
+          destination: test-reports/
