@@ -35,7 +35,7 @@ jobs:
             pip install -r requirements.txt
             pip install nose
             pip install --quiet pylint
-            pip install --quiet nosexcover
+            pip install --quiet nosexunit
 
       - save_cache:
           paths:
@@ -49,7 +49,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            nosetests --with-xcoverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py
+            nosetests --with-coverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py
             pylint -f parseable controllers models lambda_function.py > pylint.out
 
       - store_artifacts:
