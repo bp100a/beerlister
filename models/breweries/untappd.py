@@ -4,9 +4,9 @@ from models.breweries.beerlist import BreweryPage
 from models.breweries.beerlist import Beer
 from controllers import brewerylist
 
-BREWERY_INFO = {"Fort Nonsense Brewing": [14504, 53940], "Alementary Brewing": [1192, 955],
-                "Angry Erik": [11871, 43606], "Man Skirt Brewing": [1576, 2092],
-                "Demented Brewing": [1591, 2137]}
+BREWERY_INFO = {"Fort Nonsense": [14504, 53940], "Alementary": [1192, 955],
+                "Angry Erik": [11871, 43606], "Man Skirt": [1576, 2092],
+                "Demented": [1591, 2137]}
 
 
 class UnTappdPage(BreweryPage):
@@ -16,22 +16,22 @@ class UnTappdPage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Fort Nonsense Brewing": ["Fort Nonsense",
-                                                 "Fort Nonsense Brewery"],
-                       "Alementary Brewing": ["Alementary",
-                                              "Alementary Brewery",
-                                              "elementary",
-                                              "elementary brewing",
-                                              "elementary brewery"],
+        self._alias = {"Fort Nonsense": ["Fort Nonsense Brewing",
+                                         "Fort Nonsense Brewery"],
+                       "Alementary": ["Alementary Brewing",
+                                      "Alementary Brewery",
+                                      "elementary",
+                                      "elementary brewing",
+                                      "elementary brewery"],
                        "Angry Erik": ["Angry Erik Brewing",
                                       "Angry Erik Brewery",
                                       "Angry Eric",
                                       "Angry Eric Brewing",
                                       "Angry Eric Brewery"],
-                       "Man Skirt Brewing": ["Man Skirt",
-                                             "Man Skirt Brewery"],
-                       "Demented Brewing": ["Demented",
-                                            "Demented Brewery"]}
+                       "Man Skirt": ["Man Skirt Brewing",
+                                     "Man Skirt Brewery"],
+                       "Demented": ["Demented Brewing",
+                                    "Demented Brewery"]}
 
     def parse_inner_content(self, beer) -> None:
         """parse the content for beer information"""

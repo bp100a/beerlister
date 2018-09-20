@@ -4,7 +4,7 @@ from models.breweries.beerlist import BreweryPage
 from models.breweries.beerlist import Beer
 from controllers import brewerylist
 
-BREWERY_INFO = {"Rinn Duin Brewing" : [17853]}
+BREWERY_INFO = {"Rinn Duin" : [17853]}
 
 
 class BeerMenusPage(BreweryPage):
@@ -14,7 +14,7 @@ class BeerMenusPage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Rinn Duin Brewing" : ["Rinn Duin", "Rinn Duin Brewery"]}
+        self._alias = {"Rinn Duin" : ["Rinn Duin Brewing", "Rinn Duin Brewery"]}
 
     def fetch_taplist(self, **kwargs) -> None:
         """fetch the taplist for this specific beer management software"""

@@ -42,25 +42,25 @@ class TestUntappdpage(TestCase):
         assert found is None
 
         found = untapped_page.brewery_by_alias("Alementary")
-        assert found == "Alementary Brewing"
+        assert found == "Alementary"
 
         found = untapped_page.brewery_by_alias("Alementary Brewery")
-        assert found == "Alementary Brewing"
+        assert found == "Alementary"
 
         found = untapped_page.brewery_by_alias("Angry Erik Brewing")
         assert found == "Angry Erik"
 
         found = untapped_page.brewery_by_alias("Man Skirt")
-        assert found == "Man Skirt Brewing"
+        assert found == "Man Skirt"
 
         found = untapped_page.brewery_by_alias("Man Skirt Brewery")
-        assert found == "Man Skirt Brewing"
+        assert found == "Man Skirt"
 
         found = untapped_page.brewery_by_alias("Demented")
-        assert found == "Demented Brewing"
+        assert found == "Demented"
 
         found = untapped_page.brewery_by_alias("Demented Brewery")
-        assert found == "Demented Brewing"
+        assert found == "Demented"
 
     def test_shortnames(self):
         """Test we have the proper short names"""

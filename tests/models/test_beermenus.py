@@ -41,13 +41,13 @@ class TestBeerMenuspage(TestCase):
         """Test that we can process proper alias for breweries"""
         bp = BeerMenusPage(mocked=True)
         found = bp.brewery_by_alias("Rinn Duin")
-        assert found == "Rinn Duin Brewing"
+        assert found == "Rinn Duin"
 
         found = bp.brewery_by_alias("Rinn Duin Brewing")
-        assert found == "Rinn Duin Brewing"
+        assert found == "Rinn Duin"
 
         found = bp.brewery_by_alias("Rinn Duin Brewery")
-        assert found == "Rinn Duin Brewing"
+        assert found == "Rinn Duin"
 
     def test_shortnames(self):
         """Test that we get back the short name for our brewery"""

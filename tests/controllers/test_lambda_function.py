@@ -16,7 +16,7 @@ class TestAWSlambda(TestCase):
 
     def test_gettaplistintent(self):
         """Test that we can get brewery response for a pre-canned intent object"""
-        breweries = ["Twin Elephant", "Rinn Duin Brewing", "Alementary Brewing", "Village Idiot"]
+        breweries = ["Twin Elephant", "Rinn Duin", "Alementary", "Village Idiot"]
 
         for brewery in breweries:
             fn = self.data_dir() + 'GetTapListIntent_' + brewery.replace(' ', '') + '.json'
@@ -60,7 +60,7 @@ class TestAWSlambda(TestCase):
         assert response['response']['outputSpeech']['text'].startswith('Here are the breweries I know:')
 
     def test_openskill(self):
-        fn = self.data_dir() + 'OpenTaplist.json'
+        fn = self.data_dir() + 'OpenTapList.json'
         fp = open(fn, mode='r', encoding='utf8')
         json_intent = fp.read()
         fp.close()

@@ -86,11 +86,7 @@ class BreweryPage():
         """this is the short name of the brewery we use when speaking"""
         short_list = list()
         for brewery in self._alias:
-            shortest_name = brewery
-            for alias in self._alias[brewery]:
-                if len(alias) < len(shortest_name):
-                    shortest_name = alias
-            short_list.append(shortest_name)
+            short_list.append(brewery)
 
         return short_list
 
