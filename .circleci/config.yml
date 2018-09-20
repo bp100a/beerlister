@@ -74,6 +74,34 @@ jobs:
 
       - store_test_results:
           path: test-reports/
+  deploy:
+    docker:
+      - image: circleci/python:3.6.1
+    working_directory: ~/repo
+      steps:
+        - checkout
+        - run:
+            name: install dependencies
+            command: |
+              python3 -m venv venv
+              . venv/bin/activate
+              pip install --upgrade pip
+              pip install -r requirements.txt
+        - run:
+            name: create lambda image
+            command: |
+              mkdir lambda_deploy
+              cp -r *.* ./lamda_deploy
+              cp -r ./venv/bin/Lib/site-packages ./lambda_deploy
+        - run:
+            name: zip up the package
+            command: zip -r ./lambda_deploy TapList.zip
+        - run:
+            name: Install awscli
+            command: sudo pip install awscli
+        - run:
+            name: zip up the configuration
+            aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
 
 workflows:
   version: 2
