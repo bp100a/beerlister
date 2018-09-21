@@ -94,7 +94,6 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt
-            sudo apt-get install -y zip
 
       - save_cache:
           paths:
@@ -113,8 +112,8 @@ jobs:
       - run:
           name: zip up the package
           command: |
-          cd lambda_deploy
-          zip -r ../TapList.zip *.*
+            cd lambda_deploy
+            zip -r ../TapList.zip *.*
       - run:
           name: Install awscli
           command: sudo pip install awscli
