@@ -121,10 +121,6 @@ jobs:
           name: upload the package
           command: aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
 
-      - store_artifacts:
-          name: stash deployment scripts
-          path: lambda_deploy/
-
 workflows:
   version: 2
   workflow:
