@@ -112,9 +112,9 @@ jobs:
       - run:
           name: remove unnecessary modules
           command: |
-            rm -r nose*.dist-info
-            rm -r python_lambda_local*.egg-info
-            rm -r waitress*.dist-info
+            rm -r lambda_deploy/nose*.dist-info
+            rm -r lambda_deploy/python_lambda_local*.egg-info
+            rm -r lambda_deploy/waitress*.dist-info
       - run:
           name: zip up the package
           command: |
