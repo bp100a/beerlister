@@ -112,11 +112,11 @@ jobs:
       - run:
           name: remove unnecessary modules
           command: |
-            rm -r pylint-2.1.1.dist-info
-            rm -r pip-18.0.dist-info
-            rm -r nose-1.3.7.dist-info
-            rm -r python_lambda_local-0.1.5-py3.6.egg-info
-            rm -r waitress-1.0.0.dist-info
+            rm -r pylint*.dist-info
+            rm -r pip*.dist-info
+            rm -r nose*.dist-info
+            rm -r python_lambda_local*.egg-info
+            rm -r waitress*.dist-info
       - run:
           name: zip up the package
           command: |
