@@ -112,8 +112,6 @@ jobs:
       - run:
           name: remove unnecessary modules
           command: |
-            rm -r pylint*.dist-info
-            rm -r pip*.dist-info
             rm -r nose*.dist-info
             rm -r python_lambda_local*.egg-info
             rm -r waitress*.dist-info
