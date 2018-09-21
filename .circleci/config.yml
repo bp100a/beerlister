@@ -94,6 +94,7 @@ jobs:
             . venv/bin/activate
             pip install --upgrade pip
             pip install -r requirements.txt
+            sudo apt-get install -y zip
 
       - save_cache:
           paths:
