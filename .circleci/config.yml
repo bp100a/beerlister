@@ -104,14 +104,15 @@ jobs:
           name: create lambda image
           command: |
             mkdir lambda_deploy
-            cp -r *.* ./lambda_deploy
             cp -r ./venv/lib/python3.6/site-packages/*.* ./lambda_deploy
-            cp -r ./controllers ./lambda_deploy
-            cp -r ./models ./lambda_deploy/
-            cp *.* ./lambda_deploy
+            cp -r controllers lambda_deploy
+            cp -r models lambda_deploy
+            cp *.py lambda_deploy
       - run:
           name: remove unnecessary modules
           command: |
+            rm -r lambda_deploy/pylint*.dist-info
+            rm -r lambda_deploy/pip*.dist-info
             rm -r lambda_deploy/nose*.dist-info
             rm -r lambda_deploy/python_lambda_local*.egg-info
             rm -r lambda_deploy/waitress*.dist-info
