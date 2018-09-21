@@ -101,5 +101,10 @@ jobs:
           command: sudo pip install awscli
       - run:
           name: upload the package
-          aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
+          command: aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
 
+workflows:
+  version: 2
+  workflow:
+    jobs:
+      - build
