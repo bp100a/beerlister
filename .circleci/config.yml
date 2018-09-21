@@ -113,7 +113,7 @@ jobs:
           name: zip up the package
           command: |
           cd lambda_deploy
-          zip -r ../TapList.zip
+          zip -r ../TapList.zip *.*
       - run:
           name: Install awscli
           command: sudo pip install awscli
