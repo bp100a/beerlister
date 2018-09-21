@@ -105,13 +105,15 @@ jobs:
           command: |
             mkdir lambda_deploy
             cp -r *.* ./lambda_deploy
-            cp -r ./venv/lib/python3.6/site-packages/ ./lambda_deploy
+            cp -r ./venv/lib/python3.6/site-packages/*.* ./lambda_deploy
             cp -r ./controllers ./lambda_deploy
             cp -r ./models ./lambda_deploy/
             cp *.* ./lambda_deploy
       - run:
           name: zip up the package
-          command: zip -r TapList.zip ./lambda_deploy
+          command: |
+          cd lambda_deploy
+          zip -r ../TapList.zip
       - run:
           name: Install awscli
           command: sudo pip install awscli
