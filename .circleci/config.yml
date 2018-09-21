@@ -91,7 +91,7 @@ jobs:
           name: create lambda image
           command: |
             mkdir lambda_deploy
-            cp -r *.* ./lamda_deploy
+            cp -r *.* ./lambda_deploy
             cp -r ./venv/bin/Lib/site-packages ./lambda_deploy
       - run:
           name: zip up the package
