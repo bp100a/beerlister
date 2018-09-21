@@ -106,7 +106,7 @@ jobs:
             mkdir lambda_deploy
             cp -r *.* ./lambda_deploy
             ls ./venv/lib
-            cp -r ./venv/lib/python3.6.1/site-packages ./lambda_deploy
+            cp -r ./venv/lib/python3.6/site-packages ./lambda_deploy
       - run:
           name: zip up the package
           command: zip -r TapList.zip ./lambda_deploy
