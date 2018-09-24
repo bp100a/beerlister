@@ -54,10 +54,6 @@ jobs:
             nosetests --with-xcoverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py --cover-erase --cover-branches --xcoverage-file=test-reports/coverage.xml --xunit-file=test-reports/nosetests.xml
             # mv .coverage test-reports/.coverage
 
-            # we can't control the error status out of PyLint, so the first time and log everything
-            # the 2nd run only looks for errors and doesn't log
-            pylint --exit-zero -f parseable controllers models lambda_function.py > test-reports/pylint.out
-            pylint --errors-only -f parseable controllers models lambda_function.py
             # PyLint returns
             # 0 if everything went fine
             # 1 if some fatal message issued
@@ -66,8 +62,13 @@ jobs:
             # 8 if some refactor message issued
             # 16 if some convention message issued
             # 32 on usage error
-            #status 1 to 16 will be bit-ORed so you can know which different
-            #categories has been issued by analysing pylint output status code
+            #     status 1 to 16 will be bit-ORed so you can know which different
+            #
+            #  categories has been issued by analysing pylint output status code
+            #  we can't control the error status out of PyLint, log everything 1st time
+            #  the 2nd run only looks for errors and doesn't log, but any errors will stop build
+            pylint --exit-zero -f parseable controllers models lambda_function.py > test-reports/pylint.out
+            pylint --errors-only -f parseable controllers models lambda_function.py
 
       - store_artifacts:
           path: test-reports/
@@ -122,13 +123,13 @@ jobs:
             cd lambda_deploy
             zip -r ../TapList.zip *
       - run:
-          name: Install awscli
+          name: Install AWS client
           command: sudo pip install awscli
       - run:
           name: upload the package
           command: aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
       - run:
-          name: stash zipfile
+          name: stash zipfile as an artifact in case we need to check things
           command: |
             mkdir zipfile
             mv TapList.zip zipfile/TapList.zip
