@@ -51,7 +51,8 @@ class UnTappdPage(BreweryPage):
                             beer_name = i_c.contents[1].contents[2].replace('\\n', '').strip()
                             beer_style = i_beer_name[4].strip()
                         elif 'item-meta' in i_c.attrs['class']:
-                            beer_abv = i_c.contents[1].contents[1].text.split('%')[0] + '%'
+                            if i_c.contents[1].contents[1].attrs['class'][0] == 'abv':
+                                beer_abv = i_c.contents[1].contents[1].text.split('%')[0] + '%'
                             if 'ibu-hideable' in i_c.contents[3].attrs['class']:
                                 beer_ibu = i_c.contents[3].contents[1].text.split(' ')[0]
                         elif 'item-description' in i_c.attrs['class']:
