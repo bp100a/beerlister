@@ -4,6 +4,7 @@ from models.breweries.untappd import UnTappdPage
 from models.breweries.untappd import BREWERY_INFO
 from tests.models.common import data_dir
 from tests.setupfakeredis import TestwithFakeRedis
+from models import cloudredis
 
 
 class TestUntappdpage(TestwithFakeRedis):
@@ -32,6 +33,27 @@ class TestUntappdpage(TestwithFakeRedis):
             file_pointer.close()
             if tst_data != beer_string:
                 assert tst_data == beer_string # anything different, raise hell!
+
+    def test_UnTapped_mocked_brewery_in_cache(self):
+
+        # ensure we start with an empty cache
+        for brewery_name in BREWERY_INFO:
+            cloudredis.flush_cache(brewery_name)
+
+        # first call to fill the cache
+        self.test_UnTappd_mocked_brewery()
+
+        # now read breweries from cache
+        self.test_UnTappd_mocked_brewery()
+
+        # now just run through the cache for each brewery and validate
+        for brewery_name in BREWERY_INFO:
+            file_name = data_dir() + brewery_name.replace(' ', '') + '.HTML'
+            file_pointer = open(file_name, mode='r', encoding='utf8')
+            brewery_html = file_pointer.read()
+            file_pointer.close()
+            assert cloudredis.is_cached(brewery_name, brewery_html)
+
 
     def test_UnTappd_aliases(self):
         """Test to validate all aliases"""
