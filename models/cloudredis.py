@@ -111,7 +111,12 @@ def expired(brewery: str, too_many_hours: int) -> bool:
 
     # since all timestamps are floats and in seconds
     # we only need the integer portion
-    cached_timestamp = int(str_timestamp)
+    try:
+        cached_timestamp = int(str_timestamp)
+    except ValueError:
+        flush_cache(brewery)
+        return True
+
     now_timestamp = int(time.time())
     elapsed_seconds = now_timestamp - cached_timestamp
     assert elapsed_seconds >= 0
