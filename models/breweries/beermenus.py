@@ -14,7 +14,7 @@ class BeerMenusPage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Rinn Duin" : ["Rinn Duin Brewing", "Rinn Duin Brewery"]}
+        self._alias = {"Rinn Duin" : ["Rain doing", "Rinn Duin Brewing", "Rinn Duin Brewery"]}
 
     def fetch_taplist(self, **kwargs) -> None:
         """fetch the taplist for this specific beer management software"""

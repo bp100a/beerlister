@@ -29,7 +29,8 @@ class UnTappdPage(BreweryPage):
                                       "Angry Eric Brewing",
                                       "Angry Eric Brewery"],
                        "Man Skirt": ["Man Skirt Brewing",
-                                     "Man Skirt Brewery"],
+                                     "Man Skirt Brewery",
+                                     "mansker"],
                        "Demented": ["Demented Brewing",
                                     "Demented Brewery"]}
 
