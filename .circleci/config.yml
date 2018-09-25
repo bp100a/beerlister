@@ -112,13 +112,13 @@ jobs:
       - run:
           name: remove unnecessary modules
           command: |
-            rm -r lambda_deploy/pylint*.dist-info
-            rm -r lambda_deploy/pip*.dist-info
-            rm -r lambda_deploy/nose*.dist-info
-            rm -r lambda_deploy/python_lambda_local*.egg-info
-            rm -r lambda_deploy/waitress*.dist-info
-            rm -r lambda_deploy/fakeredis*
+            rm -r lambda_deploy/pylint*
+            rm -r lambda_deploy/pip*
             rm -r lambda_deploy/nose*
+            rm -r lambda_deploy/python_lambda_local*.egg-info
+            rm -r lambda_deploy/waitress*
+            rm -r lambda_deploy/fakeredis*
+            rm -r lambda_deploy/coverage*
       - run:
           name: zip up the package
           command: |
