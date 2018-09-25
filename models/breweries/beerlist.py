@@ -219,5 +219,5 @@ class BreweryPage():
         beer_str = beer_str.replace('&', ' and ')
 
         # okay, let's cache this
-        cloudredis.cache_ssml(self._brewery_name, self._cached_response, beer_str, time.time())
+        cloudredis.cache_ssml(self._brewery_name, self._cached_response, beer_str, int(time.time()))
         return beer_str
