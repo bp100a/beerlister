@@ -3,6 +3,8 @@
 # pylint: disable-msg=R0911, W0401, R1705, W0613
 from controllers import brewerylist # for clarity
 from models.breweries import *
+from models import cloudredis
+
 
 SKILL_NAME = "TapList"
 HELP_MESSAGE = "You can ask what is on tap at select breweries by name, " + \
@@ -37,6 +39,10 @@ def lambda_handler(event, context):
 def on_intent(request, session):
     """ called on receipt of an Intent  """
     intent_name = request['intent']['name']
+
+    # initialize our redis server if needed
+    if cloudredis.REDIS_SERVER is None:
+        cloudredis.initialize_cloud_redis(injected_server=None)
 
     # process the intents
 
