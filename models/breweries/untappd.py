@@ -72,7 +72,7 @@ class UnTappdPage(BreweryPage):
         # perform any pre-fetch initialization of base class
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
         assert self._url is not None
-        self.read_page() # read the page
+        self.read_page(brewery) # read the page
         assert self._cached_response is not None
         assert self._soup is not None
 

@@ -3,6 +3,7 @@ in one place. Each brewery page needs to add itself to the global
 list created at the end of this file."""
 from typing import Tuple
 import models.breweries.beerlist
+import models.cloudredis
 
 
 class BreweryLister:
@@ -48,6 +49,5 @@ class BreweryLister:
 #
 # initialize a "global" so all brewerypages can add themselves to this list
 #
-
 
 BREWERY_PAGES = BreweryLister()

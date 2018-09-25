@@ -2,9 +2,9 @@ from unittest import TestCase
 import os
 import json
 import lambda_function
+from tests.setupfakeredis import TestwithFakeRedis
 
-
-class TestAWSlambda(TestCase):
+class TestAWSlambda(TestwithFakeRedis):
 
     @staticmethod
     def data_dir() -> str:

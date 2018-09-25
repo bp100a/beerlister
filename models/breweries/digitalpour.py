@@ -38,7 +38,7 @@ class DigitalPourPage(BreweryPage):
         url = "http://fbpage.digitalpour.com/?companyID={0}&locationID={1}" \
             .format(loc_theme[0], loc_theme[1])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
-        self.read_page() # read the page
+        self.read_page(brewery=brewery) # read the page
         assert self._cached_response is not None
         assert self._soup is not None
         start_pos = self._cached_response.find('<body>')

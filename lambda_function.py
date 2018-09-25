@@ -76,8 +76,7 @@ def get_taplist_response(intent: dict):
         bobj.mocking = intent['mocked']
     bobj.fetch_taplist(brewery=brewery_id)
     beer_string = bobj.ssml_taplist()
-    speech_output = beer_string
-    return response(speech_response_ssml(speech_output, False))
+    return response(speech_response_ssml(beer_string, False))
 
 
 def get_help_response():

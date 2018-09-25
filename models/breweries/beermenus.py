@@ -24,7 +24,7 @@ class BeerMenusPage(BreweryPage):
         # construct our URL
         url = "https://beermenus.com/menu_widgets/{0}".format(BREWERY_INFO[brewery][0])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
-        self.read_page() # read the page
+        self.read_page(brewery=brewery) # read the page
 
         assert self._cached_response is not None
         assert self._soup is not None

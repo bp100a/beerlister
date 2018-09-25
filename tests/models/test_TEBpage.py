@@ -2,8 +2,10 @@ from unittest import TestCase
 import os
 from models.breweries.twinelephant import TEBpage
 from tests.models.common import data_dir
+from tests.setupfakeredis import TestwithFakeRedis
 
-class TestTEBpage(TestCase):
+
+class TestTEBpage(TestwithFakeRedis):
 
     def test_TEB_read(self):
         """Test simple instantiation of TEB page"""

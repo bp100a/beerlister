@@ -1,10 +1,10 @@
-from unittest import TestCase
 import os
 from models.breweries.departedsoles import DepartedSolespage
 from tests.models.common import data_dir
+from tests.setupfakeredis import TestwithFakeRedis
 
 
-class TestDepartedSolespage(TestCase):
+class TestDepartedSolespage(TestwithFakeRedis):
     """test for the departed soles web scraping page"""
 
     def test_DepartedSoles_read(self):

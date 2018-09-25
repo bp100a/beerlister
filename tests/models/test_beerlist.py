@@ -1,9 +1,10 @@
 """Unit tests for beer & beerlist"""
 from unittest import TestCase
 import models.breweries.beerlist
+from tests.setupfakeredis import TestwithFakeRedis
 
 
-class TestBeerList(TestCase):
+class TestBeerList(TestwithFakeRedis):
     """quick tests on the beer object & list"""
 
     @staticmethod

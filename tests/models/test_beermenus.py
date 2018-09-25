@@ -1,10 +1,10 @@
-from unittest import TestCase
-import os
 from models.breweries.beermenus import BeerMenusPage
 from models.breweries.beermenus import BREWERY_INFO
 from tests.models.common import data_dir
+from tests.setupfakeredis import TestwithFakeRedis
 
-class TestBeerMenuspage(TestCase):
+
+class TestBeerMenuspage(TestwithFakeRedis):
 
     def test_BeerMenus_read(self):
         """Test that we can read beer menu pages for all known breweries"""

@@ -3,9 +3,10 @@ from unittest import TestCase
 from models.breweries.untappd import UnTappdPage
 from models.breweries.untappd import BREWERY_INFO
 from tests.models.common import data_dir
+from tests.setupfakeredis import TestwithFakeRedis
 
 
-class TestUntappdpage(TestCase):
+class TestUntappdpage(TestwithFakeRedis):
     """test for pages hosted by UnTappd"""
 
     def test_Untappd_read(self):

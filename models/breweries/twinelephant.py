@@ -27,7 +27,7 @@ class TEBpage(BreweryPage):
     def short_name(self) -> list:
         """return short name for TEB as a single item list"""
         shortlist = list()
-        shortlist.append("Twin Elephant")
+        shortlist.append(list(self._alias.keys())[0])
         return shortlist
 
     def fetch_taplist(self, **kwargs) -> None:
@@ -36,9 +36,10 @@ class TEBpage(BreweryPage):
         # perform any pre-fetch initialization of base class
         BreweryPage.fetch_taplist(self, url="https://www.twinelephant.com", **kwargs)
         assert self._url is not None
-        self.read_page() # read the page
-        assert self._cached_response is not None
-        assert self._soup is not None
+        is_cached = self.read_page(brewery=list(self._alias.keys())[0]) # read the page
+        if is_cached:
+            return
+
         beer_div_list = self._soup.find_all("div", {"class": "beer-holder"})
         for beer in beer_div_list:
             assert beer is not None

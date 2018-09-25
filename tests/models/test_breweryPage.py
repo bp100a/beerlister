@@ -2,9 +2,10 @@ from unittest import TestCase
 import requests
 import requests_mock
 from models.breweries.beerlist import BreweryPage
+from tests.setupfakeredis import TestwithFakeRedis
 
 
-class TestBreweryPage(TestCase):
+class TestBreweryPage(TestwithFakeRedis):
 
     def test_read(self):
         """Test we can read a brewery page from our base class"""
@@ -14,4 +15,4 @@ class TestBreweryPage(TestCase):
         adapter = requests_mock.Adapter()
         s.mount('mock', adapter)
         adapter.register_uri('GET', mock_url, text='<html><body><div class="field-item"> <div class="beer-holder"></div></div></body></html>')
-        assert bp.read_page(in_session=s) is True
+        assert bp.read_page(brewery="mockbrewery", in_session=s) is False
