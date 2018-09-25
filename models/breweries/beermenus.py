@@ -27,7 +27,6 @@ class BeerMenusPage(BreweryPage):
         self.read_page(brewery=brewery) # read the page
 
         assert self._cached_response is not None
-        assert self._soup is not None
         start_string = 'widgetDiv.innerHTML = \'\\n'
         start_pos = self._cached_response.find(start_string)
         end_pos = self._cached_response.rfind(';\n}')

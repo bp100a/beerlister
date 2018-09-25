@@ -40,7 +40,6 @@ class DigitalPourPage(BreweryPage):
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
         self.read_page(brewery=brewery) # read the page
         assert self._cached_response is not None
-        assert self._soup is not None
         start_pos = self._cached_response.find('<body>')
         end_string = '</body>'
         end_pos = self._cached_response.find(end_string)

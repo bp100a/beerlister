@@ -74,7 +74,6 @@ class UnTappdPage(BreweryPage):
         assert self._url is not None
         self.read_page(brewery) # read the page
         assert self._cached_response is not None
-        assert self._soup is not None
 
         start_string = 'container.innerHTML = "'
         start_pos = self._cached_response.find(start_string)

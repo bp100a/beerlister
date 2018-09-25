@@ -126,7 +126,7 @@ def expired(brewery: str, too_many_hours: int) -> bool:
         flush_cache(brewery)
         return True
 
-    return False  #cached values still useful
+    return False  # cached values still useful
 
 
 def ssml_from_cache(brewery: str) -> str:
