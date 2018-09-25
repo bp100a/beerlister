@@ -117,6 +117,8 @@ jobs:
             rm -r lambda_deploy/nose*.dist-info
             rm -r lambda_deploy/python_lambda_local*.egg-info
             rm -r lambda_deploy/waitress*.dist-info
+            rm -r lambda_deploy/fakeredis*
+            rm -r lambda_deploy/nose*
       - run:
           name: zip up the package
           command: |
