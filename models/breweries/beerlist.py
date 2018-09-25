@@ -4,8 +4,10 @@ for all brewery website scraping and is overridden
 for brewery specific needs"""
 import re
 import os
+import time
 import requests
 import bs4 as bs
+from models import cloudredis
 
 
 class Beer():
@@ -109,8 +111,9 @@ class BreweryPage():
 
     # read_page(): This will actually read in the web page without making
     #              any adjustments, just the raw data encoded UTF-8
-    def read_page(self, in_session: requests.sessions = None) -> bool:
-        """Read the brewery page"""
+    def read_page(self, brewery: str, in_session: requests.sessions = None) -> bool:
+        """Read the brewery page
+        returns True if fresh cache entry found"""
         assert self._url is not None
         if not self._mocked:
             if in_session is not None:
@@ -130,9 +133,23 @@ class BreweryPage():
             rsp_text = file_pointer.read()
             file_pointer.close()
 
-        self._soup = bs.BeautifulSoup(rsp_text, "html.parser")
-        self._cached_response = rsp_text
-        return self._soup is not None
+        self._cached_response = rsp_text # save for later
+        if not BreweryPage.is_cached(brewery, rsp_text):
+            self._soup = bs.BeautifulSoup(rsp_text, "html.parser")
+            return False
+
+        return True
+
+    @staticmethod
+    def is_cached(brewery, rsp_text) -> bool:
+        """Check to see if this brewery's webpage has already
+        been read and we can save a lot of work
+        =True, then we have a cache of this response"""
+        assert brewery is not None and rsp_text is not None
+        assert cloudredis.REDIS_SERVER is not None
+
+        # check if there's a valid cache entry
+        return cloudredis.md5_exists(brewery, rsp_text)
 
     def add_beer(self, beer: Beer) -> None:
         """add a beer to our private list"""
@@ -146,6 +163,11 @@ class BreweryPage():
     #               formatted output
     def ssml_taplist(self) -> str:
         """Create the SSML that drives speech for the list of beers"""
+        # first things first - check the cache!
+        beer_str = cloudredis.ssml_from_cache(self._brewery_name)
+        if beer_str is not None:
+            return beer_str
+
         # create a string for the tap list we have
         assert self._beer_list is not None
         assert self._brewery_name is not None
@@ -195,4 +217,7 @@ class BreweryPage():
 
         beer_str = beer_str.replace(' & ', ' and ')
         beer_str = beer_str.replace('&', ' and ')
+
+        # okay, let's cache this
+        cloudredis.cache_ssml(self._brewery_name, self._cached_response, beer_str, time.time())
         return beer_str
