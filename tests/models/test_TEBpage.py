@@ -7,6 +7,11 @@ from tests.setupfakeredis import TestwithFakeRedis
 
 class TestTEBpage(TestwithFakeRedis):
 
+    def live_TEB_read(self):
+        teb = TEBpage(mocked=False)
+        assert teb is not None
+        teb.fetch_taplist(brewery="Twin Elephant")
+
     def test_TEB_read(self):
         """Test simple instantiation of TEB page"""
         teb = TEBpage(mocked=True)

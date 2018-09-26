@@ -6,12 +6,12 @@ from models.breweries import *
 from models import cloudredis
 
 
-SKILL_NAME = "TapList"
+SKILL_NAME = "Jersey Beers"
 HELP_MESSAGE = "You can ask what is on tap at select breweries by name, " + \
                "or you can say exit... What can I help you with?"
 HELP_REPROMPT = "What can I help you with?"
 STOP_MESSAGE = "Goodbye!"
-FALLBACK_MESSAGE = "The Taplist skill can't help you with that. " + \
+FALLBACK_MESSAGE = "The Jersey Beers skill can't help you with that. " + \
                    "It can help you discover what beers are on tap " + \
                    "at select breweries in North Jersey"
 FALLBACK_REPROMPT = 'What can I help you with?'
