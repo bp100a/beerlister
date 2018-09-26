@@ -24,12 +24,6 @@ class TEBpage(BreweryPage):
         # initialize aliases
         self._alias = {"Twin Elephant": ["TEB", "Twin Elephant Brewing", "Twin Elephant Brewery"]}
 
-    def short_name(self) -> list:
-        """return short name for TEB as a single item list"""
-        shortlist = list()
-        shortlist.append(list(self._alias.keys())[0])
-        return shortlist
-
     def fetch_taplist(self, **kwargs) -> None:
         """fetch taplist for TEB, directly scraping their site and parsing"""
 

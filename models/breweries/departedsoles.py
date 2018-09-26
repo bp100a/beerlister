@@ -12,12 +12,6 @@ class DepartedSolespage(BreweryPage):
         # initialize aliases
         self._alias = {"Departed Soles" : ["Departed Soles Brewing", "Departed Soles Brewery"]}
 
-    def short_name(self) -> list:
-        """return short name for departed soles as a single item list"""
-        shortlist = list()
-        shortlist.append(list(self._alias.keys())[0])
-        return shortlist
-
     def fetch_taplist(self, **kwargs) -> None:
         """fetch the taplist page for Departed Soles and parse it"""
         BreweryPage.fetch_taplist(self, url="http://www.departedsoles.com/beer.html", **kwargs)
