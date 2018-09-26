@@ -1,12 +1,11 @@
 """here's where we manage our redis cache"""
 import os
-import redis
 import time
 import hashlib
+import redis
 
 
 REDIS_SERVER = None
-
 
 def read_configuration():
     """read the redis server configuration from the
@@ -37,8 +36,8 @@ def initialize_cloud_redis(injected_server=None):
             return
         redis_endpoint, redis_password, redis_port = read_configuration()
         redis_server = redis.Redis(host=redis_endpoint,
-                                  port=redis_port,
-                                  password=redis_password)
+                                   port=redis_port,
+                                   password=redis_password)
         assert redis_server is not None
     else:
         # injecting a fake redis will always override existing instance
@@ -57,19 +56,23 @@ def exists(redis_key: str) -> bool:
 
 
 def md5_key(brewery: str) -> str:
+    """create key for the md5 value"""
     return brewery.replace(' ', '') + "_md5"
 
 
 def ssml_key(brewery: str) -> str:
+    """create key for the ssml value"""
     return brewery.replace(' ', '') + "_ssml"
 
 
 def timestamp_key(brewery: str) -> str:
+    """create key for the timestamp value (an integer)"""
     return brewery.replace(' ', '') + "_timestamp"
 
 
 def flush_cache(brewery: str) -> None:
     """flush the cache entries"""
+    global REDIS_SERVER
     REDIS_SERVER.delete(md5_key(brewery))
     REDIS_SERVER.delete(ssml_key(brewery))
     REDIS_SERVER.delete(timestamp_key(brewery))
@@ -79,6 +82,7 @@ def md5_exists(brewery: str, html: str) -> bool:
     """given a brewery name and it's HTML page
     compute the MD5 and see if we have a cached entry
     for it"""
+    global REDIS_SERVER
     if not exists(md5_key(brewery)):
         return False
 
@@ -88,9 +92,9 @@ def md5_exists(brewery: str, html: str) -> bool:
 
     # the value exists and it hasn't expired, so check the
     # hash
-    m = hashlib.md5()
-    m.update(html.encode('utf-8'))
-    current_md5 = m.digest()
+    md5 = hashlib.md5()
+    md5.update(html.encode('utf-8'))
+    current_md5 = md5.digest()
     cached_md5 = REDIS_SERVER.get(md5_key(brewery))
     if cached_md5 == current_md5:
         return True
@@ -138,7 +142,7 @@ def ssml_from_cache(brewery: str) -> str:
     """
 
     ssml_output = REDIS_SERVER.get(ssml_key(brewery))
-    if type(ssml_output) is bytes:
+    if isinstance(ssml_output, bytes):
         ssml_output = ssml_output.decode('utf-8')
 
     return ssml_output
@@ -156,9 +160,9 @@ def cache_ssml(brewery: str, html: str, ssml: str, cached_time: int) -> None:
     assert brewery is not None and ssml is not None and cached_time is not None
     global REDIS_SERVER
 
-    m = hashlib.md5()
-    m.update(html.encode('utf-8'))
-    md5_response = m.digest()
+    md5 = hashlib.md5()
+    md5.update(html.encode('utf-8'))
+    md5_response = md5.digest()
     REDIS_SERVER.set(md5_key(brewery), md5_response)
     REDIS_SERVER.set(ssml_key(brewery), ssml)
     REDIS_SERVER.set(timestamp_key(brewery), cached_time)
@@ -169,8 +173,6 @@ def is_cached(brewery, rsp_text) -> bool:
     been read and we can save a lot of work
     =True, then we have a cache of this response"""
     assert brewery is not None and rsp_text is not None
-    assert REDIS_SERVER is not None
 
     # check if there's a valid cache entry
     return md5_exists(brewery, rsp_text)
-
