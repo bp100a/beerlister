@@ -14,28 +14,36 @@ class TestAWSlambda(TestwithFakeRedis):
         path = root + '/tests/data/'
         return path
 
-    def test_gettaplistintent(self):
-        """Test that we can get brewery response for a pre-canned intent object"""
-        breweries = ["Twin Elephant", "Rinn Duin", "Alementary", "Village Idiot"]
+    def get_taplistintent(self, brewery):
+        fn = self.data_dir() + 'GetTapListIntent_' + brewery.replace(' ', '') + '.json'
+        fp = open(fn, mode='r', encoding='utf8')
+        json_intent = fp.read()
+        fp.close()
+        event = json.loads(json_intent)
+        event['request']['intent']['mocked'] = True
+        response = lambda_function.lambda_handler(event=event, context=None)
+        assert response is not None
+        assert response['response']['shouldEndSession']
 
-        for brewery in breweries:
-            fn = self.data_dir() + 'GetTapListIntent_' + brewery.replace(' ', '') + '.json'
-            fp = open(fn, mode='r', encoding='utf8')
-            json_intent = fp.read()
-            fp.close()
-            event = json.loads(json_intent)
-            event['request']['intent']['mocked'] = True
-            response = lambda_function.lambda_handler(event=event, context=None)
-            assert response is not None
-            assert response['response']['shouldEndSession']
+        # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
+        fn = self.data_dir() + brewery.replace(' ', '') + '.SSML'
+        fp = open(fn, mode='r', encoding='utf8')
+        tst_data = '<speak>' + fp.read() + '</speak>'
+        fp.close()
+        if tst_data != response['response']['outputSpeech']['ssml']:
+            assert False  # anything different, raise hell!
 
-            # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            fn = self.data_dir() + brewery.replace(' ', '') + '.SSML'
-            fp = open(fn, mode='r', encoding='utf8')
-            tst_data = '<speak>' + fp.read() + '</speak>'
-            fp.close()
-            if tst_data != response['response']['outputSpeech']['ssml']:
-                assert False# anything different, raise hell!
+    def test_getTwinElephant(self):
+        self.get_taplistintent("Twin Elephant")
+
+    def test_getBeerMenus(self):
+        self.get_taplistintent("Rinn Duin")
+
+    def test_getUntapped(self):
+        self.get_taplistintent("Alementary")
+
+    def test_getDigitalPour(self):
+        self.get_taplistintent(("Village Idiot"))
 
     def test_listbreweries_intent(self):
         """Test we can get a list of breweries using an Alexa intent from file"""
