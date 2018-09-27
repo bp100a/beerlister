@@ -65,7 +65,7 @@ def on_intent(request, session):
 def list_of_breweries_response():
     """Return a list of breweries that we support"""
     list_of_breweries = brewerylist.BREWERY_PAGES.ssml_brewery_list()
-    return response(speech_response(list_of_breweries, False))
+    return response(speech_response(list_of_breweries, True))
 
 
 def get_taplist_response(intent: dict):
@@ -82,7 +82,7 @@ def get_taplist_response(intent: dict):
         bobj.mocking = intent['mocked']
     bobj.fetch_taplist(brewery=brewery_id)
     beer_string = bobj.ssml_taplist()
-    return response(speech_response_ssml(beer_string, False))
+    return response(speech_response_ssml(beer_string, True))
 
 
 def get_help_response():
@@ -112,7 +112,7 @@ def get_fallback_response():
     """ end the session, user wants to quit """
 
     speech_output = FALLBACK_MESSAGE
-    return response(speech_response(speech_output, False))
+    return response(speech_response(speech_output, True))
 
 
 def on_session_started():

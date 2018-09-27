@@ -27,6 +27,7 @@ class TestAWSlambda(TestwithFakeRedis):
             event['request']['intent']['mocked'] = True
             response = lambda_function.lambda_handler(event=event, context=None)
             assert response is not None
+            assert response['response']['shouldEndSession']
 
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
             fn = self.data_dir() + brewery.replace(' ', '') + '.SSML'
@@ -46,6 +47,7 @@ class TestAWSlambda(TestwithFakeRedis):
         event['request']['intent']['mocked'] = True
         response = lambda_function.lambda_handler(event=event, context=None)
         assert response is not None
+        assert response['response']['shouldEndSession']
 
     def test_bogusbrewery(self):
         """Test that we get back the brewery list for an unknown brewery"""
@@ -58,6 +60,7 @@ class TestAWSlambda(TestwithFakeRedis):
         response = lambda_function.lambda_handler(event=event, context=None)
         assert response is not None
         assert response['response']['outputSpeech']['text'].startswith('Here are the breweries I know:')
+        assert response['response']['shouldEndSession']
 
     def test_openskill(self):
         fn = self.data_dir() + 'OpenTapList.json'
@@ -67,3 +70,4 @@ class TestAWSlambda(TestwithFakeRedis):
         event = json.loads(json_intent)
         response = lambda_function.lambda_handler(event=event['payload']['content']['invocationRequest']['body'], context=None)
         assert response is not None
+        assert not response['response']['shouldEndSession']
