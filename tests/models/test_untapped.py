@@ -37,22 +37,27 @@ class TestUntappdpage(TestwithFakeRedis):
     def test_UnTapped_mocked_brewery_in_cache(self):
 
         # ensure we start with an empty cache
-        for brewery_name in BREWERY_INFO:
-            cloudredis.flush_cache(brewery_name)
+        brewery_name = next(iter(BREWERY_INFO))
+        cloudredis.flush_cache(brewery_name)
 
-        # first call to fill the cache
-        self.test_UnTappd_mocked_brewery()
+        # fetch our brewery information
+        untapped_page = UnTappdPage(mocked=True)
+        untapped_page.fetch_taplist(brewery=brewery_name)
+        uncached_html = untapped_page.ssml_taplist()
 
-        # now read breweries from cache
-        self.test_UnTappd_mocked_brewery()
+        # now let's get it from the cache
+        untapped_page = UnTappdPage(mocked=True)
+        untapped_page.fetch_taplist(brewery=brewery_name)
+        cached_html = untapped_page.ssml_taplist()
 
-        # now just run through the cache for each brewery and validate
-        for brewery_name in BREWERY_INFO:
-            file_name = data_dir() + brewery_name.replace(' ', '') + '.HTML'
-            file_pointer = open(file_name, mode='r', encoding='utf8')
-            brewery_html = file_pointer.read()
-            file_pointer.close()
-            assert cloudredis.is_cached(brewery_name, brewery_html)
+        assert cached_html == uncached_html
+
+        # now check the value returned
+        file_name = data_dir() + brewery_name.replace(' ', '') + '.HTML'
+        file_pointer = open(file_name, mode='r', encoding='utf8')
+        brewery_html = file_pointer.read()
+        file_pointer.close()
+        assert cloudredis.is_cached(brewery_name, brewery_html)
 
 
     def test_UnTappd_aliases(self):
