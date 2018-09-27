@@ -71,3 +71,15 @@ class TestAWSlambda(TestwithFakeRedis):
         response = lambda_function.lambda_handler(event=event['payload']['content']['invocationRequest']['body'], context=None)
         assert response is not None
         assert not response['response']['shouldEndSession']
+
+    def test_session_state(self):
+
+        # create our launch request
+        launchevent = {"request" : {"type": "LaunchRequest"}, "session" : {"new": True} }
+        response = lambda_function.lambda_handler(event=launchevent, context=None)
+        assert not response['response']['shouldEndSession']
+
+        # Session is open, now ask for a list of breweries
+        listbreweriesevent = {"request" : {"type": "IntentRequest", "intent": {"name": "ListBreweries"}}, "session" : {"new": False} }
+        response = lambda_function.lambda_handler(event=listbreweriesevent, context=None)
+        assert response['response']['shouldEndSession']
