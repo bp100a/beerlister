@@ -26,6 +26,9 @@ jobs:
           - v1-dependencies-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+      - run:
+          name: CodeCov support
+          command: pip install codecov
 
       - run:
           name: install dependencies
@@ -69,6 +72,7 @@ jobs:
             #  the 2nd run only looks for errors and doesn't log, but any errors will stop build
             pylint --exit-zero -f parseable controllers models lambda_function.py > test-reports/pylint.out
             pylint --errors-only -f parseable controllers models lambda_function.py
+            codecov --token=$CODECOV_TOKEN
 
       - store_artifacts:
           path: test-reports/
