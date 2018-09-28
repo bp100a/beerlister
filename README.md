@@ -1,9 +1,14 @@
-# beerlister
+[bp100a] Jersey Beers
+=========================
+
 .. contents:: Topics
 
 .. image:: https://codecov.io/gh/bp100a/beerlister/branch/master/graph/badge.svg
   :target: https://codecov.io/gh/bp100a/beerlister
-  
+
+Overview
+--------
+
 Read a tap list from a brewery's website and parse it into something that can be read off by an Alexa Skill.
 
 Currently read the following formats:
@@ -13,11 +18,14 @@ Currently read the following formats:
 - ~~Departed Soles (Jersey City, NJ)~~ (taplists are not up to date)
 - Twin Elephant Brewing (Chatham, NJ)
 
-TBD:
-- Jersey Girl Brewery
+On the list
+-----------
+add Jersey Girl Brewery
 
 I'm from Jersey so I'm concentrating on Jersey Breweries. I use BeautifulSoup (awesome!) to parse the HTML I scrape from the brewery and create an internal list of beers. Not all breweries provide all the information, but when available we pull the name, style, abv, ibu and hops for each beer.
 
+How it works
+------------
 You can ask the following:
 
 "ask Jersey Beers what breweries do you know?"
@@ -30,7 +38,8 @@ I'm using CircleCI to both build & deploy. Deploy's happen if the build passes, 
 
 Had to change name to "Jersey Beers" since Alexa/Amazon doesn't allow a single word invocation name (unless it's a brand). Also fixed up session state management and added tests to validate.
 
-Things I'd like to add:
+Things I'd like to add
+----------------------
    1) Read UnTappd REST API
       UnTappd has granted me access to their API, it would be nice to use it.
    2) More intelligent cache management
