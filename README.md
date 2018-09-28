@@ -1,4 +1,9 @@
 # beerlister
+.. contents:: Topics
+
+.. image:: https://codecov.io/gh/bp100a/beerlister/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/bp100a/beerlister
+  
 Read a tap list from a brewery's website and parse it into something that can be read off by an Alexa Skill.
 
 Currently read the following formats:
