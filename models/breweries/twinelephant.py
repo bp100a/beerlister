@@ -28,7 +28,7 @@ class TEBpage(BreweryPage):
         """fetch taplist for TEB, directly scraping their site and parsing"""
 
         # perform any pre-fetch initialization of base class
-        BreweryPage.fetch_taplist(self, url="https://www.twinelephant.com", **kwargs)
+        BreweryPage.fetch_taplist(self, url="http://www.twinelephant.com", **kwargs)
         assert self._url is not None
         is_cached = self.read_page(brewery=list(self._alias.keys())[0]) # read the page
         if is_cached:

@@ -8,6 +8,7 @@ import time
 import requests
 import bs4 as bs
 from models import cloudredis
+from urllib3.exceptions import SSLError
 
 
 class Beer():
@@ -120,7 +121,13 @@ class BreweryPage():
                 session = in_session
             else:
                 session = requests.Session()
-            rsp = session.get(self._url)
+
+            try:
+                session.verify = False # if SSL redirect, ignore bad cert
+                rsp = session.get(self._url)
+            except Exception as response_error:
+                return False
+
             assert rsp is not None
             rsp.encoding = 'utf-8'
             rsp_text = rsp.text
