@@ -163,21 +163,21 @@ def speech_response(output, endsession):
     }
 
 
-def dialog_response(endsession):
-
-    """  create a simple json response with card """
-
-    return {
-        'version': '1.0',
-        'response':{
-            'directives': [
-                {
-                    'type': 'Dialog.Delegate'
-                }
-            ],
-            'shouldEndSession': endsession
-        }
-    }
+# def dialog_response(endsession):
+#
+#     """  create a simple json response with card """
+#
+#     return {
+#         'version': '1.0',
+#         'response':{
+#             'directives': [
+#                 {
+#                     'type': 'Dialog.Delegate'
+#                 }
+#             ],
+#             'shouldEndSession': endsession
+#         }
+#     }
 
 
 def speech_response_with_card(title, output, cardcontent, endsession):
@@ -198,23 +198,23 @@ def speech_response_with_card(title, output, cardcontent, endsession):
     }
 
 
-def response_ssml_text_and_prompt(output, endsession, reprompt_text):
-
-    """ create a Ssml response with prompt  """
-
-    return {
-        'outputSpeech': {
-            'type': 'SSML',
-            'ssml': "<speak>" +output +"</speak>"
-        },
-        'reprompt': {
-            'outputSpeech': {
-                'type': 'SSML',
-                'ssml': "<speak>" +reprompt_text +"</speak>"
-            }
-        },
-        'shouldEndSession': endsession
-    }
+# def response_ssml_text_and_prompt(output, endsession, reprompt_text):
+#
+#     """ create a Ssml response with prompt  """
+#
+#     return {
+#         'outputSpeech': {
+#             'type': 'SSML',
+#             'ssml': "<speak>" +output +"</speak>"
+#         },
+#         'reprompt': {
+#             'outputSpeech': {
+#                 'type': 'SSML',
+#                 'ssml': "<speak>" +reprompt_text +"</speak>"
+#             }
+#         },
+#         'shouldEndSession': endsession
+#     }
 
 
 def speech_response_prompt(output, reprompt_text, endsession):

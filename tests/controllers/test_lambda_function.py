@@ -91,3 +91,33 @@ class TestAWSlambda(TestwithFakeRedis):
         listbreweriesevent = {"request" : {"type": "IntentRequest", "intent": {"name": "ListBreweries"}}, "session" : {"new": False} }
         response = lambda_function.lambda_handler(event=listbreweriesevent, context=None)
         assert response['response']['shouldEndSession']
+
+    def test_fallback_response(self):
+        get_fallback = {"request" : {"type": "IntentRequest", "intent": {"name": "AMAZON.FallbackIntent"}}, "session" : {"new": False} }
+        response = lambda_function.lambda_handler(event=get_fallback, context=None)
+        assert response['response']['shouldEndSession']
+        assert response['response']['outputSpeech']['text'] == lambda_function.FALLBACK_MESSAGE
+
+    def test_cancel_response(self):
+        get_cancel = {"request" : {"type": "IntentRequest", "intent": {"name": "AMAZON.CancelIntent"}}, "session" : {"new": False} }
+        response = lambda_function.lambda_handler(event=get_cancel, context=None)
+        assert response['response']['shouldEndSession']
+        assert response['response']['outputSpeech']['text'] == lambda_function.STOP_MESSAGE
+
+    def test_stop_response(self):
+        get_stop = {"request" : {"type": "IntentRequest", "intent": {"name": "AMAZON.StopIntent"}}, "session" : {"new": False} }
+        response = lambda_function.lambda_handler(event=get_stop, context=None)
+        assert response['response']['shouldEndSession']
+        assert response['response']['outputSpeech']['text'] == lambda_function.STOP_MESSAGE
+
+    def test_help_response(self):
+        get_help = {"request" : {"type": "IntentRequest", "intent": {"name": "AMAZON.HelpIntent"}}, "session" : {"new": False} }
+        response = lambda_function.lambda_handler(event=get_help, context=None)
+        assert not response['response']['shouldEndSession']
+        assert response['response']['outputSpeech']['text'] == lambda_function.HELP_MESSAGE
+
+    def test_unknown_intent_response(self):
+        get_unknown = {"request" : {"type": "IntentRequest", "intent": {"name": "JerseyBeers.UNKNOWN_INTENT"}}, "session" : {"new": False} }
+        response = lambda_function.lambda_handler(event=get_unknown, context=None)
+        assert not response['response']['shouldEndSession']
+        assert response['response']['outputSpeech']['text'] == lambda_function.HELP_MESSAGE
