@@ -78,3 +78,14 @@ class TestRedis(TestwithFakeRedis):
 
         # now check it
         assert not cloudredis.is_cached(brewery_name, html_we_scraped)
+
+    def test_md5_not_exist(self):
+        """test a cache miss by testing new HTML"""
+        ssml_to_cache = "ssml that will expire"
+        html_we_scraped = "old html"
+        CACHE_TIMEOUT = 1
+        past_time_as_int = int(time.time()) - (CACHE_TIMEOUT*60*60+10)  # 1 hour in past (and a little more for skew)
+        brewery_name = "changing brewery"
+        cloudredis.cache_ssml(brewery=brewery_name, html=html_we_scraped, ssml=ssml_to_cache, cached_time=past_time_as_int)
+
+        assert not cloudredis.md5_exists(brewery=brewery_name, html="new html")
