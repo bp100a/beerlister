@@ -28,7 +28,7 @@ class DigitalPourPage(BreweryPage):
                 self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv,
                                    ibu=beer_ibu, desc=None))
 
-    def fetch_taplist(self, **kwargs) -> None:
+    def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist and scrape out the beer list"""
         if kwargs.get('brewery') is not None:
             brewery = kwargs['brewery']
@@ -38,7 +38,10 @@ class DigitalPourPage(BreweryPage):
         url = "http://fbpage.digitalpour.com/?companyID={0}&locationID={1}" \
             .format(loc_theme[0], loc_theme[1])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
-        self.read_page(brewery=brewery) # read the page
+        is_cached = self.read_page(brewery) # read the page
+        if is_cached:
+            return True
+
         assert self._cached_response is not None
         start_pos = self._cached_response.find('<body>')
         end_string = '</body>'
@@ -50,6 +53,8 @@ class DigitalPourPage(BreweryPage):
 
         beer_div_list = self._soup.find_all("div", {"class": "beverageInfo"})
         self.add_beers(beer_div_list)
+
+        return False # not from cache
 
 # add this to the list of breweries
 brewerylist.BREWERY_PAGES.add_brewery_page(DigitalPourPage())

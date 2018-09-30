@@ -31,6 +31,19 @@ class TestDigitalPourpage(TestwithFakeRedis):
             file_pointer.close()
             assert tst_data == beer_string  # anything different, raise hell!
 
+    def test_DigitalPour_cached(self):
+        """Test we can read the Twin Elephant beer list!"""
+        pour_page = DigitalPourPage(mocked=True)
+        assert pour_page is not None
+        brewery_name = next(iter(BREWERY_INFO))
+        from_cache = pour_page.fetch_taplist(brewery=brewery_name)
+        assert not from_cache
+
+        # 2nd read from cache!
+        pour_page.ssml_taplist() # this puts it in the cache
+        from_cache = pour_page.fetch_taplist(brewery=brewery_name)
+        assert from_cache
+
     def test_DigitalPour_aliases(self):
         """Test we get proper aliases for this brewery"""
         dp = DigitalPourPage(mocked=True)

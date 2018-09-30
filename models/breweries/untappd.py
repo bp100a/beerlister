@@ -62,7 +62,7 @@ class UnTappdPage(BreweryPage):
         self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv,
                            ibu=beer_ibu, desc=beer_desc))
 
-    def fetch_taplist(self, **kwargs) -> None:
+    def fetch_taplist(self, **kwargs) -> bool:
         """fetch and scrape the tap list page for UnTappd"""
         brewery = kwargs.get('brewery')
         assert brewery is not None
@@ -74,7 +74,10 @@ class UnTappdPage(BreweryPage):
         # perform any pre-fetch initialization of base class
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
         assert self._url is not None
-        self.read_page(brewery) # read the page
+        is_cached = self.read_page(brewery) # read the page
+        if is_cached:
+            return True
+
         assert self._cached_response is not None
 
         start_string = 'container.innerHTML = "'
@@ -101,6 +104,7 @@ class UnTappdPage(BreweryPage):
             assert beer is not None
             self.parse_inner_content(beer)
 
+        return False # not from the cache
 
 # add this to the list of breweries
 brewerylist.BREWERY_PAGES.add_brewery_page(UnTappdPage())

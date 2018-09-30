@@ -52,3 +52,16 @@ class TestDepartedSolespage(TestwithFakeRedis):
         short_names = dp.short_name()
         assert 'Departed Soles' in short_names
         assert len(short_names) == 1
+
+    def test_DepartedSoles_cached(self):
+        soles_page = DepartedSolespage(mocked=True)
+        assert soles_page is not None
+        brewery_name = "Departed Soles"
+        from_cache = soles_page.fetch_taplist(brewery=brewery_name)
+        assert not from_cache
+
+        # 2nd read from cache!
+        soles_page.ssml_taplist() # this puts it in the cache
+        from_cache = soles_page.fetch_taplist(brewery=brewery_name)
+        assert from_cache
+

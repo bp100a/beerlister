@@ -93,7 +93,7 @@ class BreweryPage():
 
         return short_list
 
-    def fetch_taplist(self, **kwargs):
+    def fetch_taplist(self, **kwargs) -> bool:
         """retrieve the taplist for the brewery"""
         self._beer_list = BeerList()
         self._soup = None

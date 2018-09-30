@@ -24,7 +24,7 @@ class TEBpage(BreweryPage):
         # initialize aliases
         self._alias = {"Twin Elephant": ["TEB", "Twin Elephant Brewing", "Twin Elephant Brewery"]}
 
-    def fetch_taplist(self, **kwargs) -> None:
+    def fetch_taplist(self, **kwargs) -> bool:
         """fetch taplist for TEB, directly scraping their site and parsing"""
 
         # perform any pre-fetch initialization of base class
@@ -32,7 +32,7 @@ class TEBpage(BreweryPage):
         assert self._url is not None
         is_cached = self.read_page(brewery=list(self._alias.keys())[0]) # read the page
         if is_cached:
-            return
+            return True
 
         beer_div_list = self._soup.find_all("div", {"class": "beer-holder"})
         for beer in beer_div_list:
@@ -67,6 +67,7 @@ class TEBpage(BreweryPage):
         # we now have a list of beers for this brewery
         assert self._beer_list is not None
 
+        return False # not from cache
 
 # add this to the list of breweries
 brewerylist.BREWERY_PAGES.add_brewery_page(TEBpage())

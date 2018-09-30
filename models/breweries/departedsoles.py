@@ -12,11 +12,14 @@ class DepartedSolespage(BreweryPage):
         # initialize aliases
         self._alias = {"Departed Soles" : ["Departed Soles Brewing", "Departed Soles Brewery"]}
 
-    def fetch_taplist(self, **kwargs) -> None:
+    def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist page for Departed Soles and parse it"""
         BreweryPage.fetch_taplist(self, url="http://www.departedsoles.com/beer.html", **kwargs)
         assert self._url is not None
-        self.read_page(brewery=list(self._alias.keys())[0])  # read the page
+        is_cached = self.read_page(brewery=list(self._alias.keys())[0])  # read the page
+        if is_cached:
+            return True
+
         beer_div_list = self._soup.find_all("div", {"class": "beersamples"})
         for beer in beer_div_list:
             name = None
@@ -31,7 +34,7 @@ class DepartedSolespage(BreweryPage):
 
         # we now have a list of beers for this brewery
         assert self._beer_list is not None
-
+        return False # not from cache
 
 # add this to the list of breweries
 # Note: Don't add departed soles, talked to brewer and it's not

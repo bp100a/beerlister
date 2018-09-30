@@ -55,3 +55,17 @@ class TestBeerMenuspage(TestwithFakeRedis):
         short_names = bp.short_name()
         assert 'Rinn Duin' in short_names
         assert len(short_names) == 1
+
+    def test_BeerMenus_cached(self):
+        """Test we can read the Twin Elephant beer list!"""
+        menus_page = BeerMenusPage(mocked=True)
+        assert menus_page is not None
+        brewery_name = next(iter(BREWERY_INFO))
+        from_cache = menus_page.fetch_taplist(brewery=brewery_name)
+        assert not from_cache
+
+        # 2nd read from cache!
+        menus_page.ssml_taplist() # this puts it in the cache
+        from_cache = menus_page.fetch_taplist(brewery=brewery_name)
+        assert from_cache
+

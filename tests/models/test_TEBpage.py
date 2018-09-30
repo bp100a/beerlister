@@ -53,3 +53,16 @@ class TestTEBpage(TestwithFakeRedis):
         names = teb.short_name()
         assert len(names) == 1
         assert names[0] == 'Twin Elephant'
+
+    def test_TEB_cached(self):
+        """Test we can read the Twin Elephant beer list!"""
+        teb = TEBpage(mocked=True)
+        assert teb is not None
+        from_cache = teb.fetch_taplist(brewery="Twin Elephant")
+        assert not from_cache
+
+        # 2nd read from cache!
+        teb.ssml_taplist() # this puts it in the cache
+        from_cache = teb.fetch_taplist(brewery="Twin Elephant")
+        assert from_cache
+
