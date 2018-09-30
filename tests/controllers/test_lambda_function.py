@@ -121,3 +121,13 @@ class TestAWSlambda(TestwithFakeRedis):
         response = lambda_function.lambda_handler(event=get_unknown, context=None)
         assert not response['response']['shouldEndSession']
         assert response['response']['outputSpeech']['text'] == lambda_function.HELP_MESSAGE
+
+    def test_new_session(self):
+        event_new_session = {"session": {"new": False}, "request" : {"type" : "Bogus"} }
+        response = lambda_function.lambda_handler(event=event_new_session, context=None)
+        assert response is None
+
+    def test_end_session(self):
+        event_end_session = {"session": {"new": False}, "request" : {"type" : "SessionEndRequest"} }
+        response = lambda_function.lambda_handler(event=event_end_session, context=None)
+        assert response is None

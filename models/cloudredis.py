@@ -6,6 +6,7 @@ import redis
 
 
 REDIS_SERVER = None
+CACHE_TIMEOUT = 2
 
 def read_configuration():
     """read the redis server configuration from the
@@ -14,7 +15,7 @@ def read_configuration():
         redis_endpoint = os.environ['REDIS_HOST']
         redis_password = os.environ['REDIS_PASSWORD']
         redis_port = os.environ['REDIS_PORT']
-    except KeyError:
+    except Exception:
         return None, None, None
 
     return redis_endpoint, redis_password, redis_port
@@ -38,7 +39,6 @@ def initialize_cloud_redis(injected_server=None):
         redis_server = redis.Redis(host=redis_endpoint,
                                    port=redis_port,
                                    password=redis_password)
-        assert redis_server is not None
     else:
         # injecting a fake redis will always override existing instance
         redis_server = injected_server
@@ -87,7 +87,7 @@ def md5_exists(brewery: str, html: str) -> bool:
         return False
 
     # okay the key exists, make sure it hasn't expired
-    if expired(brewery, too_many_hours=2):
+    if expired(brewery, too_many_hours=CACHE_TIMEOUT):
         return False
 
     # the value exists and it hasn't expired, so check the
