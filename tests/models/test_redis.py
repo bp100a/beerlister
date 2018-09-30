@@ -63,3 +63,18 @@ class TestRedis(TestwithFakeRedis):
 
     def test_empty_cache(self):
         assert cloudredis.expired(brewery="not cached", too_many_hours=1)
+
+    def test_value_error(self):
+        """force a bad timestamp value to test value error exception"""
+        ssml_to_cache = "ssml that will expire"
+        html_we_scraped = "html that will expire"
+        CACHE_TIMEOUT = 1
+        past_time_as_int = int(time.time()) - (CACHE_TIMEOUT*60*60+10)  # 1 hour in past (and a little more for skew)
+        brewery_name = "expiring brewery"
+        cloudredis.cache_ssml(brewery=brewery_name, html=html_we_scraped, ssml=ssml_to_cache, cached_time=past_time_as_int)
+
+        # now overwrite the timestamp entry
+        cloudredis.REDIS_SERVER.set(cloudredis.timestamp_key(brewery_name), float(past_time_as_int))
+
+        # now check it
+        assert not cloudredis.is_cached(brewery_name, html_we_scraped)
