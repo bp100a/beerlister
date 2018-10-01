@@ -3,7 +3,6 @@ python-dateutil==2.7.3
 python-lambda-local==0.1.6
 requests==2.19.1
 requests-mock==1.5.2
-waitress==1.1.0
 six==1.11.0
 redis==2.10.6
 pylint==2.1.1
