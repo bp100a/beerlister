@@ -8,8 +8,7 @@ import time
 import requests
 import bs4 as bs
 from models import cloudredis
-from urllib3.exceptions import SSLError
-
+import fakeredis
 
 class Beer():
     """the essence of a beer. A list of beers is the 'tap list' for brewery"""
@@ -116,7 +115,7 @@ class BreweryPage():
         """Read the brewery page
         returns True if fresh cache entry found"""
         assert self._url is not None
-        if not self._mocked:
+        if not self.mocking:
             if in_session is not None:
                 session = in_session
             else:
@@ -162,10 +161,6 @@ class BreweryPage():
         """add a beer to our private list"""
         self._beer_list.append(beer)
 
-    def get_beerlist(self) -> BeerList:
-        """retrieve our private beer list"""
-        return self._beer_list
-
     # ssml_taplist: make our internal list of beers into an SSML
     #               formatted output
     def ssml_taplist(self) -> str:
@@ -176,9 +171,8 @@ class BreweryPage():
             return beer_str
 
         # create a string for the tap list we have
-        assert self._beer_list is not None
-        assert self._brewery_name is not None
-        beer_str = 'on tap at ' + self._brewery_name + '<break strength="strong"/>'
+        if self._brewery_name:
+            beer_str = 'on tap at ' + self._brewery_name + '<break strength="strong"/>'
         if not self._beer_list:
             return beer_str + "no beers listed"
 
@@ -200,7 +194,11 @@ class BreweryPage():
                                               '<say-as interpret-as="spell-out">IPA</say-as>')
             beer_str += ' ' + beer_name
             if beer.style is not None:
-                if 'DIPA' in beer.style:
+                if 'NEIPA' in beer.style:
+                    beer_style = \
+                        beer.style.replace('NEIPA',
+                                           'New England <say-as interpret-as="spell-out">IPA</say-as>')
+                elif 'DIPA' in beer.style:
                     beer_style = \
                         beer.style.replace('DIPA',
                                            'double <say-as interpret-as="spell-out">IPA</say-as>')
