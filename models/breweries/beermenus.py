@@ -18,8 +18,7 @@ class BeerMenusPage(BreweryPage):
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist for this specific beer management software"""
-        if kwargs.get('brewery') is not None:
-            brewery = kwargs['brewery']
+        brewery = kwargs['brewery']
 
         # construct our URL
         url = "https://beermenus.com/menu_widgets/{0}".format(BREWERY_INFO[brewery][0])
