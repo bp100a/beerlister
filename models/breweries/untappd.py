@@ -88,8 +88,6 @@ class UnTappdPage(BreweryPage):
         html_menu = html_menu.replace('\\"', '"')
         html_menu = html_menu.replace('/\n', '\n')
         html_menu = html_menu.replace('\\/', '/')
-        if end_pos == -1:
-            assert end_pos is not -1
 
         self._soup = bs.BeautifulSoup(html_menu, "html.parser")
         assert self._soup is not None

@@ -65,8 +65,6 @@ class TEBpage(BreweryPage):
             self.add_beer(Beer(name=name, style=style, abv=abv, hops=hops))
 
         # we now have a list of beers for this brewery
-        assert self._beer_list is not None
-
         return False # not from cache
 
 # add this to the list of breweries

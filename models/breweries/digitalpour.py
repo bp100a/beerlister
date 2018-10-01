@@ -30,8 +30,7 @@ class DigitalPourPage(BreweryPage):
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist and scrape out the beer list"""
-        if kwargs.get('brewery') is not None:
-            brewery = kwargs['brewery']
+        brewery = kwargs['brewery']
 
         # construct our URL
         loc_theme = BREWERY_INFO[brewery]
