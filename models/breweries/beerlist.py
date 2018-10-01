@@ -171,8 +171,7 @@ class BreweryPage():
             return beer_str
 
         # create a string for the tap list we have
-        if self._brewery_name:
-            beer_str = 'on tap at ' + self._brewery_name + '<break strength="strong"/>'
+        beer_str = 'on tap at ' + self._brewery_name + '<break strength="strong"/>'
         if not self._beer_list:
             return beer_str + "no beers listed"
 
