@@ -20,6 +20,8 @@ HOME_BREWERY_SET = 'Your home brewery has been set to {0}'
 
 CANNOT_SET_HOME = 'Sorry, I cannot set {0} as your home brewery'
 
+NO_HOME_BREWERY_SET = 'Sorry, no home brewery has been set. You can set your home brewery' + \
+                      'by saying ask Jersey Beers to set my home brewery to a brewery'
 # --------------- App entry point -----------------
 
 
@@ -40,6 +42,7 @@ def lambda_handler(event, context):
 
 # --------------- Response handlers -----------------
 
+
 def on_intent(request, session):
     """ called on receipt of an Intent  """
     intent_name = request['intent']['name']
@@ -56,6 +59,8 @@ def on_intent(request, session):
         return list_of_breweries_response()
     elif intent_name == 'SetHomeBrewery':
         return set_home_brewery(request, session)
+    elif intent_name == 'GetHomeTapList':
+        return get_home_brewery_taplist(request, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_help_response()
     elif intent_name == "AMAZON.StopIntent":
@@ -66,6 +71,18 @@ def on_intent(request, session):
         return get_fallback_response()
 
     return get_help_response()
+
+
+def get_home_brewery_taplist(request: dict, session: dict):
+    """get the taplist for our home brewery"""
+    aws_user_id = session['user']['userId']
+    brewery = brewerylist.BREWERY_PAGES.get_home_brewery(user_id=aws_user_id)
+    if not brewery: # didn't find a home
+        return response(speech_response(NO_HOME_BREWERY_SET, True))
+
+    # okay, we have a home brewery, so lets get the tap list
+    taplist_intent = {"slots":{"brewery":{"value": brewery.decode('utf-8')}}, "mocked": request['intent']['mocked'] }
+    return get_taplist_response(taplist_intent)
 
 
 def set_home_brewery(request: dict, session: dict):
@@ -79,6 +96,7 @@ def set_home_brewery(request: dict, session: dict):
 
     # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
     return response(speech_response(CANNOT_SET_HOME.format(brewery), True))
+
 
 def list_of_breweries_response():
     """Return a list of breweries that we support"""

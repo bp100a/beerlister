@@ -160,3 +160,35 @@ class TestAWSlambda(TestwithFakeRedis):
         assert response is not None
         assert response['response']['outputSpeech']['text'].startswith('Sorry, I cannot set')
         assert response['response']['shouldEndSession']
+
+    def test_bad_homebrewery_taplist(self):
+        home_taplist_event = {"request" : {"type": "IntentRequest", "intent": {"name": "GetHomeTapList"}},\
+                              "session" : {"new": False, "user": {"userId": "bogus_user_id"} } }
+        response = lambda_function.lambda_handler(event=home_taplist_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['text'].startswith('Sorry, no home brewery has been set')
+        assert response['response']['shouldEndSession']
+
+    def test_homebrewery_taplist(self):
+
+        # first set the home brewery
+        set_home_event = {"request" : {"type": "IntentRequest",\
+                                       "intent": {"name": "SetHomeBrewery",
+                                                  "mocked": True,
+                                                  "slots" : {"brewery":{"value":"Twin Elephant"}}}},\
+                          "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
+
+
+        response = lambda_function.lambda_handler(event=set_home_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['text'].startswith('Your home brewery has been set to')
+        assert response['response']['shouldEndSession']
+
+        home_taplist_event = {"request" : {"type": "IntentRequest",\
+                                           "intent": {"name": "GetHomeTapList", "mocked": True}},\
+                              "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
+        response = lambda_function.lambda_handler(event=home_taplist_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['ssml'].startswith('<speak>on tap at')
+        assert response['response']['shouldEndSession']
+
