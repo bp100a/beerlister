@@ -70,6 +70,11 @@ def timestamp_key(brewery: str) -> str:
     return brewery.replace(' ', '') + "_timestamp"
 
 
+def home_key(user_id: str) -> str:
+    """create key for the home value (an uuid not doubt)"""
+    return user_id.replace(' ', '') + "_uid"
+
+
 def flush_cache(brewery: str) -> None:
     """flush the cache entries"""
     global REDIS_SERVER
@@ -83,7 +88,7 @@ def md5_exists(brewery: str, html: str) -> bool:
     compute the MD5 and see if we have a cached entry
     for it"""
     global REDIS_SERVER
-    if not exists(md5_key(brewery)):
+    if not REDIS_SERVER.exists(md5_key(brewery)):
         return False
 
     # okay the key exists, make sure it hasn't expired

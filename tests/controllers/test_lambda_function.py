@@ -132,3 +132,31 @@ class TestAWSlambda(TestwithFakeRedis):
         event_end_session = {"session": {"new": False}, "request" : {"type" : "SessionEndRequest"} }
         response = lambda_function.lambda_handler(event=event_end_session, context=None)
         assert response is None
+
+    def test_set_home_brewery(self):
+        """Test that we get back the brewery list for an unknown brewery"""
+        fn = self.data_dir() + 'SetHomeBreweryIntent_RinnDuin.json'
+        fp = open(fn, mode='r', encoding='utf8')
+        json_intent = fp.read()
+        fp.close()
+        event = json.loads(json_intent)
+        event['request']['intent']['mocked'] = True
+        response = lambda_function.lambda_handler(event=event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['text'].startswith('Your home brewery has been set to')
+        assert response['response']['shouldEndSession']
+
+    def test_set_bad_home_brewery(self):
+        """Test that we get back the brewery list for an unknown brewery"""
+        fn = self.data_dir() + 'SetHomeBreweryIntent_RinnDuin.json'
+        fp = open(fn, mode='r', encoding='utf8')
+        json_intent = fp.read()
+        fp.close()
+        event = json.loads(json_intent)
+        event['request']['intent']['mocked'] = True
+        event['request']['intent']['slots']['brewery']['value'] = 'bogus brewing'
+
+        response = lambda_function.lambda_handler(event=event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['text'].startswith('Sorry, I cannot set')
+        assert response['response']['shouldEndSession']

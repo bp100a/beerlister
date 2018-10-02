@@ -1,9 +1,12 @@
 from unittest import TestCase
-from controllers import brewerylist  # for clarity
+from tests.setupfakeredis import TestwithFakeRedis
+from models import cloudredis
+import fakeredis
 from models.breweries import *
+from controllers import brewerylist
 
 
-class TestBreweryList(TestCase):
+class TestBreweryList(TestwithFakeRedis):
     """everything we need to test our our list of breweries"""
 
     def test_brewery_list(self):
@@ -102,3 +105,29 @@ class TestBreweryList(TestCase):
         """Test that we can generate an SSML for the list of known breweries"""
         resp = brewerylist.BREWERY_PAGES.ssml_brewery_list()
         assert resp is not None
+
+    def test_set_home_brewery(self):
+        """set a home brewery"""
+        user_id = "amzn1.ask.account.AE53V7JF7U5ZCQHJTUYDLHKNKIP23LBVJVA4UISZUZBMUP7APYXL4WINBAFUFO647ZCWWR7ECPWV7YGPQPITT7X5FULYHALENOJ5XQC75TEELCTXA332I2POGQFEUYKFRU7EGSFBQPKBM22YENJVVTUR2XNX2P7S7O6I3SKXFJE4XJ2GJZ4WXKP7YIOSRNGZGNJECFEJIN5XELY"
+
+        brewery = 'Twin Elephant'
+
+        # first ensure there's not "home" brewery
+        assert brewerylist.BREWERY_PAGES.get_home_brewery(user_id) is None
+
+        # now set a "home" brewery
+        assert brewerylist.BREWERY_PAGES.add_home_brewery(brewery_name=brewery, user_id=user_id)
+
+        # now check we have a "home" brewery
+        home_brewery = brewerylist.BREWERY_PAGES.get_home_brewery(user_id).decode('utf-8')
+        assert home_brewery is not None and home_brewery == brewery
+
+    def test_set_bad_home_brewery(self):
+        """set a home brewery"""
+        user_id = "amzn1.ask.account.AE53V7JF7U5ZCQHJTUYDLHKNKIP23LBVJVA4UISZUZBMUP7APYXL4WINBAFUFO647ZCWWR7ECPWV7YGPQPITT7X5FULYHALENOJ5XQC75TEELCTXA332I2POGQFEUYKFRU7EGSFBQPKBM22YENJVVTUR2XNX2P7S7O6I3SKXFJE4XJ2GJZ4WXKP7YIOSRNGZGNJECFEJIN5XELY"
+
+        brewery = 'bogus brewery'
+
+        # now set a bogus "home" brewery
+        assert not brewerylist.BREWERY_PAGES.add_home_brewery(brewery_name=brewery, user_id=user_id)
+

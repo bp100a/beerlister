@@ -16,6 +16,10 @@ FALLBACK_MESSAGE = "The Jersey Beers skill can't help you with that. " + \
                    "at select breweries in North Jersey"
 FALLBACK_REPROMPT = 'What can I help you with?'
 
+HOME_BREWERY_SET = 'Your home brewery has been set to {0}'
+
+CANNOT_SET_HOME = 'Sorry, I cannot set {0} as your home brewery'
+
 # --------------- App entry point -----------------
 
 
@@ -50,6 +54,8 @@ def on_intent(request, session):
         return get_taplist_response(request['intent'])
     elif intent_name == 'ListBreweries':
         return list_of_breweries_response()
+    elif intent_name == 'SetHomeBrewery':
+        return set_home_brewery(request, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_help_response()
     elif intent_name == "AMAZON.StopIntent":
@@ -61,6 +67,18 @@ def on_intent(request, session):
 
     return get_help_response()
 
+
+def set_home_brewery(request: dict, session: dict):
+    """set the home brewery for the user"""
+
+    brewery = request['intent']['slots']['brewery']['value']
+    aws_user_id = session['user']['userId']
+    success = brewerylist.BREWERY_PAGES.add_home_brewery(brewery_name=brewery, user_id=aws_user_id)
+    if success:
+        return response(speech_response(HOME_BREWERY_SET.format(brewery), True))
+
+    # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
+    return response(speech_response(CANNOT_SET_HOME.format(brewery), True))
 
 def list_of_breweries_response():
     """Return a list of breweries that we support"""
