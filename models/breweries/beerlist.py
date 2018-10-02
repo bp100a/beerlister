@@ -8,7 +8,7 @@ import time
 import requests
 import bs4 as bs
 from models import cloudredis
-import fakeredis
+
 
 class Beer():
     """the essence of a beer. A list of beers is the 'tap list' for brewery"""
