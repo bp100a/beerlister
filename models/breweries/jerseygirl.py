@@ -22,7 +22,7 @@ class JerseyGirlPage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Jersey Girl": ["Jersey Girl Brewing", "Jersey Girl Brewery"]}
+        self._alias = {"Jersey Girl": ["jerseygirl", "Jersey Girl Brewing", "Jersey Girl Brewery"]}
 
     @staticmethod
     def parse_content(abv_and_style: str):
