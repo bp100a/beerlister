@@ -12,10 +12,12 @@ class TestBreweryList(TestCase):
                                 "<class \'models.breweries.untappd.UnTappdPage\'>",
                                 "<class \'models.breweries.twinelephant.TEBpage\'>",
                                 "<class \'models.breweries.beermenus.BeerMenusPage\'>",
-                                "<class \'models.breweries.digitalpour.DigitalPourPage\'>"]
+                                "<class \'models.breweries.digitalpour.DigitalPourPage\'>",
+                                "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>"]
         for brewery in brewerylist.BREWERY_PAGES.brewery_page_list:
             bobj = str(type(brewery))
-            assert bobj in brewery_page_objects
+            if bobj not in brewery_page_objects:
+                assert bobj in brewery_page_objects
 
     def test_find_breweries(self):
         """Test that all known breweries and their alias can be properly found in the global brewery_page_list"""
@@ -25,9 +27,9 @@ class TestBreweryList(TestCase):
                            "Twin Elephant Brewing": "<class \'models.breweries.twinelephant.TEBpage\'>",
                            "Twin Elephant Brewery": "<class \'models.breweries.twinelephant.TEBpage\'>",
 
-                           "Departed Soles" : "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
-                           "Departed Soles Brewing": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
-                           "Departed Soles Brewery": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
+                           # "Departed Soles" : "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
+                           # "Departed Soles Brewing": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
+                           # "Departed Soles Brewery": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
 
                            "Man Skirt" : "<class \'models.breweries.untappd.UnTappdPage\'>",
                            "Man Skirt Brewing" : "<class \'models.breweries.untappd.UnTappdPage\'>",
@@ -55,7 +57,12 @@ class TestBreweryList(TestCase):
 
                            "Village Idiot": "<class \'models.breweries.digitalpour.DigitalPourPage\'>",
                            "Village Idiot Brewing": "<class \'models.breweries.digitalpour.DigitalPourPage\'>",
-                           "Village Idiot Brewery": "<class \'models.breweries.digitalpour.DigitalPourPage\'>"
+                           "Village Idiot Brewery": "<class \'models.breweries.digitalpour.DigitalPourPage\'>",
+
+                           "Jersey Girl": "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>",
+                           "Jersey Girl Brewing": "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>",
+                           "Jersey Girl Brewery": "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>"
+
                            }
 
         for brewery_alias in known_breweries:
@@ -64,14 +71,19 @@ class TestBreweryList(TestCase):
             assert brewery_id is not None
 
     def test_brewerylist(self):
-        """We will clearn the brewery list then manually add all known objects, then verify"""
+        """We will clear the brewery list then manually add all known objects, then verify"""
         # clear the brewerylist
+
+        # Note: Sometimes this is run prior to other brewery list tests so
+        #       if a new page is added, it must be added in order here
+        #
         brewerylist.BREWERY_PAGES.brewery_page_list = []
-        brewerylist.BREWERY_PAGES.add_brewery_page(twinelephant.TEBpage())
-        brewerylist.BREWERY_PAGES.add_brewery_page(departedsoles.DepartedSolespage())
-        brewerylist.BREWERY_PAGES.add_brewery_page(digitalpour.DigitalPourPage())
         brewerylist.BREWERY_PAGES.add_brewery_page(beermenus.BeerMenusPage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(twinelephant.TEBpage())
         brewerylist.BREWERY_PAGES.add_brewery_page(untappd.UnTappdPage())
+#        brewerylist.BREWERY_PAGES.add_brewery_page(departedsoles.DepartedSolespage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(digitalpour.DigitalPourPage())
+        brewerylist.BREWERY_PAGES.add_brewery_page(jerseygirl.JerseyGirlPage())
 
         # now that we added them, see if they are there
         self.test_find_breweries()
