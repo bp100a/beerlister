@@ -43,7 +43,7 @@ class JerseyGirlPage(BreweryPage):
             if 'ABV' in parts[idx] or parts[idx] == '-' or parts[idx] == '\N{En Dash}':
                 continue
             style += parts[idx] + ' '
-
+        style = style.replace('NE-', 'New England ')
         return abv.strip(' '), style.strip(' ')
 
     def find_beers(self, content: list) -> None:

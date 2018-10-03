@@ -18,6 +18,7 @@ class TestJerseyGirlpage(TestwithFakeRedis):
                         {'text': 'ABV: 6.2% - French Saison', 'abv': '6.2%', 'style': 'French Saison'},
                         {'text': 'ABV - 6.5% - New England Style IPA', 'abv': '6.5%', 'style': 'New England Style IPA'},
                         {'text': 'ABV 4.5% - Traditional, German-style Pilsner', 'abv': '4.5%', 'style': 'Traditional, German-style Pilsner'},
+                        {'text': 'ABV: 5.5% - NE-Style IPA', 'abv':'5.5%', 'style': 'New England Style IPA'},
                         {'text': 'ABV: 4.0% - Hefeweizen', 'abv': '4.0%', 'style': 'Hefeweizen'}]
         jerseygirl = JerseyGirlPage(mocked=True)
 
