@@ -14,7 +14,7 @@ class TestAWSlambda(TestwithFakeRedis):
         path = root + '/tests/data/'
         return path
 
-    def get_taplistintent(self, brewery):
+    def get_taplist_intent(self, brewery):
         fn = self.data_dir() + 'GetTapListIntent_' + brewery.replace(' ', '') + '.json'
         fp = open(fn, mode='r', encoding='utf8')
         json_intent = fp.read()
@@ -34,18 +34,18 @@ class TestAWSlambda(TestwithFakeRedis):
             assert False  # anything different, raise hell!
 
     def test_getTwinElephant(self):
-        self.get_taplistintent("Twin Elephant")
+        self.get_taplist_intent("Twin Elephant")
 
     def test_getBeerMenus(self):
-        self.get_taplistintent("Rinn Duin")
+        self.get_taplist_intent("Rinn Duin")
 
     def test_getUntapped(self):
-        self.get_taplistintent("Alementary")
+        self.get_taplist_intent("Alementary")
 
     def test_getDigitalPour(self):
-        self.get_taplistintent(("Village Idiot"))
+        self.get_taplist_intent(("Village Idiot"))
 
-    def test_listbreweries_intent(self):
+    def test_list_breweries_intent(self):
         """Test we can get a list of breweries using an Alexa intent from file"""
         fn = self.data_dir() + 'ListBreweries' + '.json'
         fp = open(fn, mode='r', encoding='utf8')
@@ -58,7 +58,7 @@ class TestAWSlambda(TestwithFakeRedis):
         assert response['response']['shouldEndSession']
         assert response['response']['outputSpeech']['text'] == 'Here are the breweries I know: Rinn Duin, Twin Elephant, Fort Nonsense, Alementary, Angry Erik, Man Skirt, Demented, Village Idiot, and Jersey Girl'
 
-    def test_bogusbrewery(self):
+    def test_bogus_brewery(self):
         """Test that we get back the brewery list for an unknown brewery"""
         fn = self.data_dir() + 'GetTapListIntent_BogusBrewery.json'
         fp = open(fn, mode='r', encoding='utf8')
@@ -71,7 +71,7 @@ class TestAWSlambda(TestwithFakeRedis):
         assert response['response']['outputSpeech']['text'].startswith('Here are the breweries I know:')
         assert response['response']['shouldEndSession']
 
-    def test_openskill(self):
+    def test_open_skill(self):
         fn = self.data_dir() + 'OpenTapList.json'
         fp = open(fn, mode='r', encoding='utf8')
         json_intent = fp.read()
@@ -84,13 +84,13 @@ class TestAWSlambda(TestwithFakeRedis):
     def test_session_state(self):
 
         # create our launch request
-        launchevent = {"request" : {"type": "LaunchRequest"}, "session" : {"new": True} }
-        response = lambda_function.lambda_handler(event=launchevent, context=None)
+        launch_event = {"request" : {"type": "LaunchRequest"}, "session" : {"new": True} }
+        response = lambda_function.lambda_handler(event=launch_event, context=None)
         assert not response['response']['shouldEndSession']
 
         # Session is open, now ask for a list of breweries
-        listbreweriesevent = {"request" : {"type": "IntentRequest", "intent": {"name": "ListBreweries"}}, "session" : {"new": False} }
-        response = lambda_function.lambda_handler(event=listbreweriesevent, context=None)
+        list_breweries_event = {"request" : {"type": "IntentRequest", "intent": {"name": "ListBreweries"}}, "session" : {"new": False} }
+        response = lambda_function.lambda_handler(event=list_breweries_event, context=None)
         assert response['response']['shouldEndSession']
 
     def test_fallback_response(self):
@@ -161,7 +161,8 @@ class TestAWSlambda(TestwithFakeRedis):
         assert response['response']['outputSpeech']['text'].startswith('Sorry, I cannot set')
         assert response['response']['shouldEndSession']
 
-    def test_bad_homebrewery_taplist(self):
+    def test_bad_home_brewery_taplist(self):
+        """try to set a bad brewery and get proper error response"""
         home_taplist_event = {"request" : {"type": "IntentRequest", "intent": {"name": "GetHomeTapList"}},\
                               "session" : {"new": False, "user": {"userId": "bogus_user_id"} } }
         response = lambda_function.lambda_handler(event=home_taplist_event, context=None)
@@ -169,16 +170,14 @@ class TestAWSlambda(TestwithFakeRedis):
         assert response['response']['outputSpeech']['text'].startswith('Sorry, no home brewery has been set')
         assert response['response']['shouldEndSession']
 
-    def test_homebrewery_taplist(self):
-
+    def test_home_brewery_taplist(self):
+        """retrieve a home brewery tap list"""
         # first set the home brewery
         set_home_event = {"request" : {"type": "IntentRequest",\
                                        "intent": {"name": "SetHomeBrewery",
                                                   "mocked": True,
                                                   "slots" : {"brewery":{"value":"Twin Elephant"}}}},\
                           "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
-
-
         response = lambda_function.lambda_handler(event=set_home_event, context=None)
         assert response is not None
         assert response['response']['outputSpeech']['text'].startswith('Your home brewery has been set to')
@@ -192,3 +191,35 @@ class TestAWSlambda(TestwithFakeRedis):
         assert response['response']['outputSpeech']['ssml'].startswith('<speak>on tap at')
         assert response['response']['shouldEndSession']
 
+    def test_get_home_brewery(self):
+        """Test that we can set a home brewery and get it back"""
+        set_home_event = {"request" : {"type": "IntentRequest",\
+                                       "intent": {"name": "SetHomeBrewery",
+                                                  "mocked": True,
+                                                  "slots" : {"brewery":{"value":"Village Idiot"}}}},\
+                          "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
+
+        response = lambda_function.lambda_handler(event=set_home_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['text'].startswith('Your home brewery has been set to')
+        assert response['response']['shouldEndSession']
+
+        # now read it back
+        get_home_event = {"request" : {"type": "IntentRequest",\
+                                       "intent": {"name": "GetHomeBrewery"}},\
+                          "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
+        response = lambda_function.lambda_handler(event=get_home_event, context=None)
+        assert response is not None
+        assert 'Village Idiot' in response['response']['outputSpeech']['text']
+        assert response['response']['shouldEndSession']
+
+    def test_get_home_brewery_none(self):
+        """Test that when no home brewery has been set, we tell user"""
+        # read a home brewery before we have set it
+        get_home_event = {"request" : {"type": "IntentRequest",\
+                                       "intent": {"name": "GetHomeBrewery"}},\
+                          "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
+        response = lambda_function.lambda_handler(event=get_home_event, context=None)
+        assert response is not None
+        assert 'Sorry, no home brewery' in response['response']['outputSpeech']['text']
+        assert response['response']['shouldEndSession']

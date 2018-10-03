@@ -22,6 +22,8 @@ CANNOT_SET_HOME = 'Sorry, I cannot set {0} as your home brewery'
 
 NO_HOME_BREWERY_SET = 'Sorry, no home brewery has been set. You can set your home brewery' + \
                       'by saying ask Jersey Beers to set my home brewery to a brewery'
+
+CURRENT_HOME_BREWERY = "Your current home brewery is {0}"
 # --------------- App entry point -----------------
 
 
@@ -61,6 +63,8 @@ def on_intent(request, session):
         return set_home_brewery(request, session)
     elif intent_name == 'GetHomeTapList':
         return get_home_brewery_taplist(request, session)
+    elif intent_name == 'GetHomeBrewery':
+        return get_home_brewery(request, session)
     elif intent_name == "AMAZON.HelpIntent":
         return get_help_response()
     elif intent_name == "AMAZON.StopIntent":
@@ -81,7 +85,10 @@ def get_home_brewery_taplist(request: dict, session: dict):
         return response(speech_response(NO_HOME_BREWERY_SET, True))
 
     # okay, we have a home brewery, so lets get the tap list
-    taplist_intent = {"slots":{"brewery":{"value": brewery.decode('utf-8')}}, "mocked": request['intent']['mocked'] }
+    mocked = False
+    if 'mocked' in request['intent']:
+        mocked = request['intent']['mocked']
+    taplist_intent = {"slots":{"brewery":{"value": brewery.decode('utf-8')}}, "mocked": mocked}
     return get_taplist_response(taplist_intent)
 
 
@@ -96,6 +103,18 @@ def set_home_brewery(request: dict, session: dict):
 
     # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
     return response(speech_response(CANNOT_SET_HOME.format(brewery), True))
+
+
+def get_home_brewery(request: dict, session: dict):
+    """get the home brewery for the user"""
+
+    aws_user_id = session['user']['userId']
+    brewery = brewerylist.BREWERY_PAGES.get_home_brewery(user_id=aws_user_id)
+    if not brewery: # didn't find a home
+        return response(speech_response(NO_HOME_BREWERY_SET, True))
+
+    # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
+    return response(speech_response(CURRENT_HOME_BREWERY.format(brewery), True))
 
 
 def list_of_breweries_response():
