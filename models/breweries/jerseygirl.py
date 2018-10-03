@@ -40,7 +40,7 @@ class JerseyGirlPage(BreweryPage):
             if '%' in parts[idx]:
                 abv = parts[idx]
                 continue
-            if 'ABV' in parts[idx] or parts[idx] == '-':
+            if 'ABV' in parts[idx] or parts[idx] == '-' or parts[idx] == '\N{En Dash}':
                 continue
             style += parts[idx] + ' '
 
