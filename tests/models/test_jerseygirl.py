@@ -123,3 +123,32 @@ class TestJerseyGirlpage(TestwithFakeRedis):
         assert jerseygirl_page._beer_list is not None
         assert len(jerseygirl_page._beer_list) == 1
 
+    def test_fetchtaplist_bad_abv_style(self):
+        """Test the index boundaries of parser"""
+        jerseygirl_page = JerseyGirlPage(mocked=True)
+        assert jerseygirl_page is not None
+
+        # create our fake data
+        span_list = []
+        span_list.append(lambda:None)
+        span_list[0].text = 'xxxxOn Tap in the Sample Roomxxxx'
+        span_list[0].contents = []
+
+        span_list.append(lambda:None)
+        span_list[1].contents = []
+        span_list[1].contents.append(lambda:None)
+        span_list[1].contents[0].contents = []
+
+        span_list[1].contents[0].contents.append(lambda:None)
+        span_list[1].contents[0].contents[0].name = 'u'
+        span_list[1].contents[0].contents[0].text = 'beer#1'
+        span_list[1].contents[0].contents.append(lambda:None)
+        span_list[1].contents[0].contents[1] = 'placeholder'
+        span_list[1].contents[0].contents.append(lambda:None)
+        span_list[1].contents[0].contents[2] = 'ABV'
+
+        is_cached = jerseygirl_page.fetch_taplist(mockedlist=span_list)
+        assert not is_cached
+        assert jerseygirl_page._beer_list is not None
+        assert not jerseygirl_page._beer_list
+
