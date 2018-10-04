@@ -191,6 +191,19 @@ class TestAWSlambda(TestwithFakeRedis):
         assert response['response']['outputSpeech']['ssml'].startswith('<speak>on tap at')
         assert response['response']['shouldEndSession']
 
+    def test_set_home_brewery_no_slot(self):
+        """retrieve fail setting the home brewery, ommit the slot"""
+        # first set the home brewery
+        set_home_event = {"request" : {"type": "IntentRequest",\
+                                       "intent": {"name": "SetHomeBrewery",
+                                                  "mocked": True}},\
+                          "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
+        response = lambda_function.lambda_handler(event=set_home_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['type'] == 'PlainText'
+        assert lambda_function.ERROR_NO_BREWERY in response['response']['outputSpeech']['text']
+        assert response['response']['shouldEndSession']
+
     def test_get_home_brewery(self):
         """Test that we can set a home brewery and get it back"""
         set_home_event = {"request" : {"type": "IntentRequest",\
@@ -201,6 +214,7 @@ class TestAWSlambda(TestwithFakeRedis):
 
         response = lambda_function.lambda_handler(event=set_home_event, context=None)
         assert response is not None
+        assert response['response']['outputSpeech']['type'] == 'PlainText'
         assert response['response']['outputSpeech']['text'].startswith('Your home brewery has been set to')
         assert response['response']['shouldEndSession']
 
@@ -210,6 +224,7 @@ class TestAWSlambda(TestwithFakeRedis):
                           "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
         response = lambda_function.lambda_handler(event=get_home_event, context=None)
         assert response is not None
+        assert response['response']['outputSpeech']['type'] == 'PlainText'
         assert 'Village Idiot' in response['response']['outputSpeech']['text']
         assert response['response']['shouldEndSession']
 
@@ -218,8 +233,37 @@ class TestAWSlambda(TestwithFakeRedis):
         # read a home brewery before we have set it
         get_home_event = {"request" : {"type": "IntentRequest",\
                                        "intent": {"name": "GetHomeBrewery"}},\
-                          "session" : {"new": False, "user": {"userId": "valid_user_id"} } }
+                          "session" : {"new": False, "user": {"userId": "valid_user_id"}}}
         response = lambda_function.lambda_handler(event=get_home_event, context=None)
         assert response is not None
+        assert response['response']['outputSpeech']['type'] == 'PlainText'
         assert 'Sorry, no home brewery' in response['response']['outputSpeech']['text']
         assert response['response']['shouldEndSession']
+
+    def test_empty_brewery(self):
+        """Test that we get back the brewery list for an unknown brewery"""
+        empty_brewery_event = {"request": {"type": "IntentRequest",
+                                           "intent": {"name": "GetTapListIntent",
+                                                      "mocked": True,
+                                                      "slots": {"brewery": {"value":""}}}},\
+                              "session": {"new": False,
+                                          "user": {"userId": "bogus_user_id"}}}
+        response = lambda_function.lambda_handler(event=empty_brewery_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['type'] == 'PlainText'
+        assert response['response']['outputSpeech']['text'].startswith('Here are the breweries I know:')
+        assert response['response']['shouldEndSession']
+
+    def test_get_taplist_no_slot(self):
+        """Test that we get back the brewery list for an unknown brewery"""
+        empty_brewery_event = {"request": {"type": "IntentRequest",
+                                           "intent": {"name": "GetTapListIntent",
+                                                      "mocked": True}},\
+                              "session": {"new": False,
+                                          "user": {"userId": "bogus_user_id"}}}
+        response = lambda_function.lambda_handler(event=empty_brewery_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['type'] == 'PlainText'
+        assert lambda_function.ERROR_NO_BREWERY in response['response']['outputSpeech']['text']
+        assert response['response']['shouldEndSession']
+

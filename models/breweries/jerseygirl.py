@@ -50,8 +50,9 @@ class JerseyGirlPage(BreweryPage):
         """okay, from this list, find the beer name, ABV & style."""
 
         # first the beer name
+        global beer_idx
         for beer_idx in range(0, len(content)):  # pylint: disable=C0200
-            if content[beer_idx].name == 'u':
+            if hasattr(content[beer_idx], 'name') and content[beer_idx].name == 'u':
                 # okay we have the beer name
                 beer_name = content[beer_idx].text
                 # now find the ABV
@@ -66,29 +67,34 @@ class JerseyGirlPage(BreweryPage):
                                                style=beer_style,
                                                abv=beer_abv,
                                                hops=None))
-                        beer_idx = abv_idx
-                        break
-
+                            break
+                abv_idx += 1 # out of loop, advance next search by 1
                 if abv_idx == len(content):
                     return
+                beer_idx = abv_idx
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch taplist for Jersey Girl, directly scraping their site and parsing"""
 
+        span_list = kwargs.get('mockedlist', None)  # testing injection
         # perform any pre-fetch initialization of base class
         BreweryPage.fetch_taplist(self, url="http://www.jerseygirlbrewing.com/beers.html", **kwargs)
-        is_cached = self.read_page(brewery=list(self._alias.keys())[0]) # read the page
-        if is_cached:
-            return True
 
-        # we now have a list of beers for this brewery
-        span_list = self._soup.find_all("span")
+        if span_list is None:
+            is_cached = self.read_page(brewery=list(self._alias.keys())[0]) # read the page
+            if is_cached:
+                return True
+            span_list = self._soup.find_all("span")
+
         idx = 0
+        taplist_start_found = False
         for idx in range(0, len(span_list)):  # pylint: disable=C0200
             span = span_list[idx]
-            if 'On Tap in the Sample Room' in span.text:
+            taplist_start_found = 'On Tap in the Sample Room' in span.text
+            if taplist_start_found:
                 break
-        if idx == len(span_list):
+
+        if not taplist_start_found:
             return False
 
         # okay we found the Tap List span, now look for beers

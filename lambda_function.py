@@ -24,6 +24,9 @@ NO_HOME_BREWERY_SET = 'Sorry, no home brewery has been set. You can set your hom
                       'by saying ask Jersey Beers to set my home brewery to a brewery'
 
 CURRENT_HOME_BREWERY = "Your current home brewery is {0}"
+
+ERROR_NO_BREWERY = "I'm sorry, you must specify a brewery"
+
 # --------------- App entry point -----------------
 
 
@@ -35,8 +38,7 @@ def lambda_handler(event, context):
 
     if event['request']['type'] == "LaunchRequest":
         return on_launch(event['request'])
-    elif event['request']['type'] == "IntentRequest":
-        return on_intent(event['request'], event['session'])
+    elif event['request']['type'] == "IntentRequest":        return on_intent(event['request'], event['session'])
     elif event['request']['type'] == "SessionEndedRequest":
         return on_session_ended()
 
@@ -95,14 +97,17 @@ def get_home_brewery_taplist(request: dict, session: dict):
 def set_home_brewery(request: dict, session: dict):
     """set the home brewery for the user"""
 
-    brewery = request['intent']['slots']['brewery']['value']
-    aws_user_id = session['user']['userId']
-    success = brewerylist.BREWERY_PAGES.add_home_brewery(brewery_name=brewery, user_id=aws_user_id)
-    if success:
-        return response(speech_response(HOME_BREWERY_SET.format(brewery), True))
+    try:
+        brewery = request['intent']['slots']['brewery']['value']
+        aws_user_id = session['user']['userId']
+        success = brewerylist.BREWERY_PAGES.add_home_brewery(brewery_name=brewery, user_id=aws_user_id)
+        if success:
+            return response(speech_response(HOME_BREWERY_SET.format(brewery), True))
 
-    # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
-    return response(speech_response(CANNOT_SET_HOME.format(brewery), True))
+        # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
+        return response(speech_response(CANNOT_SET_HOME.format(brewery), True))
+    except KeyError:
+        return response(speech_response(ERROR_NO_BREWERY, True))
 
 
 def get_home_brewery(request: dict, session: dict):
@@ -125,19 +130,21 @@ def list_of_breweries_response():
 
 def get_taplist_response(intent: dict):
     """ return the taplist  """
+    try:
+        brewery_name = intent['slots']['brewery']['value']
+        bobj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery(brewery_name=brewery_name)
 
-    brewery_name = intent['slots']['brewery']['value']
-    bobj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery(brewery_name=brewery_name)
+        # if we couldn't find the brewery, respond with a the list of breweries we know
+        if brewery_id is None or bobj is None:
+            return list_of_breweries_response()
 
-    # if we couldn't find the brewery, respond with a the list of breweries we know
-    if brewery_id is None or bobj is None:
-        return list_of_breweries_response()
-
-    if 'mocked' in intent:
-        bobj.mocking = intent['mocked']
-    bobj.fetch_taplist(brewery=brewery_id)
-    beer_string = bobj.ssml_taplist()
-    return response(speech_response_ssml(beer_string, True))
+        if 'mocked' in intent:
+            bobj.mocking = intent['mocked']
+        bobj.fetch_taplist(brewery=brewery_id)
+        beer_string = bobj.ssml_taplist()
+        return response(speech_response_ssml(beer_string, True))
+    except KeyError:
+        return response(speech_response(ERROR_NO_BREWERY, True))
 
 
 def get_help_response():
@@ -235,22 +242,22 @@ def speech_response(output, endsession):
 #     }
 
 
-def speech_response_with_card(title, output, cardcontent, endsession):
-
-    """  create a simple json response with card """
-
-    return {
-        'card': {
-            'type': 'Simple',
-            'title': title,
-            'content': cardcontent
-        },
-        'outputSpeech': {
-            'type': 'PlainText',
-            'text': output
-        },
-        'shouldEndSession': endsession
-    }
+# def speech_response_with_card(title, output, cardcontent, endsession):
+#
+#     """  create a simple json response with card """
+#
+#     return {
+#         'card': {
+#             'type': 'Simple',
+#             'title': title,
+#             'content': cardcontent
+#         },
+#         'outputSpeech': {
+#             'type': 'PlainText',
+#             'text': output
+#         },
+#         'shouldEndSession': endsession
+#     }
 
 
 # def response_ssml_text_and_prompt(output, endsession, reprompt_text):
