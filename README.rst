@@ -46,9 +46,7 @@ Things I'd like to add
    4) Better "hearing"
       Alexa sucks interpreting free text. e.g. "Man Skirt" comes across as "mansker" a lot. I can account for this a wee bit
       by adding "aliases" to my brewery names, but that can get old and may eventually run into conflicts.
-   5) Ability to set home brewery
-      It would be cool if you could say "Alexa ask Jersey Beers what's on tap?" and not have to specify your favorite brewery.
-   6) New beer notifications
+   5) New beer notifications
       it'd be cool if we could notify the user if a brewery has changed their tap list
    
 If you have a favorite brewery you want included, send me a message!
