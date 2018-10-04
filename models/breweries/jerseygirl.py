@@ -44,6 +44,9 @@ class JerseyGirlPage(BreweryPage):
                 continue
             style += parts[idx] + ' '
         style = style.replace('NE-', 'New England ')
+        if abv is None or not style:
+            return None, None
+
         return abv.strip(' '), style.strip(' ')
 
     def find_beers(self, content: list) -> None:
