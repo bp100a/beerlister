@@ -111,7 +111,9 @@ jobs:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
-
+      - run:
+          name: create config.py
+          command: sh ./config.sh
       - run:
           name: create lambda image
           command: |
@@ -130,9 +132,6 @@ jobs:
             rm -r lambda_deploy/waitress*
             rm -r lambda_deploy/fakeredis*
             rm -r lambda_deploy/coverage*
-      - run:
-          name: create config.py
-          command: sh ./config.sh
       - run:
           name: zip up the package
           command: |
