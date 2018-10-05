@@ -53,6 +53,10 @@ jobs:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
 
+      - run:
+          name: create config.py
+          command: ./config.sh
+
       # run tests!
       # run nose for coverage
       # run pylint for code quality
