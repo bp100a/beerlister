@@ -142,12 +142,15 @@ jobs:
           command: sudo pip install awscli
       - run:
           name: upload the package
-          command: aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
+          command: aws lambda update-function-code --function-name TapList --region us-east-1 --description $CI_BUILD_NUM --zip-file fileb://TapList.zip
       - run:
           name: stash zipfile as an artifact in case we need to check things
           command: |
             mkdir zipfile
             mv TapList.zip zipfile/TapList.zip
+      - run:
+          name: update STAGE alias
+          command: sh ./deploy/update-alias.sh $CI_BUILD_NUM STAGE
 
       - store_artifacts:
           path: zipfile/
