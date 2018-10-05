@@ -6,4 +6,4 @@
 #   validate_build.sh
 #
 
-aws lambda invoke --invocation-type RequestResponse --function-name TapList --qualifier STAGE --payload file://../tests/data/ListBreweries.json ListBreweries.out
+aws lambda invoke --invocation-type RequestResponse --function-name TapList --qualifier STAGE --payload file://tests/data/ListBreweries.json ListBreweries.out
