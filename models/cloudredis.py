@@ -3,7 +3,7 @@ import os
 import time
 import hashlib
 import redis
-
+import config
 
 REDIS_SERVER = None
 CACHE_TIMEOUT = 2
@@ -12,9 +12,9 @@ def read_configuration():
     """read the redis server configuration from the
     environment variables"""
     try:
-        redis_endpoint = os.environ['REDIS_HOST']
-        redis_password = os.environ['REDIS_PASSWORD']
-        redis_port = os.environ['REDIS_PORT']
+        redis_endpoint = config.REDIS_HOST
+        redis_password = config.REDIS_PASSWORD
+        redis_port = int(config.REDIS_PORT)
     except Exception:
         return None, None, None
 

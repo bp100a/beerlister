@@ -7,23 +7,12 @@ import fakeredis
 
 class TestRedis(TestwithFakeRedis):
     """test our redis server setup & connection"""
-    def set_environment_variables(self):
-        os.environ['REDIS_HOST'] = "MY_REDIS_SERVER"
-        os.environ['REDIS_PASSWORD'] = "MY_REDIS_PASSWORD"
-        os.environ['REDIS_PORT'] = "12345"
 
     def test_redis_setup(self):
-        self.set_environment_variables()
         redis_host, redis_password, redis_port = cloudredis.read_configuration()
-        assert redis_host is not None and redis_password is not None and redis_port is not None
-        assert redis_port.isdigit()
-
-    def test_fail_read_configuration(self):
-        self.set_environment_variables()
-        redis_server, redis_password, redis_port = cloudredis.read_configuration()
-        del os.environ['REDIS_HOST']
-        redis_host, redis_password, redis_port = cloudredis.read_configuration()
-        assert redis_host is None and redis_password is None and redis_port is None
+        assert redis_host == 'bogus.redis.endpoint'
+        assert redis_password == 'bogus.redis.password'
+        assert redis_port == 14405
 
     def test_redis_initialize(self):
         fake = fakeredis.FakeStrictRedis()
