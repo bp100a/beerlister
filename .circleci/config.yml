@@ -57,6 +57,7 @@ jobs:
           name: create config.py
           command: |
             pwd
+            ls
             ./config.sh
 
       # run tests!
