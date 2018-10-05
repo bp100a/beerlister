@@ -55,8 +55,7 @@ jobs:
 
       - run:
           name: create config.py
-          commands:
-            - sh ./config.sh
+          command: sh ./config.sh
 
       # run tests!
       # run nose for coverage
