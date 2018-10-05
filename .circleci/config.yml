@@ -153,7 +153,7 @@ jobs:
           command: aws lambda publish-version --function-name TapList --description $CIRCLE_BUILD_NUM --region us-east-1
       - run:
           name: update STAGE alias
-          command: sh ./deploy/update-alias.sh $CIRCLE_BUILD_NUM STAGE
+          command: bash ./deploy/update-alias.sh $CIRCLE_BUILD_NUM STAGE
       - run:
           name: Validate build
           command: sh ./deploy/validate-build.sh
