@@ -157,6 +157,9 @@ jobs:
       - run:
           name: Validate build
           command: bash ./deploy/validate-build.sh
+      - run:
+          name: Push to PROD
+          command: bash ./deploy/update-alias.sh $CIRCLE_BUILD_NUM PROD
 
       - store_artifacts:
           path: zipfile/
