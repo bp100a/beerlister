@@ -7,3 +7,9 @@
 #
 
 aws lambda invoke --invocation-type RequestResponse --function-name TapList --qualifier STAGE --region us-east-1 --payload file://tests/data/ListBreweries.json ListBreweries.out
+if [[ 'grep 'here are the breweries that I know' ListBreweries.out']]; then
+   exit 0
+fi
+
+# there's something wrong with response, get out
+exit -1
