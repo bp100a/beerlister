@@ -156,7 +156,7 @@ jobs:
           command: bash ./deploy/update-alias.sh $CIRCLE_BUILD_NUM STAGE
       - run:
           name: Validate build
-          command: sh ./deploy/validate-build.sh
+          command: bash ./deploy/validate-build.sh
 
       - store_artifacts:
           path: zipfile/
