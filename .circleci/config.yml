@@ -142,7 +142,7 @@ jobs:
           command: sudo pip install awscli
       - run:
           name: upload the package
-          command: aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
+          command: aws lambda update-function-code --function-name TapList --description $CIRCLE_BUILD_NUM --region us-east-1 --zip-file fileb://TapList.zip
       - run:
           name: stash zipfile as an artifact in case we need to check things
           command: |
