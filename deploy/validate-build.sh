@@ -7,9 +7,14 @@
 #
 
 aws lambda invoke --invocation-type RequestResponse --function-name TapList --qualifier STAGE --region us-east-1 --payload file://tests/data/ListBreweries.json ListBreweries.out
-if grep -q 'Here are the breweries I know' ListBreweries.out; then
-   exit 0
+if ! grep -q 'Here are the breweries I know' ListBreweries.out; then
+   exit 1
 fi
 
-# there's something wrong with response, get out
-exit 255
+aws lambda invoke --invocation-type RequestResponse --function-name TapList --qualifier STAGE --region us-east-1 --payload file://tests/data/GetTapListIntent_TwinElephant.json TwinElephant.out
+if ! grep -q 'on tap at Twin Elephant' TwinElephant.out; then
+   exit 1
+fi
+
+# nothing wrong, clean exit
+exit 0
