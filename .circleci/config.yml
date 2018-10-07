@@ -141,6 +141,9 @@ jobs:
             rm -r lambda_deploy/boto*
             rm -r lambda_deploy/s3transfer*
             rm -r lambda_deploy/typed_ast*
+            rm lambda_deploy/mccabe*
+            rm lambda_deploy/easy_install*
+            rm -r lambda_deploy/six*
       - run:
           name: zip up the package
           command: |
