@@ -135,6 +135,12 @@ jobs:
             rm -r lambda_deploy/codecov*
             rm -r lambda_deploy/requests_mock*
             rm lambda_deploy/*.so
+            rd -r lambda_deploy/_pycache_
+            rm -r lambda_deploy/docutils*
+            rm -r lambda_deploy/astroid*
+            rm -r lambda_deploy/boto*
+            rm -r lambda_deploy/s3transfer*
+            rm -r lambda_deploy/typed_ast*
       - run:
           name: zip up the package
           command: |
