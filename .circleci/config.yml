@@ -134,7 +134,7 @@ jobs:
             rm -r lambda_deploy/coverage*
             rm -r lambda_deploy/codecov*
             rm -r lambda_deploy/requests_mock*
-            rm *.so
+            rm lambda_deploy/*.so
       - run:
           name: zip up the package
           command: |
