@@ -16,5 +16,10 @@ if ! grep -q 'on tap at Twin Elephant' TwinElephant.out; then
    exit 1
 fi
 
+aws lambda invoke --invocation-type RequestResponse --function-name TapList --qualifier STAGE --region us-east-1 --payload file://tests/data/GetTapListIntent_Alementary.json Alementary.out
+if ! grep -q 'on tap at Alementary' Alementary.out; then
+   exit 1
+fi
+
 # nothing wrong, clean exit
 exit 0

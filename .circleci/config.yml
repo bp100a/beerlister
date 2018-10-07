@@ -132,6 +132,9 @@ jobs:
             rm -r lambda_deploy/waitress*
             rm -r lambda_deploy/fakeredis*
             rm -r lambda_deploy/coverage*
+            rm -r lambda_deploy/codecov*
+            rm -r lambda_deploy/requests_mock*
+            rm *.so
       - run:
           name: zip up the package
           command: |
@@ -142,7 +145,7 @@ jobs:
           command: sudo pip install awscli
       - run:
           name: upload the package
-          command: aws lambda update-function-code --function-name TapList --description $CIRCLE_BUILD_NUM --region us-east-1 --zip-file fileb://TapList.zip
+          command: aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
       - run:
           name: stash zipfile as an artifact in case we need to check things
           command: |
