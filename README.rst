@@ -12,11 +12,19 @@ Overview
 Read a tap list from a brewery's website and parse it into something that can be read off by an Alexa Skill.
 
 Currently read the following formats:
-- UnTappd (Man Skirt, Alementary, Fort Nonsense & Angry Erik)
-- Digital Pour (Village Idiot)
-- Beer Menus (Rinn Duin)
-- ~~Departed Soles (Jersey City, NJ)~~ (taplists are not up to date)
-- Twin Elephant Brewing (Chatham, NJ)
+
+* UnTappd
+    * Man Skirt
+    * Alementary
+    * Fort Nonsense
+    * Angry Erik
+* Digital Pour
+    * Village Idiot
+* Beer Menus
+    * Rinn Duin
+* Custom scraped
+    * Twin Elephant Brewing
+    * Jersey Girl
 
 On the list
 -----------
