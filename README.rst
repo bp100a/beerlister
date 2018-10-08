@@ -25,6 +25,7 @@ Currently read the following formats:
 * Custom scraped
     * Twin Elephant Brewing
     * Jersey Girl
+    * Departed Soles
 
 On the list
 -----------
