@@ -1,11 +1,11 @@
 import time
 import os
-from tests.setupfakeredis import TestwithFakeRedis
+from tests.setupmocking import TestwithMocking
 from models import cloudredis
 import fakeredis
 
 
-class TestRedis(TestwithFakeRedis):
+class TestRedis(TestwithMocking):
     """test our redis server setup & connection"""
 
     def test_redis_setup(self):

@@ -1,10 +1,10 @@
 from models.breweries.beermenus import BeerMenusPage
 from models.breweries.beermenus import BREWERY_INFO
 from tests.models.common import data_dir
-from tests.setupfakeredis import TestwithFakeRedis
+from tests.setupmocking import TestwithMocking
 
 
-class TestBeerMenuspage(TestwithFakeRedis):
+class TestBeerMenuspage(TestwithMocking):
 
     def test_BeerMenus_read(self):
         """Test that we can read beer menu pages for all known breweries"""

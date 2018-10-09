@@ -1,12 +1,12 @@
 from unittest import TestCase
-from tests.setupfakeredis import TestwithFakeRedis
+from tests.setupmocking import TestwithMocking
 from models import cloudredis
 import fakeredis
 from models.breweries import *
 from controllers import brewerylist
 
 
-class TestBreweryList(TestwithFakeRedis):
+class TestBreweryList(TestwithMocking):
     """everything we need to test our our list of breweries"""
 
     def test_brewery_list(self):

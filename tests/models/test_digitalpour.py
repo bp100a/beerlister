@@ -3,10 +3,10 @@ import os
 from models.breweries.digitalpour import DigitalPourPage
 from models.breweries.digitalpour import BREWERY_INFO
 from tests.models.common import data_dir
-from tests.setupfakeredis import TestwithFakeRedis
+from tests.setupmocking import TestwithMocking
 
 
-class TestDigitalPourpage(TestwithFakeRedis):
+class TestDigitalPourpage(TestwithMocking):
 
     def test_DigitalPour_read(self):
         """Test we can read all breweries for this provider"""

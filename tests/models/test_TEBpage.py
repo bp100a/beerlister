@@ -2,10 +2,10 @@ from unittest import TestCase
 import os
 from models.breweries.twinelephant import TEBpage
 from tests.models.common import data_dir
-from tests.setupfakeredis import TestwithFakeRedis
+from tests.setupmocking import TestwithMocking
 
 
-class TestTEBpage(TestwithFakeRedis):
+class TestTEBpage(TestwithMocking):
 
     def live_TEB_read(self):
         teb = TEBpage(mocked=False)

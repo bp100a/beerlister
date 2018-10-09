@@ -2,10 +2,10 @@ from unittest import TestCase
 import os
 from models.breweries.jerseygirl import JerseyGirlPage
 from tests.models.common import data_dir
-from tests.setupfakeredis import TestwithFakeRedis
+from tests.setupmocking import TestwithMocking
 
 
-class TestJerseyGirlpage(TestwithFakeRedis):
+class TestJerseyGirlpage(TestwithMocking):
 
     def live_JerseyGirl_read(self):
         jerseygirl = JerseyGirlPage(mocked=False)

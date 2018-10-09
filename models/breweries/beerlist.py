@@ -122,12 +122,11 @@ class BreweryPage():
                 session = requests.Session()
 
             try:
-                session.verify = False # if SSL redirect, ignore bad cert
+                session.verify = False
                 rsp = session.get(self._url)
             except Exception as response_error:
                 return False
 
-            assert rsp is not None
             rsp.encoding = 'utf-8'
             rsp_text = rsp.text
             if in_session is not None:
@@ -142,9 +141,9 @@ class BreweryPage():
         self._cached_response = rsp_text # save for later
         if not BreweryPage.is_cached(brewery, rsp_text):
             self._soup = bs.BeautifulSoup(rsp_text, "html.parser")
-            return False
+            return False # not cached
 
-        return True
+        return True # cached
 
     @staticmethod
     def is_cached(brewery, rsp_text) -> bool:

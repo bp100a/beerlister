@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
-""" The Taplist for Breweries! """
+""" Jersey Beers Alexa Skill! Returns the tap list for your favorite brewery """
 # pylint: disable-msg=R0911, W0401, R1705, W0613
+import logging
 from controllers import brewerylist # for clarity
-from models.breweries import *
-from models import cloudredis
+from models.breweries import * # instantiate all our brewery page scrapers
+from models import cloudredis, setuplogging
 
 
 SKILL_NAME = "Jersey Beers"
@@ -29,10 +30,13 @@ ERROR_NO_BREWERY = "I'm sorry, you must specify a brewery"
 
 # --------------- App entry point -----------------
 
-
 def lambda_handler(event, context):
 
     """  App entry point  """
+    setuplogging.initialize_logging(mocking=False) # make sure logging is setup
+
+    setuplogging.LOGGING_HANDLER(event, context) # log the event
+
     if event['session']['new']:
         on_session_started()
 
@@ -50,6 +54,7 @@ def lambda_handler(event, context):
 
 def on_intent(request, session):
     """ called on receipt of an Intent  """
+
     intent_name = request['intent']['name']
 
     # initialize our redis server if needed

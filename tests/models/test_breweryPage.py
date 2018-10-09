@@ -2,10 +2,10 @@ from unittest import TestCase
 import requests
 import requests_mock
 from models.breweries.beerlist import BreweryPage
-from tests.setupfakeredis import TestwithFakeRedis
+from tests.setupmocking import TestwithMocking
 
 
-class TestBreweryPage(TestwithFakeRedis):
+class TestBreweryPage(TestwithMocking):
 
     def test_read(self):
         """Test we can read a brewery page from our base class"""

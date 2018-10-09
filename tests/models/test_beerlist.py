@@ -1,11 +1,11 @@
 """Unit tests for beer & beerlist"""
-from tests.setupfakeredis import TestwithFakeRedis
+from tests.setupmocking import TestwithMocking
 import models.breweries.beerlist
 from models import cloudredis
 import fakeredis
 
 
-class TestBeerList(TestwithFakeRedis):
+class TestBeerList(TestwithMocking):
     """quick tests on the beer object & list"""
 
     @staticmethod
