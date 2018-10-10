@@ -34,7 +34,7 @@ class AngryErikPage(BreweryPage):
         beer_name = ''
         beer_style = ''
         beer_abv = ""
-        parts = re.split('-|,', beer_string)
+        parts = re.split('-|,|\u2013', beer_string)
         if len(parts) == 3:
             beer_name = parts[0].strip()
             beer_style = parts[1].replace('An ', '').strip()
