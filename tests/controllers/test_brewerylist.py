@@ -16,7 +16,9 @@ class TestBreweryList(TestwithMocking):
                                 "<class \'models.breweries.twinelephant.TEBpage\'>",
                                 "<class \'models.breweries.beermenus.BeerMenusPage\'>",
                                 "<class \'models.breweries.digitalpour.DigitalPourPage\'>",
-                                "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>"]
+                                "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>",
+                                "<class \'models.breweries.angryerik.AngryErikPage\'>"]
+
         for brewery in brewerylist.BREWERY_PAGES.brewery_page_list:
             bobj = str(type(brewery))
             if bobj not in brewery_page_objects:
