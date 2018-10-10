@@ -3,6 +3,7 @@ import os
 import json
 import lambda_function
 from tests.setupmocking import TestwithMocking
+from models import setuplogging
 
 class TestAWSlambda(TestwithMocking):
 
@@ -148,6 +149,30 @@ class TestAWSlambda(TestwithMocking):
         assert response is not None
         assert response['response']['outputSpeech']['text'].startswith('Your home brewery has been set to')
         assert response['response']['shouldEndSession']
+
+    def test_set_home_brewery_logging(self):
+        set_home_event = {
+            "request": {"type": "IntentRequest", "intent": {"name": "SetHomeBrewery", "mocked": True,\
+                                                            "slots": {"brewery": {"value": "bogus"}}}},\
+            "session": {"new": False, "user": {"userId": "bogus_user_id"}}}
+
+        response = lambda_function.lambda_handler(event=set_home_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['text'].startswith('Sorry, I cannot set')
+        assert response['response']['shouldEndSession']
+        assert "brewery not found" in setuplogging.MOCK_LOG
+
+    def test_get_tap_list_logging(self):
+        get_tap_list_event = {
+            "request": {"type": "IntentRequest", "intent": {"name": "GetTapListIntent", "mocked": True,\
+                                                            "slots": {"brewery": {"value": "bogus"}}}},\
+            "session": {"new": False, "user": {"userId": "bogus_user_id"}}}
+
+        response = lambda_function.lambda_handler(event=get_tap_list_event, context=None)
+        assert response is not None
+        assert response['response']['outputSpeech']['text'].startswith('Here are the breweries I know:')
+        assert response['response']['shouldEndSession']
+        assert "GetTapList, brewery not found" in setuplogging.MOCK_LOG
 
     def test_set_bad_home_brewery(self):
         """Test that we get back the brewery list for an unknown brewery"""

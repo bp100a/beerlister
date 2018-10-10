@@ -3,6 +3,7 @@ import logging
 
 LOGGING_HANDLER = None
 AWS_LOGGER = None
+MOCK_LOG = "" # this is where mocking will "log" the string
 
 
 def initialize_logging(mocking=True):
@@ -20,12 +21,13 @@ def initialize_logging(mocking=True):
         LOGGING_HANDLER = mock_logging_handler
 
 
-def prod_logging_handler(event, context):
+def prod_logging_handler(log_string: str) -> None:
     """where all things production go, logged to CloudWatch"""
     global AWS_LOGGER
-    AWS_LOGGER.info('got event{}'.format(event))
+    AWS_LOGGER.info(log_string)
 
 
-def mock_logging_handler(event, context):
+def mock_logging_handler(log_string: str) -> None:
     """where all testing/debugging goes"""
-    pass
+    global MOCK_LOG
+    MOCK_LOG = log_string

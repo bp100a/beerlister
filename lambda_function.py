@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """ Jersey Beers Alexa Skill! Returns the tap list for your favorite brewery """
 # pylint: disable-msg=R0911, W0401, R1705, W0613
-import logging
 from controllers import brewerylist # for clarity
 from models.breweries import * # instantiate all our brewery page scrapers
 from models import cloudredis, setuplogging
@@ -16,26 +15,19 @@ FALLBACK_MESSAGE = "The Jersey Beers skill can't help you with that. " + \
                    "It can help you discover what beers are on tap " + \
                    "at select breweries in North Jersey"
 FALLBACK_REPROMPT = 'What can I help you with?'
-
 HOME_BREWERY_SET = 'Your home brewery has been set to {0}'
-
 CANNOT_SET_HOME = 'Sorry, I cannot set {0} as your home brewery'
-
 NO_HOME_BREWERY_SET = 'Sorry, no home brewery has been set. You can set your home brewery' + \
                       'by saying ask Jersey Beers to set my home brewery to a brewery'
-
 CURRENT_HOME_BREWERY = "Your current home brewery is {0}"
-
 ERROR_NO_BREWERY = "I'm sorry, you must specify a brewery"
 
-# --------------- App entry point -----------------
 
 def lambda_handler(event, context):
 
     """  App entry point  """
     setuplogging.initialize_logging(mocking=False) # make sure logging is setup
-
-    setuplogging.LOGGING_HANDLER(event, context) # log the event
+    setuplogging.LOGGING_HANDLER('EVENT{}'.format(event)) # log the event
 
     if event['session']['new']:
         on_session_started()
@@ -111,6 +103,7 @@ def set_home_brewery(request: dict, session: dict):
             return response(speech_response(HOME_BREWERY_SET.format(brewery), True))
 
         # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
+        setuplogging.LOGGING_HANDLER("SetHomeBrewery, brewery not found:\"{0}\"".format(brewery))
         return response(speech_response(CANNOT_SET_HOME.format(brewery), True))
     except KeyError:
         return response(speech_response(ERROR_NO_BREWERY, True))
@@ -142,6 +135,7 @@ def get_taplist_response(intent: dict):
 
         # if we couldn't find the brewery, respond with a the list of breweries we know
         if brewery_id is None or bobj is None:
+            setuplogging.LOGGING_HANDLER("GetTapList, brewery not found: \"{0}\"".format(brewery_name))
             return list_of_breweries_response()
 
         if 'mocked' in intent:
