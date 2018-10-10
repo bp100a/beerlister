@@ -10,6 +10,11 @@ from models import cloudredis
 class TestUntappdpage(TestwithMocking):
     """test for pages hosted by UnTappd"""
 
+    # def test_live_angryerik_read(self):
+    #     """Test we can access all breweries we know about"""
+    #     untapped_page = UnTappdPage(brewery='Angry Erik', mocked=False)
+    #     untapped_page.fetch_taplist(brewery='Angry Erik')
+
     def test_Untappd_read(self):
         """Test we can access all breweries we know about"""
         for brewery in BREWERY_INFO:
@@ -75,8 +80,8 @@ class TestUntappdpage(TestwithMocking):
         found = untapped_page.brewery_by_alias("Alementary Brewery")
         assert found == "Alementary"
 
-        found = untapped_page.brewery_by_alias("Angry Erik Brewing")
-        assert found == "Angry Erik"
+        # found = untapped_page.brewery_by_alias("Angry Erik Brewing")
+        # assert found == "Angry Erik"
 
         found = untapped_page.brewery_by_alias("Man Skirt")
         assert found == "Man Skirt"
@@ -96,5 +101,5 @@ class TestUntappdpage(TestwithMocking):
         short_names = untapped_page.short_name()
         assert 'Man Skirt' in short_names
         assert 'Demented' in short_names
-        assert 'Angry Erik' in short_names
+        # assert 'Angry Erik' in short_names
         assert 'Alementary' in short_names

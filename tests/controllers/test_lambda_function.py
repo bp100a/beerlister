@@ -57,7 +57,7 @@ class TestAWSlambda(TestwithMocking):
         response = lambda_function.lambda_handler(event=event, context=None)
         assert response is not None
         assert response['response']['shouldEndSession']
-        assert response['response']['outputSpeech']['text'] == 'Here are the breweries I know: Rinn Duin, Twin Elephant, Fort Nonsense, Alementary, Angry Erik, Man Skirt, Demented, Village Idiot, and Jersey Girl'
+        assert response['response']['outputSpeech']['text'] == 'Here are the breweries I know: Rinn Duin, Twin Elephant, Fort Nonsense, Alementary, Man Skirt, Demented, Village Idiot, and Jersey Girl'
 
     def test_bogus_brewery(self):
         """Test that we get back the brewery list for an unknown brewery"""
