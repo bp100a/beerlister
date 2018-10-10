@@ -36,7 +36,8 @@ class DepartedSolespage(BreweryPage):
         assert self._beer_list is not None
         return False # not from cache
 
+
 # add this to the list of breweries
 # Note: Don't add departed soles, talked to brewer and it's not
 #       up to date.
-# brewerylist.BREWERY_PAGES.add_brewery_page(DepartedSolespage())
+brewerylist.BREWERY_PAGES.add_brewery_page(DepartedSolespage())

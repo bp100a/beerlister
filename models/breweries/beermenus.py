@@ -48,5 +48,6 @@ class BeerMenusPage(BreweryPage):
                                    abv=cols[1].text.strip() + '%', ibu=None, desc=None))
         return False # not from cache
 
+
 # add this to the list of breweries
 brewerylist.BREWERY_PAGES.add_brewery_page(BeerMenusPage())

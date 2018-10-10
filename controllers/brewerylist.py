@@ -29,9 +29,9 @@ class BreweryLister:
 
         return models.cloudredis.REDIS_SERVER.get(home_key)
 
-    def add_brewery_page(self, brewerypage: models.breweries.beerlist.BreweryPage) -> None:
+    def add_brewery_page(self, brewery_page: models.breweries.beerlist.BreweryPage) -> None:
         """Adds a brewery page to the list we are managing"""
-        self.brewery_page_list.append(brewerypage)
+        self.brewery_page_list.append(brewery_page)
 
     def find_brewery(self, brewery_name) -> Tuple[models.breweries.beerlist.BreweryPage, str]:
         """finds a brewery page in the list we are managing"""
@@ -65,8 +65,7 @@ class BreweryLister:
                 resp = resp + list_of_breweries[i] + ', '
 
         return resp
-#
-# initialize a "global" so all brewerypages can add themselves to this list
-#
 
+
+# initialize a "global" so all brewery pages can add themselves to this list
 BREWERY_PAGES = BreweryLister()

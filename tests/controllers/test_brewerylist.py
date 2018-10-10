@@ -32,9 +32,9 @@ class TestBreweryList(TestwithMocking):
                            "Twin Elephant Brewing": "<class \'models.breweries.twinelephant.TEBpage\'>",
                            "Twin Elephant Brewery": "<class \'models.breweries.twinelephant.TEBpage\'>",
 
-                           # "Departed Soles" : "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
-                           # "Departed Soles Brewing": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
-                           # "Departed Soles Brewery": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
+                           "Departed Soles" : "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
+                           "Departed Soles Brewing": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
+                           "Departed Soles Brewery": "<class \'models.breweries.departedsoles.DepartedSolespage\'>",
 
                            "Man Skirt" : "<class \'models.breweries.untappd.UnTappdPage\'>",
                            "Man Skirt Brewing" : "<class \'models.breweries.untappd.UnTappdPage\'>",
@@ -44,9 +44,9 @@ class TestBreweryList(TestwithMocking):
                            "Alementary Brewing": "<class \'models.breweries.untappd.UnTappdPage\'>",
                            "Alementary Brewery": "<class \'models.breweries.untappd.UnTappdPage\'>",
 
-                           # "Angry Erik" : "<class \'models.breweries.untappd.UnTappdPage\'>",
-                           # "Angry Erik Brewing": "<class \'models.breweries.untappd.UnTappdPage\'>",
-                           # "Angry Erik Brewery": "<class \'models.breweries.untappd.UnTappdPage\'>",
+                           "Angry Erik" : "<class \'models.breweries.angryerik.AngryErikPage\'>",
+                           "Angry Erik Brewing": "<class \'models.breweries.angryerik.AngryErikPage\'>",
+                           "Angry Erik Brewery": "<class \'models.breweries.angryerik.AngryErikPage\'>",
 
                            "Fort Nonsense": "<class \'models.breweries.untappd.UnTappdPage\'>",
                            "Fort Nonsense Brewing": "<class \'models.breweries.untappd.UnTappdPage\'>",
@@ -75,24 +75,6 @@ class TestBreweryList(TestwithMocking):
             assert str(type(brewery_obj)) == known_breweries[brewery_alias]
             assert brewery_id is not None
 
-    def test_brewerylist(self):
-        """We will clear the brewery list then manually add all known objects, then verify"""
-        # clear the brewerylist
-
-        # Note: Sometimes this is run prior to other brewery list tests so
-        #       if a new page is added, it must be added in order here
-        #
-        brewerylist.BREWERY_PAGES.brewery_page_list = []
-        brewerylist.BREWERY_PAGES.add_brewery_page(beermenus.BeerMenusPage())
-        brewerylist.BREWERY_PAGES.add_brewery_page(twinelephant.TEBpage())
-        brewerylist.BREWERY_PAGES.add_brewery_page(untappd.UnTappdPage())
-#        brewerylist.BREWERY_PAGES.add_brewery_page(departedsoles.DepartedSolespage())
-        brewerylist.BREWERY_PAGES.add_brewery_page(digitalpour.DigitalPourPage())
-        brewerylist.BREWERY_PAGES.add_brewery_page(jerseygirl.JerseyGirlPage())
-
-        # now that we added them, see if they are there
-        self.test_find_breweries()
-
     def test_nobrewery(self):
         """Test that an unknown brewery is probably flagged"""
         brewery_obj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery("no such brewery")
@@ -101,7 +83,7 @@ class TestBreweryList(TestwithMocking):
     def test_list_of_breweries(self):
         """Test that known breweries conform to the # we expect"""
         list_of_breweries = brewerylist.BREWERY_PAGES.list_of_breweries()
-        assert len(list_of_breweries) == 8
+        assert len(list_of_breweries) == 10
 
     def test_list_of_breweries_response(self):
         """Test that we can generate an SSML for the list of known breweries"""
