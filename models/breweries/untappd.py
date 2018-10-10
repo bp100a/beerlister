@@ -5,8 +5,7 @@ from models.breweries.beerlist import Beer
 from controllers import brewerylist
 
 BREWERY_INFO = {"Fort Nonsense": [14504, 53940], "Alementary": [1192, 955],
-                "Angry Erik": [11871, 43606], "Man Skirt": [1576, 2092],
-                "Demented": [1591, 2137]}
+                "Man Skirt": [1576, 2092], "Demented": [1591, 2137]}
 
 
 class UnTappdPage(BreweryPage):
@@ -23,11 +22,6 @@ class UnTappdPage(BreweryPage):
                                       "elementary",
                                       "elementary brewing",
                                       "elementary brewery"],
-                       # "Angry Erik": ["Angry Erik Brewing",
-                       #                "Angry Erik Brewery",
-                       #                "Angry Eric",
-                       #                "Angry Eric Brewing",
-                       #                "Angry Eric Brewery"],
                        "Man Skirt": ["Man Skirt Brewing",
                                      "Man Skirt Brewery",
                                      "mansker"],

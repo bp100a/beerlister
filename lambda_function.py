@@ -21,6 +21,8 @@ NO_HOME_BREWERY_SET = 'Sorry, no home brewery has been set. You can set your hom
                       'by saying ask Jersey Beers to set my home brewery to a brewery'
 CURRENT_HOME_BREWERY = "Your current home brewery is {0}"
 ERROR_NO_BREWERY = "I'm sorry, you must specify a brewery"
+ERROR_BREWERY_PAGE = "Sorry, I'm having problems reading that breweries tap list. /" \
+                     "I have notified the proper authorities"
 
 
 def lambda_handler(event, context):
@@ -145,6 +147,9 @@ def get_taplist_response(intent: dict):
         return response(speech_response_ssml(beer_string, True))
     except KeyError:
         return response(speech_response(ERROR_NO_BREWERY, True))
+    except Exception:
+        setuplogging.LOGGING_HANDLER("PAGELOAD failure!! brewery \"{0}\"".format(brewery_name))
+        return response(speech_response(ERROR_BREWERY_PAGE, True))
 
 
 def get_help_response():

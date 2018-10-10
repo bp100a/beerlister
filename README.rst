@@ -17,7 +17,6 @@ Currently read the following formats:
     * Man Skirt
     * Alementary
     * Fort Nonsense
-    * Angry Erik
 * Digital Pour
     * Village Idiot
 * Beer Menus
@@ -26,6 +25,7 @@ Currently read the following formats:
     * Twin Elephant Brewing
     * Jersey Girl
     * Departed Soles
+    * Angry Erik (10/9/2018)
 
 On the list
 -----------
