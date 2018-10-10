@@ -36,20 +36,20 @@ class AngryErikPage(BreweryPage):
         beer_abv = ""
         parts = re.split('-|,', beer_string)
         if len(parts) == 3:
-            beer_name = parts[0]
-            beer_style = parts[1].replace('An ', '')
-            beer_abv = parts[2].split('%')[0]
+            beer_name = parts[0].strip()
+            beer_style = parts[1].replace('An ', '').strip()
+            beer_abv = parts[2].split('%')[0].strip() + '%'
         else:
             for part in parts:
                 if "% ABV" in part:
-                    beer_abv = part.split('%')[0]
+                    beer_abv = part.split('%')[0].strip() + '%'
 
             # okay the first '-' or \u2013 is inclusive to the name
             parts = beer_string.split(',')
             name_and_style = parts[0]
             more_parts = name_and_style.split('\u2013')
-            beer_name = more_parts[0]
-            beer_style = more_parts[1]
+            beer_name = more_parts[0].strip()
+            beer_style = more_parts[1].strip()
 
         if beer_name and beer_style:
             self.add_beer(Beer(name=beer_name,
