@@ -124,7 +124,7 @@ class BreweryPage():
             try:
                 session.verify = False
                 rsp = session.get(self._url)
-            except Exception:
+            except Exception: # pylint: disable=W0703
                 return False
 
             rsp.encoding = 'utf-8'

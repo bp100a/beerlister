@@ -21,7 +21,8 @@ class BreweryLister:
         models.cloudredis.REDIS_SERVER.set(models.cloudredis.home_key(user_id), brewery_id)
         return True
 
-    def get_home_brewery(self, user_id: str) -> str:
+    @staticmethod
+    def get_home_brewery(user_id: str) -> str:
         """return the home brewery if specified, otherwise 'None' """
         home_key = models.cloudredis.home_key(user_id)
         if not models.cloudredis.REDIS_SERVER.exists(home_key): # if key doesn't exist

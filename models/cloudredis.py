@@ -18,7 +18,7 @@ def read_configuration():
         redis_endpoint = config.REDIS_HOST
         redis_password = config.REDIS_PASSWORD
         redis_port = int(config.REDIS_PORT)
-    except Exception:
+    except (ValueError, AttributeError):
         return None, None, None
 
     return redis_endpoint, redis_password, redis_port
