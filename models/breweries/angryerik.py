@@ -57,8 +57,6 @@ class AngryErikPage(BreweryPage):
                                abv=beer_abv,
                                hops=None))
 
-        return
-
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist page for Angry Erik and parse it"""
         BreweryPage.fetch_taplist(self, url="http://www.angryerik.com/services.html", **kwargs)

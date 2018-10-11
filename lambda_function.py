@@ -100,11 +100,13 @@ def set_home_brewery(request: dict, session: dict):
     try:
         brewery = request['intent']['slots']['brewery']['value']
         aws_user_id = session['user']['userId']
-        success = brewerylist.BREWERY_PAGES.add_home_brewery(brewery_name=brewery, user_id=aws_user_id)
+        success = brewerylist.BREWERY_PAGES.add_home_brewery(brewery_name=brewery,
+                                                             user_id=aws_user_id)
         if success:
             return response(speech_response(HOME_BREWERY_SET.format(brewery), True))
 
-        # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
+        # some problem, tell the user. TBD validate brewery & other things,
+        # perhaps ask for clarification
         setuplogging.LOGGING_HANDLER("SetHomeBrewery, brewery not found:\"{0}\"".format(brewery))
         return response(speech_response(CANNOT_SET_HOME.format(brewery), True))
     except KeyError:
@@ -119,7 +121,8 @@ def get_home_brewery(request: dict, session: dict):
     if not brewery: # didn't find a home
         return response(speech_response(NO_HOME_BREWERY_SET, True))
 
-    # some problem, tell the user. TBD validate brewery & other things, perhaps ask for clarification
+    # some problem, tell the user. TBD validate brewery & other things,
+    # perhaps ask for clarification
     return response(speech_response(CURRENT_HOME_BREWERY.format(brewery), True))
 
 
@@ -137,7 +140,8 @@ def get_taplist_response(intent: dict):
 
         # if we couldn't find the brewery, respond with a the list of breweries we know
         if brewery_id is None or bobj is None:
-            setuplogging.LOGGING_HANDLER("GetTapList, brewery not found: \"{0}\"".format(brewery_name))
+            setuplogging.LOGGING_HANDLER("GetTapList, brewery not found: \"{0}\""\
+                                         .format(brewery_name))
             return list_of_breweries_response()
 
         if 'mocked' in intent:
@@ -148,7 +152,8 @@ def get_taplist_response(intent: dict):
     except KeyError:
         return response(speech_response(ERROR_NO_BREWERY, True))
     except Exception:
-        setuplogging.LOGGING_HANDLER("PAGELOAD failure!! brewery \"{0}\"".format(brewery_name))
+        setuplogging.LOGGING_HANDLER("PAGELOAD failure!! brewery \"{0}\""\
+                                     .format(brewery_name))
         return response(speech_response(ERROR_BREWERY_PAGE, True))
 
 
