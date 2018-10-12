@@ -22,7 +22,10 @@ class TEBpage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Twin Elephant": ["TEB", "Twin Elephant Brewing", "Twin Elephant Brewery"]}
+        self._alias = {"Twin Elephant": ["TEB",
+                                         "Twin Elephant Brewing",
+                                         "Twin Elephant Brewery",
+                                         "20 elephant"]}
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch taplist for TEB, directly scraping their site and parsing"""

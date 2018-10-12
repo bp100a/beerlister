@@ -53,7 +53,6 @@ class JerseyGirlPage(BreweryPage):
         """okay, from this list, find the beer name, ABV & style."""
 
         # first the beer name
-        global beer_idx
         for beer_idx in range(0, len(content)):  # pylint: disable=C0200
             if hasattr(content[beer_idx], 'name') and content[beer_idx].name == 'u':
                 # okay we have the beer name

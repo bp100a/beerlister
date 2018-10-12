@@ -52,9 +52,6 @@ def initialize_cloud_redis(injected_server=None):
 
 def exists(redis_key: str) -> bool:
     """returns True if the specified key exists in the cache"""
-    global REDIS_SERVER  # pylint: disable=W0603
-    assert REDIS_SERVER is not None
-
     return REDIS_SERVER.exists(redis_key) == 1
 
 
@@ -80,7 +77,6 @@ def home_key(user_id: str) -> str:
 
 def flush_cache(brewery: str) -> None:
     """flush the cache entries"""
-    global REDIS_SERVER  # pylint: disable=W0603
     REDIS_SERVER.delete(md5_key(brewery))
     REDIS_SERVER.delete(ssml_key(brewery))
     REDIS_SERVER.delete(timestamp_key(brewery))
@@ -95,7 +91,6 @@ def md5_exists(brewery: str, html: str) -> bool:
     2) The cached entry isn't 'too old'
     3) The md5 of the cached entry matches the page read
     """
-    global REDIS_SERVER  # pylint: disable=W0603
     if not REDIS_SERVER.exists(md5_key(brewery)):
         return False
 
@@ -120,7 +115,6 @@ def md5_exists(brewery: str, html: str) -> bool:
 def expired(brewery: str, too_many_hours: int) -> bool:
     """check the timestamp key and see if it has expired
     all timestamps are floats in seconds, so just make them ints"""
-    global REDIS_SERVER  # pylint: disable=W0603
 
     str_timestamp = REDIS_SERVER.get(timestamp_key(brewery))
     if str_timestamp is None:
@@ -170,8 +164,6 @@ def cache_ssml(brewery: str, html: str, ssml: str, cached_time: int) -> None:
     :param cached_time: time we are caching (useful for testing)
     :return:
     """
-    global REDIS_SERVER  # pylint: disable=W0603
-
     md5 = hashlib.md5()
     md5.update(html.encode('utf-8'))
     md5_response = md5.digest()
