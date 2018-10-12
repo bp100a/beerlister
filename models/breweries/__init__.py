@@ -2,4 +2,4 @@
 __all__ = ["beermenus", "departedsoles",\
            "twinelephant", "untappd",\
            "digitalpour", "jerseygirl",\
-           "angryerik"]
+           "angryerik", "traprock"]

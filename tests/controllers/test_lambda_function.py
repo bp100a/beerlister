@@ -61,7 +61,7 @@ class TestAWSlambda(TestwithMocking):
         assert response['response']['outputSpeech']['text'] == "Here are the breweries I know: Rinn Duin, " \
                                                                "Departed Soles, Twin Elephant, Fort Nonsense, " \
                                                                "Alementary, Man Skirt, Demented, Village Idiot, " \
-                                                               "Jersey Girl, and Angry Erik"
+                                                               "Jersey Girl, Angry Erik, and Trap Rock"
 
     def test_bogus_brewery(self):
         """Test that we get back the brewery list for an unknown brewery"""

@@ -26,6 +26,7 @@ Currently read the following formats:
     * Jersey Girl
     * Departed Soles
     * Angry Erik (10/9/2018)
+    * Trap Rock
 
 On the list
 -----------

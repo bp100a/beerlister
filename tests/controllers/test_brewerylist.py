@@ -17,7 +17,8 @@ class TestBreweryList(TestwithMocking):
                                 "<class \'models.breweries.beermenus.BeerMenusPage\'>",
                                 "<class \'models.breweries.digitalpour.DigitalPourPage\'>",
                                 "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>",
-                                "<class \'models.breweries.angryerik.AngryErikPage\'>"]
+                                "<class \'models.breweries.angryerik.AngryErikPage\'>",
+                                "<class \'models.breweries.traprock.TrapRockPage\'>"]
 
         for brewery in brewerylist.BREWERY_PAGES.brewery_page_list:
             bobj = str(type(brewery))
@@ -83,7 +84,7 @@ class TestBreweryList(TestwithMocking):
     def test_list_of_breweries(self):
         """Test that known breweries conform to the # we expect"""
         list_of_breweries = brewerylist.BREWERY_PAGES.list_of_breweries()
-        assert len(list_of_breweries) == 10
+        assert len(list_of_breweries) == 11
 
     def test_list_of_breweries_response(self):
         """Test that we can generate an SSML for the list of known breweries"""
