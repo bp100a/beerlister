@@ -160,6 +160,18 @@ class BreweryPage():
         """add a beer to our private list"""
         self._beer_list.append(beer)
 
+    @staticmethod
+    def spell_out_strings(string_with_ipa: str) -> str:
+        """Fix up IPA strings so it's spelled out by Alexa"""
+        if 'NEIPA' in string_with_ipa: # pylint:disable=R1705
+            return string_with_ipa.\
+                replace('NEIPA', 'New England <say-as interpret-as="spell-out">IPA</say-as>')
+        elif 'DIPA' in string_with_ipa:
+            return string_with_ipa.\
+                replace('DIPA', 'double <say-as interpret-as="spell-out">IPA</say-as>')
+        return string_with_ipa.\
+            replace('IPA', '<say-as interpret-as="spell-out">IPA</say-as>')
+
     # ssml_taplist: make our internal list of beers into an SSML
     #               formatted output
     def ssml_taplist(self) -> str:
@@ -178,31 +190,9 @@ class BreweryPage():
         vowels = "aeiou"
         for beer in self._beer_list:
             beer_name = beer.name.replace('IT', '<sub alias="it"> IT </sub>')
-
-            if 'NEIPA' in beer_name:
-                beer_name = \
-                    beer_name.replace('NEIPA',
-                                      'New England <say-as interpret-as="spell-out">IPA</say-as>')
-            elif 'DIPA' in beer_name:
-                beer_name = \
-                    beer_name.replace('DIPA',
-                                      'double <say-as interpret-as="spell-out">IPA</say-as>')
-            else:
-                beer_name = beer_name.replace('IPA',
-                                              '<say-as interpret-as="spell-out">IPA</say-as>')
-            beer_str += ' ' + beer_name
+            beer_str += ' ' + self.spell_out_strings(beer_name)
             if beer.style is not None:
-                if 'NEIPA' in beer.style:
-                    beer_style = \
-                        beer.style.replace('NEIPA',
-                                           'New England <say-as interpret-as="spell-out">IPA</say-as>')
-                elif 'DIPA' in beer.style:
-                    beer_style = \
-                        beer.style.replace('DIPA',
-                                           'double <say-as interpret-as="spell-out">IPA</say-as>')
-                else:
-                    beer_style = beer.style.replace('IPA',
-                                                    '<say-as interpret-as="spell-out">IPA</say-as>')
+                beer_style = self.spell_out_strings(beer.style)
                 if beer.style[0].lower() in vowels:
                     beer_str += ", an " + beer_style
                 else:
