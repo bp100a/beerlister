@@ -17,6 +17,7 @@ Currently read the following formats:
     * Man Skirt
     * Alementary
     * Fort Nonsense
+    * Pinelands
 * Digital Pour
     * Village Idiot
 * Beer Menus
@@ -27,6 +28,7 @@ Currently read the following formats:
     * Departed Soles
     * Angry Erik (10/9/2018)
     * Trap Rock
+    * Two Ton
 
 On the list
 -----------
