@@ -27,3 +27,15 @@ class TestTrapRockpage(TestwithMocking):
         tst_data = file_pointer.read()
         file_pointer.close()
         assert tst_data == ssml  # anything different, raise hell!
+
+    def test_TrapRockPage_cached(self):
+        """Test we can read the Twin Elephant beer list!"""
+        traprock_page = TrapRockPage(mocked=True)
+        from_cache = traprock_page.fetch_taplist(brewery="Trap Rock")
+        assert not from_cache
+
+        # 2nd read from cache!
+        traprock_page.ssml_taplist() # this puts it in the cache
+        from_cache = traprock_page.fetch_taplist(brewery="Trap Rock")
+        assert from_cache
+

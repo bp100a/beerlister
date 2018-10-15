@@ -13,7 +13,6 @@ class TestBeerList(TestwithMocking):
         """Test that we can create a beer list and add an empty beer"""
         beer_list = models.breweries.beerlist.BeerList()
         assert beer_list is not None
-
         beer = models.breweries.beerlist.Beer()
         assert beer.name is None
         assert beer.style is None
@@ -177,3 +176,23 @@ class TestBeerList(TestwithMocking):
         ssml_taplist = brewery_page.ssml_taplist()
         assert ssml_taplist is not None
         assert 'no beers listed' in ssml_taplist
+
+    @staticmethod
+    def test_IBU_string():
+        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings("this is an IBU string")
+        assert '<say-as interpret-as="spell-out">IBU' in spelled_out
+
+    @staticmethod
+    def test_DDH_string():
+        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings("this is an DDH string")
+        assert 'double dry hopped' in spelled_out
+
+    @staticmethod
+    def test_IRA_string():
+        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings("this is an IRA string")
+        assert '<say-as interpret-as="spell-out">IRA' in spelled_out
+
+    @staticmethod
+    def test_APA_string():
+        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings("this is an APA string")
+        assert '<say-as interpret-as="spell-out">APA' in spelled_out
