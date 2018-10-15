@@ -9,6 +9,10 @@ class ContentTest():
     text = None
 
 
+class ContentNoNameTest():
+    text = None
+
+
 class DivTest():
     contents = []
 
@@ -42,6 +46,13 @@ class TestTwoTonPage(TestwithMocking):
 
         div_no_contents = {"div_no_contents": 'dummy'}
         assert not twoton_page.parse_beer(div_no_contents)
+
+    def test_TwoTonPage_div_content_no_name(self):
+        twoton_page = TwoTonPage(mocked=True)
+        div_no_name = DivTest()
+        contents = ContentNoNameTest()
+        div_no_name.contents.append(contents)
+        assert not twoton_page.parse_beer(div_no_name)
 
     def test_TwoTonPage_div_content_name_not_h2(self):
         twoton_page = TwoTonPage(mocked=True)
