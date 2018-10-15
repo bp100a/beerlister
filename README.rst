@@ -29,6 +29,7 @@ Currently read the following formats:
     * Angry Erik (10/9/2018)
     * Trap Rock
     * Two Ton
+    * Cypress
 
 On the list
 -----------
