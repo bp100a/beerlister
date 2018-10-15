@@ -19,7 +19,8 @@ class TestBreweryList(TestwithMocking):
                                 "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>",
                                 "<class \'models.breweries.angryerik.AngryErikPage\'>",
                                 "<class \'models.breweries.traprock.TrapRockPage\'>",
-                                "<class \'models.breweries.twoton.TwoTonPage\'>"]
+                                "<class \'models.breweries.twoton.TwoTonPage\'>",
+                                "<class \'models.breweries.cypress.CypressPage\'>"]
 
         for brewery in brewerylist.BREWERY_PAGES.brewery_page_list:
             bobj = str(type(brewery))
@@ -68,9 +69,13 @@ class TestBreweryList(TestwithMocking):
 
                            "Jersey Girl": "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>",
                            "Jersey Girl Brewing": "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>",
-                           "Jersey Girl Brewery": "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>"
+                           "Jersey Girl Brewery": "<class \'models.breweries.jerseygirl.JerseyGirlPage\'>",
 
-                           }
+                           "Cypress": "<class \'models.breweries.cypress.CypressPage\'>",
+                           "Cypress Brewing": "<class \'models.breweries.cypress.CypressPage\'>",
+                           "Cypress Brewery": "<class \'models.breweries.cypress.CypressPage\'>"
+
+        }
 
         for brewery_alias in known_breweries:
             brewery_obj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery(brewery_alias)
@@ -85,7 +90,7 @@ class TestBreweryList(TestwithMocking):
     def test_list_of_breweries(self):
         """Test that known breweries conform to the # we expect"""
         list_of_breweries = brewerylist.BREWERY_PAGES.list_of_breweries()
-        assert len(list_of_breweries) == 13
+        assert len(list_of_breweries) == 14
 
     def test_list_of_breweries_response(self):
         """Test that we can generate an SSML for the list of known breweries"""

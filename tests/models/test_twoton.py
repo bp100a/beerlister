@@ -4,6 +4,15 @@ from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 
 
+class ContentTest():
+    name = None
+    text = None
+
+
+class DivTest():
+    contents = []
+
+
 class TestTwoTonPage(TestwithMocking):
     """test for the departed soles web scraping page"""
 
@@ -27,3 +36,38 @@ class TestTwoTonPage(TestwithMocking):
         tst_data = file_pointer.read()
         file_pointer.close()
         assert tst_data == ssml  # anything different, raise hell!
+
+    def test_TwoTonPage_div_not_content(self):
+        twoton_page = TwoTonPage(mocked=True)
+
+        div_no_contents = {"div_no_contents": 'dummy'}
+        assert not twoton_page.parse_beer(div_no_contents)
+
+    def test_TwoTonPage_div_content_name_not_h2(self):
+        twoton_page = TwoTonPage(mocked=True)
+        div_not_h2 = DivTest()
+        contents = ContentTest()
+        div_not_h2.contents.append(contents)
+        div_not_h2.contents[0].name = 'not h2'
+        assert not twoton_page.parse_beer(div_not_h2)
+
+    def test_TwoTonPage_div_text_not_ABV(self):
+        twoton_page = TwoTonPage(mocked=True)
+
+        div_not_abv = DivTest()
+        contents = ContentTest()
+        div_not_abv.contents.append(contents)
+        div_not_abv.contents[0].name = 'h2'
+        div_not_abv.contents[0].text = 'not A.B.V.'
+        assert not twoton_page.parse_beer(div_not_abv)
+
+    def test_TwoTonPage_cached(self):
+        """Test we can read the Twin Elephant beer list!"""
+        TwoTon_page = TwoTonPage(mocked=True)
+        from_cache = TwoTon_page.fetch_taplist(brewery="TwoTon")
+        assert not from_cache
+
+        # 2nd read from cache!
+        TwoTon_page.ssml_taplist() # this puts it in the cache
+        from_cache = TwoTon_page.fetch_taplist(brewery="TwoTon")
+        assert from_cache

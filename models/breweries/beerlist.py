@@ -24,6 +24,13 @@ class Beer():
         self.name = kwargs.get('name')
         self.style = kwargs.get('style')
         self.abv = kwargs.get('abv')
+        if self.name:
+            self.name = self.name.strip()
+        if self.style:
+            self.style = self.style.strip()
+        if self.abv:
+            self.abv = self.abv.strip()
+
         if kwargs.get('ibu') is not None:
             self.ibu = kwargs.get('ibu')
         if kwargs.get('desc') is not None:
@@ -163,6 +170,18 @@ class BreweryPage():
     @staticmethod
     def spell_out_strings(string_with_ipa: str) -> str:
         """Fix up IPA strings so it's spelled out by Alexa"""
+        if 'DDH' in string_with_ipa:
+            string_with_ipa = string_with_ipa.\
+                replace('DDH', 'double dry hopped')
+
+        if 'IBU' in string_with_ipa:
+            string_with_ipa = string_with_ipa.\
+                replace('IBU', '<say-as interpret-as="spell-out">IBU</say-as>')
+
+        if 'ABV' in string_with_ipa:
+            string_with_ipa = string_with_ipa.\
+                replace('ABV', '<say-as interpret-as="spell-out">ABV</say-as>')
+
         if 'NEIPA' in string_with_ipa: # pylint:disable=R1705
             return string_with_ipa.\
                 replace('NEIPA', 'New England <say-as interpret-as="spell-out">IPA</say-as>')
