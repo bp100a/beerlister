@@ -10,10 +10,12 @@ from models import cloudredis
 class TestUntappdpage(TestwithMocking):
     """test for pages hosted by UnTappd"""
 
-    # def test_live_angryerik_read(self):
+    # def test_live_pinelands_read(self):
     #     """Test we can access all breweries we know about"""
-    #     untapped_page = UnTappdPage(brewery='Angry Erik', mocked=False)
-    #     untapped_page.fetch_taplist(brewery='Angry Erik')
+    #     untapped_page = UnTappdPage(brewery='Pinelands', mocked=False)
+    #     untapped_page.fetch_taplist(brewery='Pinelands')
+    #     ssml_beer_list = untapped_page.ssml_taplist()
+    #     assert ssml_beer_list
 
     def test_Untappd_read(self):
         """Test we can access all breweries we know about"""
@@ -33,7 +35,7 @@ class TestUntappdpage(TestwithMocking):
             assert beer_string is not None
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
             file_name = data_dir() + brewery_name.replace(' ', '') + '.SSML'
-            file_pointer = open(file_name, 'r')
+            file_pointer = open(file_name, 'r', encoding='utf-8')
             tst_data = file_pointer.read()
             file_pointer.close()
             if tst_data != beer_string:

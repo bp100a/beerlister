@@ -60,7 +60,7 @@ class TestAWSlambda(TestwithMocking):
         assert response['response']['shouldEndSession']
         assert response['response']['outputSpeech']['text'] == "Here are the breweries I know: Rinn Duin, " \
                                                                "Departed Soles, Twin Elephant, Fort Nonsense, " \
-                                                               "Alementary, Man Skirt, Demented, Village Idiot, " \
+                                                               "Alementary, Man Skirt, Demented, Pinelands, Village Idiot, " \
                                                                "Jersey Girl, Angry Erik, and Trap Rock"
 
     def test_bogus_brewery(self):

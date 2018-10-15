@@ -5,7 +5,8 @@ from models.breweries.beerlist import Beer
 from controllers import brewerylist
 
 BREWERY_INFO = {"Fort Nonsense": [14504, 53940], "Alementary": [1192, 955],
-                "Man Skirt": [1576, 2092], "Demented": [1591, 2137]}
+                "Man Skirt": [1576, 2092], "Demented": [1591, 2137],
+                "Pinelands": [8415,29881]}
 
 
 class UnTappdPage(BreweryPage):
@@ -26,7 +27,9 @@ class UnTappdPage(BreweryPage):
                                      "Man Skirt Brewery",
                                      "mansker"],
                        "Demented": ["Demented Brewing",
-                                    "Demented Brewery"]}
+                                    "Demented Brewery"],
+                       "Pinelands": ["Pinelands Brewing",
+                                     "Pinelands Brewery"]}
 
     def parse_inner_content(self, beer) -> None:
         """parse the content for beer information"""

@@ -169,6 +169,12 @@ class BreweryPage():
         elif 'DIPA' in string_with_ipa:
             return string_with_ipa.\
                 replace('DIPA', 'double <say-as interpret-as="spell-out">IPA</say-as>')
+        elif 'IRA' in string_with_ipa:
+            return string_with_ipa.\
+                replace('IRA', '<say-as interpret-as="spell-out">IRA</say-as>')
+        elif 'APA' in string_with_ipa:
+            return string_with_ipa.\
+                replace('APA', '<say-as interpret-as="spell-out">APA</say-as>')
         return string_with_ipa.\
             replace('IPA', '<say-as interpret-as="spell-out">IPA</say-as>')
 
