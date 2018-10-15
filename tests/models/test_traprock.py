@@ -4,7 +4,7 @@ from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 
 
-class TestAngryErkipage(TestwithMocking):
+class TestTrapRockpage(TestwithMocking):
     """test for the departed soles web scraping page"""
 
     def test_TrapRockPage_read(self):
