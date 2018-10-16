@@ -72,6 +72,16 @@ class TestTwoTonPage(TestwithMocking):
         div_not_abv.contents[0].text = 'not A.B.V.'
         assert not twoton_page.parse_beer(div_not_abv)
 
+    def test_TwoTonPage_div_text_just_ABV(self):
+        twoton_page = TwoTonPage(mocked=True)
+
+        div_not_abv = DivTest()
+        contents = ContentTest()
+        div_not_abv.contents.append(contents)
+        div_not_abv.contents[0].name = 'h2'
+        div_not_abv.contents[0].text = 'ABV'
+        assert not twoton_page.parse_beer(div_not_abv)
+
     def test_TwoTonPage_cached(self):
         """Test we can read the Twin Elephant beer list!"""
         TwoTon_page = TwoTonPage(mocked=True)

@@ -25,9 +25,12 @@ class TwoTonPage(BreweryPage):
             return False
         if div.contents[0].text.find('ABV') == -1:
             return False
-        parts = div.contents[0].text.split(' -')
-        beer_name = parts[0].strip()
-        beer_abv = parts[1][:parts[1].find('ABV')].strip()
+        try:
+            parts = div.contents[0].text.split(' -')
+            beer_name = parts[0].strip()
+            beer_abv = parts[1][:parts[1].find('ABV')].strip()
+        except IndexError:
+            return False
 
         if not beer_name or not beer_abv:
             return False
