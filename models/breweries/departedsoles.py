@@ -10,7 +10,11 @@ class DepartedSolespage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Departed Soles" : ["Departed Soles Brewing", "Departed Soles Brewery"]}
+        self._alias = {"Departed Soles" : ["Departed Soles Brewing",
+                                           "Departed Soles Brewery",
+                                           "departed sole",
+                                           "departed sole brewing",
+                                           "departed sole brewery"]}
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist page for Departed Soles and parse it"""
