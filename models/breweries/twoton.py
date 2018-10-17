@@ -11,7 +11,10 @@ class TwoTonPage(BreweryPage):
 
         # initialize aliases
         self._alias = {"Two Ton": ["Two Ton Brewing",
-                                   "Two Ton Brewery"]}
+                                   "Two Ton Brewery",
+                                   "2 ton",
+                                   "2 ton brewing",
+                                   "2 ton brewery"]}
 
     def parse_beer(self, div) -> bool:
         """
