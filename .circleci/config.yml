@@ -102,6 +102,7 @@ jobs:
       - run:
           name: install dependencies
           command: |
+            ls -R
             python3 -m venv venv
             . venv/bin/activate
             pip install --upgrade pip
