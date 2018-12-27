@@ -31,7 +31,6 @@ jobs:
           name: upgrade pip
           command: |
             python3 -m venv venv
-            ls -R
             . venv/bin/activate
             pip install --upgrade pip
 
@@ -131,7 +130,6 @@ jobs:
             rm -r lambda_deploy/pip*
             rm -r lambda_deploy/nose*
             rm -r lambda_deploy/python_lambda_local*.egg-info
-            rm -r lambda_deploy/waitress*
             rm -r lambda_deploy/fakeredis*
             rm -r lambda_deploy/coverage*
             rm -r lambda_deploy/codecov*
