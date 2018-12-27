@@ -1,7 +1,7 @@
 beautifulsoup4==4.6.3
 python-dateutil==2.7.3
 python-lambda-local==0.1.6
-requests==2.19.1
+requests==2.20.0
 requests-mock==1.5.2
 six==1.11.0
 redis==2.10.6
