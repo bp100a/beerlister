@@ -30,6 +30,7 @@ jobs:
       - run:
           name: upgrade pip
           command: |
+            python3 -m venv venv
             ls -R
             . venv/bin/activate
             pip install --upgrade pip
