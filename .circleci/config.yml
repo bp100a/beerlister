@@ -62,7 +62,7 @@ jobs:
           command: |
             . venv/bin/activate
             mkdir test-reports
-            nosetests --with-xcoverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function.py --cover-erase --cover-branches --xcoverage-file=test-reports/coverage.xml --xunit-file=test-reports/nosetests.xml
+            nosetests --with-xcoverage --with-xunit --cover-package=models --cover-package=controllers --cover-package=lambda_function --cover-erase --cover-branches --xcoverage-file=test-reports/coverage.xml --xunit-file=test-reports/nosetests.xml
             # mv .coverage test-reports/.coverage
 
             # PyLint returns
