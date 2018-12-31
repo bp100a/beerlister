@@ -31,6 +31,7 @@ if [[ $existing_aliases == *"\"$alias\""* ]]
 then
     # Update existing alias to point to the Lambda version
    echo "Updating alias $alias for Lambda $lambda_name"
+   echo "lambda_version: $lambda_version"
    aws lambda update-alias --function-name $lambda_name --name $alias --function-version $lambda_version --description $build_number --region $aws_region
 else
    # Create a new alias for the Lambda version
