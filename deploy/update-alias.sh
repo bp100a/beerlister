@@ -22,10 +22,12 @@ fi
 # lambda_version=$(aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --output json| jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
 aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --output json > list.json
 lambda_version=$(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
+next_marker=$(cat list.json | jq -r ".NextMarker")
 
 if [$lambda_version == ""]
 then
    echo "No matching lambda version found for build number $build_number"
+   echo "next marker = $next_marker"
    exit 1
 else
    echo "Found matching Lambda version $lambda_version for build number $build_number"
