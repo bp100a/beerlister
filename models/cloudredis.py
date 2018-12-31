@@ -71,7 +71,7 @@ def timestamp_key(brewery: str) -> str:
 
 
 def home_key(user_id: str) -> str:
-    """create key for the home value (an uuid not doubt)"""
+    """create key for the home value (a uuid no doubt)"""
     return user_id.replace(' ', '') + "_uid"
 
 

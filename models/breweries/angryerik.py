@@ -48,6 +48,8 @@ class AngryErikPage(BreweryPage):
             parts = beer_string.split(',')
             name_and_style = parts[0]
             more_parts = name_and_style.split('\u2013')
+            if len(more_parts) < 2:
+                return
             beer_name = more_parts[0].strip()
             beer_style = more_parts[1].strip()
 
