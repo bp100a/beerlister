@@ -27,8 +27,13 @@ next_marker=$(cat list.json | jq -r ".NextMarker")
 if [$lambda_version == ""]
 then
    echo "No matching lambda version found for build number $build_number"
-   echo "next marker = $next_marker"
+   echo "next marker= $next_marker"
    exit 1
+
+   aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --marker $next_marker --output json > list.json
+   lambda_version=$(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
+   next_marker=$(cat list.json | jq -r ".NextMarker")
+   echo "lambda_version=$lambda_version, next marker= $next_marker"
 else
    echo "Found matching Lambda version $lambda_version for build number $build_number"
 fi
