@@ -20,7 +20,12 @@ fi
 
 # Lookup the Lambda version provided by AWS by looking at the build_number in the description
 lambda_version=$(aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --output json| jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
-echo "Found matching Lambda version $lambda_version for build number $build_number"
+if [$lambda_version == ""]
+then
+   echo "No matching lambda version found for build number $build_number"
+else
+   echo "Found matching Lambda version $lambda_version for build number $build_number"
+fi
 
 # Fetch existing aliases
 existing_aliases=$(aws lambda list-aliases --function-name $lambda_name --region $aws_region --output json| jq -r '.Aliases[] | {Name: .Name}')
