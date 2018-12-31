@@ -24,28 +24,21 @@ aws lambda list-versions-by-function --function-name $lambda_name --region $aws_
 lambda_version=$(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
 next_marker=$(cat list.json | jq -r ".NextMarker")
 
-echo "lambda_version=$lambda_version, next_marker=$next_marker"
-if ["$lambda_version" == ""]
-then
-   echo "No matching lambda version found for build number $build_number"
-   echo "next marker= $next_marker"
+while ["$lambda_version" == ""]
+do
+   aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --marker $next_marker --output json > list.json
+   lambda_version=$(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
+   next_marker=$(cat list.json | jq -r ".NextMarker")
+   echo "lambda_version=$lambda_version, next marker= $next_marker"
 
-   while ["$lambda_version" == ""]
-    do
-       aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --marker $next_marker --output json > list.json
-       lambda_version=$(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
-       next_marker=$(cat list.json | jq -r ".NextMarker")
-       echo "lambda_version=$lambda_version, next marker= $next_marker"
-
-       if [ ! -z "$lambda_version" ]; then
-          break
-       fi
-       if [ -z "$next_marker" ]; then
-          echo "exit, no more pages"
-          exit 1
-       fi
-   done
-fi
+   if [ ! -z "$lambda_version" ]; then
+      break
+   fi
+   if [ -z "$next_marker" ]; then
+      echo "exit, no more pages"
+      exit 1
+   fi
+done
 
 echo "Found matching Lambda version $lambda_version for build number $build_number"
 
