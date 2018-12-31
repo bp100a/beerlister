@@ -23,6 +23,7 @@ lambda_version=$(aws lambda list-versions-by-function --function-name $lambda_na
 if [$lambda_version == ""]
 then
    echo "No matching lambda version found for build number $build_number"
+   exit 1
 else
    echo "Found matching Lambda version $lambda_version for build number $build_number"
 fi
