@@ -21,8 +21,7 @@ fi
 # Lookup the Lambda version provided by AWS by looking at the build_number in the description
 # lambda_version=$(aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --output json| jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
 aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --output json > list.json
-cat list.json
-lambda_version = $(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
+lambda_version=$(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
 
 if [$lambda_version == ""]
 then
