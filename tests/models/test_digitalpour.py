@@ -32,7 +32,7 @@ class TestDigitalPourpage(TestwithMocking):
             assert tst_data == beer_string  # anything different, raise hell!
 
     def test_DigitalPour_cached(self):
-        """Test we can read the Twin Elephant beer list!"""
+        """Test we can read the Digital Pour beer list!"""
         pour_page = DigitalPourPage(mocked=True)
         assert pour_page is not None
         brewery_name = next(iter(BREWERY_INFO))

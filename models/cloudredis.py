@@ -101,7 +101,7 @@ def md5_exists(brewery: str, html: str) -> bool:
     # the value exists and it hasn't expired, so check the
     # hash
     md5 = hashlib.md5()
-    md5.update(html.encode('utf-8'))
+    md5.update((html+str(config.BUILD_NUMBER)).encode('utf-8'))
     current_md5 = md5.digest()
     cached_md5 = REDIS_SERVER.get(md5_key(brewery))
     if cached_md5 == current_md5:
@@ -165,7 +165,7 @@ def cache_ssml(brewery: str, html: str, ssml: str, cached_time: int) -> None:
     :return:
     """
     md5 = hashlib.md5()
-    md5.update(html.encode('utf-8'))
+    md5.update((html+str(config.BUILD_NUMBER)).encode('utf-8'))
     md5_response = md5.digest()
     REDIS_SERVER.set(md5_key(brewery), md5_response)
     REDIS_SERVER.set(ssml_key(brewery), ssml)
