@@ -30,6 +30,8 @@ class Beer():
             self.style = self.style.strip()
         if self.abv:
             self.abv = self.abv.strip()
+            if '%' not in self.abv:
+                self.abv += '%'
 
         if kwargs.get('ibu') is not None:
             self.ibu = kwargs.get('ibu')
@@ -214,7 +216,10 @@ class BreweryPage():
         # okay, we have some beers, so iterate through them
         vowels = "aeiou"
         for beer in self._beer_list:
-            beer_name = beer.name.replace('IT', '<sub alias="it"> IT </sub>')
+            if 'IT' in beer.name:
+                beer_name = beer.name.replace('IT ', '<sub alias="it"> IT </sub>')
+            else:
+                beer_name = beer.name
             beer_str += ' ' + self.spell_out_strings(beer_name)
             if beer.style is not None:
                 beer_style = self.spell_out_strings(beer.style)

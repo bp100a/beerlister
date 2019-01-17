@@ -35,7 +35,26 @@ class TestBeerList(TestwithMocking):
                                               abv='4.0%', hops='Citra, Cascade')
         assert beer.name is not None
         assert beer.style is not None
+        assert beer.abv == '4.0%'
+        assert beer.hops is not None
+
+        assert len(beer.hops) == 2
+
+        beer_list.append(beer)
+        assert len(beer_list) == 1
+
+    @staticmethod
+    def test_add_full_beer_no_abv_percent():
+        """add a beer with all attributes"""
+        beer_list = models.breweries.beerlist.BeerList()
+        assert beer_list is not None
+
+        beer = models.breweries.beerlist.Beer(name='Budweiser', style='Bohemian Lager',
+                                              abv='4.0', hops='Citra, Cascade')
+        assert beer.name is not None
+        assert beer.style is not None
         assert beer.abv is not None
+        assert beer.abv == '4.0%'
         assert beer.hops is not None
 
         assert len(beer.hops) == 2
