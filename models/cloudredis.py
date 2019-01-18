@@ -50,6 +50,23 @@ def initialize_cloud_redis(injected_server=None):
     return
 
 
+"""
+   Our caching uses three keys for each brewery name:
+   
+     <brewery_name>_md5  : an MD5 digest of the HTML page + build #
+     <brewery_name>_ssml : The SSML response we cached
+     <brewery_name>_timestamp : when the item was cached
+   
+   Note: By including the build # in the MD5 digest, we'll
+         trigger a cache refill if new code is released.
+         
+   We can also cache the users home station using this key:
+   
+     <amazon_user_id>_uid
+   
+"""
+
+
 def exists(redis_key: str) -> bool:
     """returns True if the specified key exists in the cache"""
     return REDIS_SERVER.exists(redis_key) == 1
