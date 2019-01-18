@@ -24,7 +24,7 @@ aws lambda list-versions-by-function --function-name $lambda_name --region $aws_
 lambda_version=$(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
 next_marker=$(cat list.json | jq -r ".NextMarker")
 
-while ["$lambda_version" == ""]
+while [-z "$lambda_version"]
 do
    aws lambda list-versions-by-function --function-name $lambda_name --region $aws_region --marker $next_marker --output json > list.json
    lambda_version=$(cat list.json | jq -r ".Versions[] | select(.Version!=\"\$LATEST\") | select(.Description == \"${build_number}\").Version")
