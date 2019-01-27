@@ -41,6 +41,22 @@ class TestUntappdpage(TestwithMocking):
             if tst_data != beer_string:
                 assert tst_data == beer_string # anything different, raise hell!
 
+    def test_untied_brewing_mocked(self):
+        """Special testing for Untied Brewing since it does special parsing"""
+        brewery_name = "Untied"
+        untapped_page = UnTappdPage(mocked=True)
+        untapped_page.fetch_taplist(brewery=brewery_name)
+        beer_string = untapped_page.ssml_taplist()
+        assert beer_string is not None
+
+        # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
+        file_name = data_dir() + brewery_name.replace(' ', '') + '.SSML'
+        file_pointer = open(file_name, 'r', encoding='utf-8')
+        tst_data = file_pointer.read()
+        file_pointer.close()
+        if tst_data != beer_string:
+            assert tst_data == beer_string  # anything different, raise hell!
+
     def test_UnTapped_mocked_brewery_in_cache(self):
 
         # ensure we start with an empty cache

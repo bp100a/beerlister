@@ -6,7 +6,8 @@ from controllers import brewerylist
 
 BREWERY_INFO = {"Fort Nonsense": [14504, 53940], "Alementary": [1192, 955],
                 "Man Skirt": [1576, 2092], "Demented": [1591, 2137],
-                "Pinelands": [8415,29881]}
+                "Pinelands": [8415,29881],
+                "Untied": [21632, 82353]}
 
 
 class UnTappdPage(BreweryPage):
@@ -29,7 +30,10 @@ class UnTappdPage(BreweryPage):
                        "Demented": ["Demented Brewing",
                                     "Demented Brewery"],
                        "Pinelands": ["Pinelands Brewing",
-                                     "Pinelands Brewery"]}
+                                     "Pinelands Brewery"],
+                       "Untied": ["Untied Brewing",
+                                  "Untied Brewery",
+                                  "Untied Brewing Company"]}
 
     def parse_inner_content(self, beer) -> None:
         """parse the content for beer information"""
@@ -58,6 +62,26 @@ class UnTappdPage(BreweryPage):
 
         self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv,
                            ibu=beer_ibu, desc=beer_desc))
+
+    def untied_parser(self, html_menu: str):
+        """special parser for Untied Brewing's page"""
+
+        # for now just list the core beers
+        beer_span_list = self._soup.find_all("tr", {"class": "item-title-color"})
+        assert beer_span_list is not None
+        for beer_entry in beer_span_list:
+            if len(beer_entry.contents[3].contents) > 2:
+                try:
+                    beer_name = beer_entry.contents[1].contents[1].text.split('.')[1]
+                    beer_style = beer_entry.contents[3].contents[1].text.strip('\\n ')
+                    beer_abv = beer_entry.contents[5].text.strip('\\n ')
+                    beer_ibu = beer_entry.contents[7].text.strip('\\n ')
+                    self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv,
+                                       ibu=beer_ibu, desc=None))
+                except IndexError as ie:
+                    break
+
+        return
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch and scrape the tap list page for UnTappd"""
@@ -90,14 +114,17 @@ class UnTappdPage(BreweryPage):
         assert self._soup is not None
         beer_div_list = self._soup.find_all("div", {"class": "beer"})
         assert beer_div_list is not None
-        section_name_list = self._soup.find_all("div", {"class" : "section-name"})
-        draft_section = section_name_list[0].text
-        for beer in beer_div_list:
-            section_name = beer.find_previous("div", "section-name")
-            if section_name.text != draft_section:
-                break
-            assert beer is not None
-            self.parse_inner_content(beer)
+        if len(beer_div_list) == 0:
+            self.untied_parser(html_menu)
+        else:
+            section_name_list = self._soup.find_all("div", {"class" : "section-name"})
+            draft_section = section_name_list[0].text
+            for beer in beer_div_list:
+                section_name = beer.find_previous("div", "section-name")
+                if section_name.text != draft_section:
+                    break
+                assert beer is not None
+                self.parse_inner_content(beer)
 
         return False # not from the cache
 
