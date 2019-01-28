@@ -18,7 +18,8 @@ class UnTappdPage(BreweryPage):
 
         # initialize aliases
         self._alias = {"Fort Nonsense": ["Fort Nonsense Brewing",
-                                         "Fort Nonsense Brewery"],
+                                         "Fort Nonsense Brewery",
+                                         "fortnite incense"],
                        "Alementary": ["Alementary Brewing",
                                       "Alementary Brewery",
                                       "elementary",
@@ -26,13 +27,15 @@ class UnTappdPage(BreweryPage):
                                       "elementary brewery"],
                        "Man Skirt": ["Man Skirt Brewing",
                                      "Man Skirt Brewery",
+                                     "man's skirt",
                                      "mansker"],
                        "Demented": ["Demented Brewing",
                                     "Demented Brewery"],
                        "Pinelands": ["Pinelands Brewing",
                                      "Pinelands Brewery"],
                        "Untied": ["Untied Brewing",
-                                  "Untied Brewery",
+                                  "Untied Brewery"
+                                  "Untied Browing",
                                   "Untied Brewing Company"]}
 
     def parse_inner_content(self, beer) -> None:

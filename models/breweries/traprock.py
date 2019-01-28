@@ -12,7 +12,8 @@ class TrapRockPage(BreweryPage):
 
         # initialize aliases
         self._alias = {"Trap Rock": ["Trap Rock Brewing",
-                                     "Trap Rock Brewery"]}
+                                     "Trap Rock Brewery",
+                                     "track rock"]}
 
     def parse_beer(self, div) -> None:
         """

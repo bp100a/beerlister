@@ -14,7 +14,8 @@ class DepartedSolespage(BreweryPage):
                                            "Departed Soles Brewery",
                                            "departed sole",
                                            "departed sole brewing",
-                                           "departed sole brewery"]}
+                                           "departed sole brewery",
+                                           "soul"]}
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist page for Departed Soles and parse it"""

@@ -25,6 +25,9 @@ class TEBpage(BreweryPage):
         self._alias = {"Twin Elephant": ["TEB",
                                          "Twin Elephant Brewing",
                                          "Twin Elephant Brewery",
+                                         "twelfth",
+                                         "12 and",
+                                         "12 fit",
                                          "20 elephant"]}
 
     def fetch_taplist(self, **kwargs) -> bool:

@@ -14,6 +14,8 @@ class AngryErikPage(BreweryPage):
         self._alias = {"Angry Erik": ["Angry Erik Brewing",
                                       "Angry Erik Brewery",
                                       "Angry Eric",
+                                      "Angry Erik",
+                                      "Angry or",
                                       "Angry Eric Brewing",
                                       "Angry Eric Brewery"]}
 

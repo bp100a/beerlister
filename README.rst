@@ -9,7 +9,7 @@
 Overview
 --------
 
-Read a tap list from a brewery's website and parse it into something that can be read off by an Alexa Skill.
+Read a tap list from a brewery's website and parse it into something that can be read off by an Alexa Skill. Even for breweries using UnTappd, I have to deal with brewery-specific formatting. Hate scraping, but what can you do...
 
 Currently read the following formats:
 
@@ -18,6 +18,8 @@ Currently read the following formats:
     * Alementary
     * Fort Nonsense
     * Pinelands
+    * Untied Brewing
+    * Demented
 * Digital Pour
     * Village Idiot
 * Beer Menus
@@ -50,7 +52,7 @@ There's been a lot of testing and deployment incorporated into the codebase (not
 I'm using CircleCI to both build & deploy. Deployment uses lambda versions & alias with the following flow:
 
 1) Build job
-    * runs unit tests (+90 tests, all mocked in about 4 secs!)
+    * runs unit tests (+110 tests, all mocked in about 6 secs!)
     * runs PyLint (pretty darn clean)
 2) Deploy job
     * run if no errors during build
