@@ -63,23 +63,42 @@ class UnTappdPage(BreweryPage):
         self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv,
                            ibu=beer_ibu, desc=beer_desc))
 
+    @staticmethod
+    def untied_filter(tag) -> bool:
+        if (tag.has_attr('class') and "menu-info" in tag.attrs['class']) or \
+                (tag.has_attr('class') and "item-title-color" in tag.attrs['class']):
+            return True
+
+        return False
+
     def untied_parser(self, html_menu: str):
         """special parser for Untied Brewing's page"""
 
         # for now just list the core beers
         beer_span_list = self._soup.find_all("tr", {"class": "item-title-color"})
+        div_list = self._soup.find_all("div", {"class": "item-description"})
+        all_list = self._soup.find_all(UnTappdPage.untied_filter)
         assert beer_span_list is not None
-        for beer_entry in beer_span_list:
-            if len(beer_entry.contents[3].contents) > 2:
-                try:
-                    beer_name = beer_entry.contents[1].contents[1].text.split('.')[1]
-                    beer_style = beer_entry.contents[3].contents[1].text.strip('\\n ')
-                    beer_abv = beer_entry.contents[5].text.strip('\\n ')
-                    beer_ibu = beer_entry.contents[7].text.strip('\\n ')
-                    self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv,
-                                       ibu=beer_ibu, desc=None))
-                except IndexError as ie:
+        beer_idx = 0
+        menu_index = 0
+        for beer_entry in all_list:
+            if "menu-info" in beer_entry.attrs["class"]:
+                menu_index += 1
+                if menu_index > 2:  # Core & Premium menus
                     break
+            else:
+                if len(beer_entry.contents[3].contents) > 2:
+                    try:
+                        beer_name = beer_entry.contents[1].contents[1].text.split('.')[1]
+                        beer_style = beer_entry.contents[3].contents[1].text.strip('\\n ')
+                        beer_abv = beer_entry.contents[5].text.strip('\\n ')
+                        beer_ibu = beer_entry.contents[7].text.strip('\\n ')
+                        beer_desc = div_list[beer_idx].contents[3].text
+                        self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv,
+                                           ibu=beer_ibu, desc=beer_desc))
+                        beer_idx += 1
+                    except IndexError as ie:
+                        break
 
         return
 
