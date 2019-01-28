@@ -1,5 +1,5 @@
 import os
-from models.breweries.departedsoles import DepartedSolespage
+from models.breweries.custom.departedsoles import DepartedSolespage
 from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 

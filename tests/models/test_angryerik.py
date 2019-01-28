@@ -1,5 +1,5 @@
 import os
-from models.breweries.angryerik import AngryErikPage
+from models.breweries.custom.angryerik import AngryErikPage
 from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 

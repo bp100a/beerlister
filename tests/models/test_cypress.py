@@ -1,5 +1,5 @@
 import os
-from models.breweries.cypress import CypressPage
+from models.breweries.custom.cypress import CypressPage
 from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 

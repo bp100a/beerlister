@@ -3,6 +3,7 @@
 # pylint: disable-msg=R0911, W0401, R1705, W0613
 from controllers import brewerylist # for clarity
 from models.breweries import * # instantiate all our brewery page scrapers
+from models.breweries.custom import *  # instantiate the custom scraped breweries
 from models import cloudredis, setuplogging
 
 

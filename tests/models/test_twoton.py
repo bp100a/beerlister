@@ -1,5 +1,5 @@
 import os
-from models.breweries.twoton import TwoTonPage
+from models.breweries.custom.twoton import TwoTonPage
 from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 

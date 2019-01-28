@@ -1,5 +1,5 @@
 import os
-from models.breweries.traprock import TrapRockPage
+from models.breweries.custom.traprock import TrapRockPage
 from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 

@@ -1,6 +1,6 @@
 from unittest import TestCase
 import os
-from models.breweries.jerseygirl import JerseyGirlPage
+from models.breweries.custom.jerseygirl import JerseyGirlPage
 from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 

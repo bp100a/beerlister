@@ -1,6 +1,6 @@
 from unittest import TestCase
 import os
-from models.breweries.twinelephant import TEBpage
+from models.breweries.custom.twinelephant import TEBpage
 from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 
