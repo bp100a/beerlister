@@ -29,7 +29,7 @@ class TestTrapRockpage(TestwithMocking):
         assert tst_data == ssml  # anything different, raise hell!
 
     def test_TrapRockPage_cached(self):
-        """Test we can read the Twin Elephant beer list!"""
+        """Test we can read the Trap Rock beer list!"""
         traprock_page = TrapRockPage(mocked=True)
         from_cache = traprock_page.fetch_taplist(brewery="Trap Rock")
         assert not from_cache

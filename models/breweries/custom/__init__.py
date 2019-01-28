@@ -3,4 +3,4 @@ __all__ = ["departedsoles",\
            "twinelephant",\
            "jerseygirl",\
            "angryerik", "traprock",\
-           "twoton", "cypress"]
+           "twoton", "cypress", "kane"]
