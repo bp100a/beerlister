@@ -34,7 +34,8 @@ class UnTappdPage(BreweryPage):
                        "Pinelands": ["Pinelands Brewing",
                                      "Pinelands Brewery"],
                        "Untied": ["Untied Brewing",
-                                  "Untied Brewery"
+                                  "Untied Brewery",
+                                  "United", "United Brewing", "United Brewery",
                                   "Untied Browing",
                                   "Untied Brewing Company"]}
 
