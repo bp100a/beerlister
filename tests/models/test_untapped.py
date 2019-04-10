@@ -107,17 +107,10 @@ class TestUntappdpage(TestwithMocking):
         found = untapped_page.brewery_by_alias("Man Skirt Brewery")
         assert found == "Man Skirt"
 
-        found = untapped_page.brewery_by_alias("Demented")
-        assert found == "Demented"
-
-        found = untapped_page.brewery_by_alias("Demented Brewery")
-        assert found == "Demented"
-
     def test_shortnames(self):
         """Test we have the proper short names"""
         untapped_page = UnTappdPage()
         short_names = untapped_page.short_name()
         assert 'Man Skirt' in short_names
-        assert 'Demented' in short_names
         # assert 'Angry Erik' in short_names
         assert 'Alementary' in short_names
