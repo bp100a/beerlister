@@ -5,8 +5,8 @@ from models.breweries.beerlist import Beer
 from controllers import brewerylist
 
 BREWERY_INFO = {"Fort Nonsense": [14504, 53940], "Alementary": [1192, 955],
-                "Man Skirt": [1576, 2092], "Demented": [1591, 2137],
-                "Pinelands": [8415,29881],
+                "Man Skirt": [1576, 2092],
+                "Pinelands": [8415, 29881],
                 "Untied": [21632, 82353]}
 
 
@@ -67,6 +67,7 @@ class UnTappdPage(BreweryPage):
 
     @staticmethod
     def untied_filter(tag) -> bool:
+        """ perform untied specific parsing"""
         if (tag.has_attr('class') and "menu-info" in tag.attrs['class']) or \
                 (tag.has_attr('class') and "item-title-color" in tag.attrs['class']):
             return True

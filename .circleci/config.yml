@@ -134,7 +134,7 @@ jobs:
             rm -r lambda_deploy/coverage*
             rm -r lambda_deploy/codecov*
             rm -r lambda_deploy/requests_mock*
-            rm lambda_deploy/*.so
+            rm -f lambda_deploy/*.so
             rm -r lambda_deploy/__pycache__
             rm -r lambda_deploy/docutils*
             rm -r lambda_deploy/astroid*
