@@ -57,10 +57,6 @@ class TestBreweryList(TestwithMocking):
                            "Fort Nonsense Brewing": "<class \'models.breweries.untappd.UnTappdPage\'>",
                            "Fort Nonsense Brewery": "<class \'models.breweries.untappd.UnTappdPage\'>",
 
-                           "Demented" : "<class \'models.breweries.untappd.UnTappdPage\'>",
-                           "Demented Brewing" : "<class \'models.breweries.untappd.UnTappdPage\'>",
-                           "Demented Brewery" : "<class \'models.breweries.untappd.UnTappdPage\'>",
-
                            "Rinn Duin": "<class \'models.breweries.beermenus.BeerMenusPage\'>",
                            "Rinn Duin Brewing": "<class \'models.breweries.beermenus.BeerMenusPage\'>",
                            "Rinn Duin Brewery": "<class \'models.breweries.beermenus.BeerMenusPage\'>",
@@ -93,7 +89,7 @@ class TestBreweryList(TestwithMocking):
     def test_list_of_breweries(self):
         """Test that known breweries conform to the # we expect"""
         list_of_breweries = brewerylist.BREWERY_PAGES.list_of_breweries()
-        assert len(list_of_breweries) == 16
+        assert len(list_of_breweries) == 15
 
     def test_list_of_breweries_response(self):
         """Test that we can generate an SSML for the list of known breweries"""

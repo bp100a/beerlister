@@ -59,7 +59,7 @@ class TestAWSlambda(TestwithMocking):
         assert response is not None
         assert response['response']['shouldEndSession']
         assert response['response']['outputSpeech']['text'] == "Here are the breweries I know: "\
-                "Rinn Duin, Fort Nonsense, Alementary, Man Skirt, Demented, Pinelands, Untied, "\
+                "Rinn Duin, Fort Nonsense, Alementary, Man Skirt, Pinelands, Untied, "\
                 "Village Idiot, Departed Soles, Twin Elephant, Jersey Girl, Angry Erik, "\
                 "Trap Rock, Two Ton, Cypress, and Kane"
 

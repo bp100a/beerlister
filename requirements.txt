@@ -5,5 +5,5 @@ requests==2.20.0
 requests-mock==1.5.2
 six==1.11.0
 redis==2.10.6
-pylint==2.1.1
+pylint==2.3.1
 fakeredis==0.13.1

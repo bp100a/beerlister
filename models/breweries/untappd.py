@@ -29,8 +29,6 @@ class UnTappdPage(BreweryPage):
                                      "Man Skirt Brewery",
                                      "man's skirt",
                                      "mansker"],
-                       "Demented": ["Demented Brewing",
-                                    "Demented Brewery"],
                        "Pinelands": ["Pinelands Brewing",
                                      "Pinelands Brewery"],
                        "Untied": ["Untied Brewing",
@@ -150,6 +148,7 @@ class UnTappdPage(BreweryPage):
                 self.parse_inner_content(beer)
 
         return False # not from the cache
+
 
 # add this to the list of breweries
 brewerylist.BREWERY_PAGES.add_brewery_page(UnTappdPage())
