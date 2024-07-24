@@ -30,7 +30,7 @@ def lambda_handler(event, context):
 
     """  App entry point  """
     setuplogging.initialize_logging(mocking=False) # make sure logging is setup
-    setuplogging.LOGGING_HANDLER('EVENT{}'.format(event)) # log the event
+    setuplogging.LOGGING_HANDLER(f'EVENT{event}') # log the event
 
     if event['session']['new']:
         on_session_started()
@@ -108,7 +108,7 @@ def set_home_brewery(request: dict, session: dict):
 
         # some problem, tell the user. TBD validate brewery & other things,
         # perhaps ask for clarification
-        setuplogging.LOGGING_HANDLER("SetHomeBrewery, brewery not found:\"{0}\"".format(brewery))
+        setuplogging.LOGGING_HANDLER(f"SetHomeBrewery, brewery not found:\"{brewery}\"")
         return response(speech_response(CANNOT_SET_HOME.format(brewery), True))
     except KeyError:
         return response(speech_response(ERROR_NO_BREWERY, True))
@@ -135,14 +135,14 @@ def list_of_breweries_response():
 
 def get_taplist_response(intent: dict):
     """ return the taplist  """
+    brewery_name: str = 'unknown'
     try:
         brewery_name = intent['slots']['brewery']['value']
         bobj, brewery_id = brewerylist.BREWERY_PAGES.find_brewery(brewery_name=brewery_name)
 
-        # if we couldn't find the brewery, respond with a the list of breweries we know
+        # if we couldn't find the brewery, respond with the list of breweries we know
         if brewery_id is None or bobj is None:
-            setuplogging.LOGGING_HANDLER("GetTapList, brewery not found: \"{0}\""\
-                                         .format(brewery_name))
+            setuplogging.LOGGING_HANDLER(f"GetTapList, brewery not found: \"{brewery_name}\"")
             return list_of_breweries_response()
 
         if 'mocked' in intent:
@@ -152,9 +152,8 @@ def get_taplist_response(intent: dict):
         return response(speech_response_ssml(beer_string, True))
     except KeyError:
         return response(speech_response(ERROR_NO_BREWERY, True))
-    except Exception:
-        setuplogging.LOGGING_HANDLER("PAGELOAD failure!! brewery \"{0}\""\
-                                     .format(brewery_name))
+    except Exception:  # pylint: disable=broad-exception-caught
+        setuplogging.LOGGING_HANDLER(f"PAGELOAD failure!! brewery \"{brewery_name}\"")
         return response(speech_response(ERROR_BREWERY_PAGE, True))
 
 

@@ -7,3 +7,4 @@ six==1.16.0
 redis==5.0.7
 pylint==3.2.6
 fakeredis==2.23.3
+urllib3==2.2.2

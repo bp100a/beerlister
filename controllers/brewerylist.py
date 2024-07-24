@@ -8,7 +8,7 @@ import models.cloudredis
 
 class BreweryLister:
     """This is our controller for the brewery list"""
-    brewery_page_list = []
+    brewery_page_list: list[models.breweries.beerlist.BreweryPage] = []
 
     def add_home_brewery(self, brewery_name: str, user_id: str) -> bool:
         """set the specified brewery as the home brewery, return True if successful"""
@@ -26,7 +26,7 @@ class BreweryLister:
         """return the home brewery if specified, otherwise 'None' """
         home_key = models.cloudredis.home_key(user_id)
         if not models.cloudredis.REDIS_SERVER.exists(home_key): # if key doesn't exist
-            return None
+            return ''
 
         return models.cloudredis.REDIS_SERVER.get(home_key)
 
@@ -34,7 +34,7 @@ class BreweryLister:
         """Adds a brewery page to the list we are managing"""
         self.brewery_page_list.append(brewery_page)
 
-    def find_brewery(self, brewery_name) -> Tuple[models.breweries.beerlist.BreweryPage, str]:
+    def find_brewery(self, brewery_name) -> tuple[models.breweries.beerlist.BreweryPage | None, str]:
         """finds a brewery page in the list we are managing"""
         # look for the specified brewery in our list of breweries we know about
         for brewery_page in self.brewery_page_list:
@@ -42,7 +42,7 @@ class BreweryLister:
             if brewery_id is not None:
                 return brewery_page, brewery_id
 
-        return None, None
+        return None, ''
 
     def list_of_breweries(self):
         """retrieve a list of all breweries by short name"""

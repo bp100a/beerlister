@@ -4,7 +4,7 @@ import hashlib
 import redis
 import config
 
-REDIS_SERVER = None
+REDIS_SERVER: redis.client.Redis | None = None
 # We always read the page,
 # but if the md5's match we'll keep the cached value for this time period
 CACHE_TIMEOUT = 24
@@ -133,14 +133,14 @@ def expired(brewery: str, too_many_hours: int) -> bool:
     """check the timestamp key and see if it has expired
     all timestamps are floats in seconds, so just make them ints"""
 
-    str_timestamp = REDIS_SERVER.get(timestamp_key(brewery))
-    if str_timestamp is None:
+    str_timestamp: str = REDIS_SERVER.get(timestamp_key(brewery))
+    if not str_timestamp:
         return True
 
     # since all timestamps are floats and in seconds
     # we only need the integer portion
     try:
-        cached_timestamp = int(str_timestamp)
+        cached_timestamp: int = int(str_timestamp)
     except ValueError:
         flush_cache(brewery)
         return True
@@ -191,7 +191,7 @@ def cache_ssml(brewery: str, html: str, ssml: str, cached_time: int) -> None:
 
 def is_cached(brewery, rsp_text) -> bool:
     """Check to see if this brewery's webpage has already
-    been read and we can save a lot of work
+    been read, we can save a lot of work
     =True, then we have a cache of this response"""
     assert brewery is not None and rsp_text is not None
 
