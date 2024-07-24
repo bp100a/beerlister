@@ -7,8 +7,8 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
-      - image: circleci/python:3.6.1
+      # use `-browsers` prefix for selenium tests, e.g. `3.12-browsers`
+      - image: circleci/python:3.12
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -89,7 +89,7 @@ jobs:
           path: test-reports/
   deploy:
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.12
     working_directory: ~/repo
     steps:
       - checkout
@@ -119,7 +119,7 @@ jobs:
           name: create lambda image
           command: |
             mkdir lambda_deploy
-            cp -r ./venv/lib/python3.6/site-packages/* ./lambda_deploy
+            cp -r ./venv/lib/python3.12/site-packages/* ./lambda_deploy
             cp -v -r controllers lambda_deploy
             cp -v -r models lambda_deploy
             cp *.py lambda_deploy
