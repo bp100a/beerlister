@@ -44,9 +44,9 @@ class BreweryLister:
 
         return None, ''
 
-    def list_of_breweries(self):
+    def list_of_breweries(self) -> list[str]:
         """retrieve a list of all breweries by short name"""
-        all_breweries = []
+        all_breweries: list[str] = []
         for brewery_page in self.brewery_page_list:
             brewery_short_name = brewery_page.short_name()
             all_breweries.extend(brewery_short_name)
@@ -54,10 +54,10 @@ class BreweryLister:
         # now we have a complete list of breweries
         return all_breweries
 
-    def ssml_brewery_list(self):
+    def ssml_brewery_list(self) -> str:
         """create the SSML to speak the list of breweries we know about"""
-        list_of_breweries = self.list_of_breweries()
-        resp = 'Here are the breweries I know: '
+        list_of_breweries: list[str] = self.list_of_breweries()
+        resp: str = 'Here are the breweries I know: '
         for i in range(len(list_of_breweries)): # pylint: disable=C0200
 
             if i == len(list_of_breweries) - 1:
