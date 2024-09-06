@@ -156,7 +156,7 @@ jobs:
           name: stash zipfile as an artifact in case we need to check things
           command: |
             mkdir zipfile
-            mv TapList.zip zipfile/TapList.zip
+            cp TapList.zip zipfile/TapList.zip
       - run:
           name: upload the package
           command: |
