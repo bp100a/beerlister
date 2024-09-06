@@ -15,13 +15,13 @@ class TestKanepage(TestwithMocking):
     def test_KanePage_ssml(self):
         kane_page = KanePage(mocked=True)
         assert kane_page is not None
-        status = kane_page.fetch_taplist(brewery='Kane')
+        status = kane_page.fetch_taplist(brewery="Kane")
         assert not status
         ssml = kane_page.ssml_taplist()
         assert ssml
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        file_name = data_dir() + kane_page._brewery_name.replace(' ', '') + '.SSML'
-        file_pointer = open(file_name, mode='r', encoding='utf8')
+        file_name = data_dir() + kane_page._brewery_name.replace(" ", "") + ".SSML"
+        file_pointer = open(file_name, mode="r", encoding="utf8")
         tst_data = file_pointer.read()
         file_pointer.close()
         assert tst_data == ssml  # anything different, raise hell!
@@ -33,6 +33,6 @@ class TestKanepage(TestwithMocking):
         assert not from_cache
 
         # 2nd read from cache!
-        kane_page.ssml_taplist() # this puts it in the cache
+        kane_page.ssml_taplist()  # this puts it in the cache
         from_cache = kane_page.fetch_taplist(brewery="Kane")
         assert from_cache

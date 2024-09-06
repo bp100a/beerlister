@@ -17,13 +17,13 @@ class TestDepartedSolespage(TestwithMocking):
         dsp = DepartedSolespage(mocked=True)
         assert dsp is not None
 
-        dsp.fetch_taplist(brewery='Departed Soles')
+        dsp.fetch_taplist(brewery="Departed Soles")
         beer_string = dsp.ssml_taplist()
         assert beer_string is not None
 
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        file_name = data_dir() + dsp._brewery_name.replace(' ', '') + '.SSML'
-        file_pointer = open(file_name, 'r')
+        file_name = data_dir() + dsp._brewery_name.replace(" ", "") + ".SSML"
+        file_pointer = open(file_name, "r")
         tst_data = file_pointer.read()
         file_pointer.close()
         assert tst_data == beer_string  # anything different, raise hell!
@@ -50,7 +50,7 @@ class TestDepartedSolespage(TestwithMocking):
         """Test we get the correct short name for this brewery"""
         dp = DepartedSolespage()
         short_names = dp.short_name()
-        assert 'Departed Soles' in short_names
+        assert "Departed Soles" in short_names
         assert len(short_names) == 1
 
     def test_DepartedSoles_cached(self):
@@ -61,7 +61,6 @@ class TestDepartedSolespage(TestwithMocking):
         assert not from_cache
 
         # 2nd read from cache!
-        soles_page.ssml_taplist() # this puts it in the cache
+        soles_page.ssml_taplist()  # this puts it in the cache
         from_cache = soles_page.fetch_taplist(brewery=brewery_name)
         assert from_cache
-

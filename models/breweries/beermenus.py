@@ -1,4 +1,5 @@
 """Read the tap list for breweries hosted by BeerMenus"""
+
 import bs4 as bs
 from models.breweries.beerlist import BreweryPage
 from models.breweries.beerlist import Beer
@@ -14,42 +15,53 @@ class BeerMenusPage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Rinn Duin" : ["Rain doing",\
-                                      "Rinn Duin Brewing",\
-                                      "Rinn Duin Brewery",\
-                                      "ring doing"]}
+        self._alias = {
+            "Rinn Duin": [
+                "Rain doing",
+                "Rinn Duin Brewing",
+                "Rinn Duin Brewery",
+                "ring doing",
+            ]
+        }
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist for this specific beer management software"""
-        brewery = kwargs['brewery']
+        brewery = kwargs["brewery"]
 
         # construct our URL
         url = "https://beermenus.com/menu_widgets/{0}".format(BREWERY_INFO[brewery][0])
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
-        is_cached = self.read_page(brewery=brewery) # read the page
+        is_cached = self.read_page(brewery=brewery)  # read the page
         if is_cached:
             return True
 
         assert self._cached_response is not None
-        start_string = 'widgetDiv.innerHTML = \'\\n'
+        start_string = "widgetDiv.innerHTML = '\\n"
         start_pos = self._cached_response.find(start_string)
-        end_pos = self._cached_response.rfind(';\n}')
-        html_menu = self._cached_response[start_pos+len(start_string):end_pos-1]
+        end_pos = self._cached_response.rfind(";\n}")
+        html_menu = self._cached_response[start_pos + len(start_string) : end_pos - 1]
         html_menu = html_menu.replace('\\"', '"')
-        html_menu = html_menu.replace('\\n', '\n')
-        html_menu = html_menu.replace('\\/', '/')
-        assert end_pos is not -1
+        html_menu = html_menu.replace("\\n", "\n")
+        html_menu = html_menu.replace("\\/", "/")
+        assert end_pos != -1
         self._soup = bs.BeautifulSoup(html_menu, "html.parser")
         assert self._soup is not None
-        taplist_table = self._soup.find('table', attrs={'class': 'on_tap-section'})
-        table_body = taplist_table.find('tbody')
-        rows = table_body.find_all('tr')
+        taplist_table = self._soup.find("table", attrs={"class": "on_tap-section"})
+        table_body = taplist_table.find("tbody")
+        rows = table_body.find_all("tr")
         for row in rows:
-            cols = row.find_all('td')
+            cols = row.find_all("td")
             if len(row.contents) > 3:
-                self.add_beer(Beer(name=cols[0].text.strip().split('\n')[1], style=None,
-                                   abv=cols[1].text.strip() + '%', ibu=None, desc=None))
-        return False # not from cache
+                self.add_beer(
+                    Beer(
+                        name=cols[0].text.strip().split("\n")[1],
+                        style=None,
+                        abv=cols[1].text.strip() + "%",
+                        ibu=None,
+                        desc=None,
+                    )
+                )
+        return False  # not from cache
 
 
 # add this to the list of breweries

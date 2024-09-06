@@ -1,4 +1,5 @@
 """Unit tests for beer & beerlist"""
+
 from tests.setupmocking import TestwithMocking
 import models.breweries.beerlist
 from models import cloudredis
@@ -31,11 +32,12 @@ class TestBeerList(TestwithMocking):
         beer_list = models.breweries.beerlist.BeerList()
         assert beer_list is not None
 
-        beer = models.breweries.beerlist.Beer(name='Budweiser', style='Bohemian Lager',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Budweiser", style="Bohemian Lager", abv="4.0%", hops="Citra, Cascade"
+        )
         assert beer.name is not None
         assert beer.style is not None
-        assert beer.abv == '4.0%'
+        assert beer.abv == "4.0%"
         assert beer.hops is not None
 
         assert len(beer.hops) == 2
@@ -49,12 +51,13 @@ class TestBeerList(TestwithMocking):
         beer_list = models.breweries.beerlist.BeerList()
         assert beer_list is not None
 
-        beer = models.breweries.beerlist.Beer(name='Budweiser', style='Bohemian Lager',
-                                              abv='4.0', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Budweiser", style="Bohemian Lager", abv="4.0", hops="Citra, Cascade"
+        )
         assert beer.name is not None
         assert beer.style is not None
         assert beer.abv is not None
-        assert beer.abv == '4.0%'
+        assert beer.abv == "4.0%"
         assert beer.hops is not None
 
         assert len(beer.hops) == 2
@@ -68,8 +71,9 @@ class TestBeerList(TestwithMocking):
         beer = models.breweries.beerlist.Beer()
         assert beer.has_hops() is False
 
-        beer = models.breweries.beerlist.Beer(name='Budweiser', style='Bohemian Lager',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Budweiser", style="Bohemian Lager", abv="4.0%", hops="Citra, Cascade"
+        )
         assert beer.has_hops() is True
 
     @staticmethod
@@ -83,8 +87,9 @@ class TestBeerList(TestwithMocking):
         brewery_page._beer_list = models.breweries.beerlist.BeerList()
         brewery_page._cached_response = "bogus html page"
 
-        beer = models.breweries.beerlist.Beer(name='Sculpin', style='American IPA',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Sculpin", style="American IPA", abv="4.0%", hops="Citra, Cascade"
+        )
         brewery_page.add_beer(beer)
         ssml_taplist = brewery_page.ssml_taplist()
         assert ssml_taplist is not None
@@ -101,8 +106,9 @@ class TestBeerList(TestwithMocking):
         brewery_page._beer_list = models.breweries.beerlist.BeerList()
         brewery_page._cached_response = "bogus html page"
 
-        beer = models.breweries.beerlist.Beer(name='Sculpin IPA', style='American Ale',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Sculpin IPA", style="American Ale", abv="4.0%", hops="Citra, Cascade"
+        )
         brewery_page.add_beer(beer)
         ssml_taplist = brewery_page.ssml_taplist()
         assert ssml_taplist is not None
@@ -119,8 +125,12 @@ class TestBeerList(TestwithMocking):
         brewery_page._beer_list = models.breweries.beerlist.BeerList()
         brewery_page._cached_response = "bogus html page"
 
-        beer = models.breweries.beerlist.Beer(name='Nimble Giant', style='American DIPA',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Nimble Giant",
+            style="American DIPA",
+            abv="4.0%",
+            hops="Citra, Cascade",
+        )
         brewery_page.add_beer(beer)
         ssml_taplist = brewery_page.ssml_taplist()
         assert ssml_taplist is not None
@@ -137,8 +147,12 @@ class TestBeerList(TestwithMocking):
         brewery_page._beer_list = models.breweries.beerlist.BeerList()
         brewery_page._cached_response = "bogus html page"
 
-        beer = models.breweries.beerlist.Beer(name='Nimble Giant DIPA', style='American Ale',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Nimble Giant DIPA",
+            style="American Ale",
+            abv="4.0%",
+            hops="Citra, Cascade",
+        )
         brewery_page.add_beer(beer)
         ssml_taplist = brewery_page.ssml_taplist()
         assert ssml_taplist is not None
@@ -155,12 +169,15 @@ class TestBeerList(TestwithMocking):
         brewery_page._beer_list = models.breweries.beerlist.BeerList()
         brewery_page._cached_response = "bogus html page"
 
-        beer = models.breweries.beerlist.Beer(name='Heady Topper', style='NEIPA',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Heady Topper", style="NEIPA", abv="4.0%", hops="Citra, Cascade"
+        )
         brewery_page.add_beer(beer)
         ssml_taplist = brewery_page.ssml_taplist()
         assert ssml_taplist is not None
-        assert 'New England <say-as interpret-as="spell-out">IPA</say-as>' in ssml_taplist
+        assert (
+            'New England <say-as interpret-as="spell-out">IPA</say-as>' in ssml_taplist
+        )
 
     @staticmethod
     def test_NewEngland_IPA_name():
@@ -173,12 +190,18 @@ class TestBeerList(TestwithMocking):
         brewery_page._beer_list = models.breweries.beerlist.BeerList()
         brewery_page._cached_response = "bogus html page"
 
-        beer = models.breweries.beerlist.Beer(name='Heady Topper NEIPA', style='New England Ale',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Heady Topper NEIPA",
+            style="New England Ale",
+            abv="4.0%",
+            hops="Citra, Cascade",
+        )
         brewery_page.add_beer(beer)
         ssml_taplist = brewery_page.ssml_taplist()
         assert ssml_taplist is not None
-        assert 'New England <say-as interpret-as="spell-out">IPA</say-as>' in ssml_taplist
+        assert (
+            'New England <say-as interpret-as="spell-out">IPA</say-as>' in ssml_taplist
+        )
 
     @staticmethod
     def test_no_beers():
@@ -190,28 +213,40 @@ class TestBeerList(TestwithMocking):
         brewery_page._beer_list = models.breweries.beerlist.BeerList()
         brewery_page._cached_response = "bogus html page"
 
-        beer = models.breweries.beerlist.Beer(name='Heady Topper NEIPA', style='New England Ale',
-                                              abv='4.0%', hops='Citra, Cascade')
+        beer = models.breweries.beerlist.Beer(
+            name="Heady Topper NEIPA",
+            style="New England Ale",
+            abv="4.0%",
+            hops="Citra, Cascade",
+        )
         ssml_taplist = brewery_page.ssml_taplist()
         assert ssml_taplist is not None
-        assert 'no beers listed' in ssml_taplist
+        assert "no beers listed" in ssml_taplist
 
     @staticmethod
     def test_IBU_string():
-        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings("this is an IBU string")
+        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings(
+            "this is an IBU string"
+        )
         assert '<say-as interpret-as="spell-out">IBU' in spelled_out
 
     @staticmethod
     def test_DDH_string():
-        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings("this is an DDH string")
-        assert 'double dry hopped' in spelled_out
+        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings(
+            "this is an DDH string"
+        )
+        assert "double dry hopped" in spelled_out
 
     @staticmethod
     def test_IRA_string():
-        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings("this is an IRA string")
+        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings(
+            "this is an IRA string"
+        )
         assert '<say-as interpret-as="spell-out">IRA' in spelled_out
 
     @staticmethod
     def test_APA_string():
-        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings("this is an APA string")
+        spelled_out = models.breweries.beerlist.BreweryPage.spell_out_strings(
+            "this is an APA string"
+        )
         assert '<say-as interpret-as="spell-out">APA' in spelled_out

@@ -25,8 +25,8 @@ class TestDigitalPourpage(TestwithMocking):
             assert beer_string is not None
 
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            file_name = data_dir() + brewery.replace(' ', '') + '.SSML'
-            file_pointer = open(file_name, 'r')
+            file_name = data_dir() + brewery.replace(" ", "") + ".SSML"
+            file_pointer = open(file_name, "r")
             tst_data = file_pointer.read()
             file_pointer.close()
             assert tst_data == beer_string  # anything different, raise hell!
@@ -40,7 +40,7 @@ class TestDigitalPourpage(TestwithMocking):
         assert not from_cache
 
         # 2nd read from cache!
-        pour_page.ssml_taplist() # this puts it in the cache
+        pour_page.ssml_taplist()  # this puts it in the cache
         from_cache = pour_page.fetch_taplist(brewery=brewery_name)
         assert from_cache
 
@@ -66,5 +66,5 @@ class TestDigitalPourpage(TestwithMocking):
         """Test we get proper short name for this brewery"""
         dp = DigitalPourPage()
         short_names = dp.short_name()
-        assert 'Village Idiot' in short_names
+        assert "Village Idiot" in short_names
         assert len(short_names) == 1

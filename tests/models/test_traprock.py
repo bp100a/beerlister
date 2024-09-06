@@ -11,19 +11,19 @@ class TestTrapRockpage(TestwithMocking):
         """Test that we can do basic read of page"""
         trap_rock_page = TrapRockPage(mocked=True)
         assert trap_rock_page is not None
-        status = trap_rock_page.fetch_taplist(brewery='Trap Rock')
+        status = trap_rock_page.fetch_taplist(brewery="Trap Rock")
         assert not status
 
     def test_TrapRockPage_ssml(self):
         trap_rock_page = TrapRockPage(mocked=True)
         assert trap_rock_page is not None
-        status = trap_rock_page.fetch_taplist(brewery='Trap Rock')
+        status = trap_rock_page.fetch_taplist(brewery="Trap Rock")
         assert not status
         ssml = trap_rock_page.ssml_taplist()
         assert ssml
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        file_name = data_dir() + trap_rock_page._brewery_name.replace(' ', '') + '.SSML'
-        file_pointer = open(file_name, mode='r', encoding='utf8')
+        file_name = data_dir() + trap_rock_page._brewery_name.replace(" ", "") + ".SSML"
+        file_pointer = open(file_name, mode="r", encoding="utf8")
         tst_data = file_pointer.read()
         file_pointer.close()
         assert tst_data == ssml  # anything different, raise hell!
@@ -35,7 +35,6 @@ class TestTrapRockpage(TestwithMocking):
         assert not from_cache
 
         # 2nd read from cache!
-        traprock_page.ssml_taplist() # this puts it in the cache
+        traprock_page.ssml_taplist()  # this puts it in the cache
         from_cache = traprock_page.fetch_taplist(brewery="Trap Rock")
         assert from_cache
-

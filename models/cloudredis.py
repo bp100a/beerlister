@@ -1,4 +1,5 @@
 """here's where we manage our redis cache"""
+
 import time
 import hashlib
 import redis
@@ -34,14 +35,14 @@ def initialize_cloud_redis(injected_server=None):
     REDIS_PORT
     :return:
     """
-    global REDIS_SERVER # pylint: disable=W0603
+    global REDIS_SERVER  # pylint: disable=W0603
     if injected_server is None:
-        if REDIS_SERVER is not None: # if we have a redis instance, return it
+        if REDIS_SERVER is not None:  # if we have a redis instance, return it
             return
         redis_endpoint, redis_password, redis_port = read_configuration()
-        redis_server = redis.Redis(host=redis_endpoint,
-                                   port=redis_port,
-                                   password=redis_password)
+        redis_server = redis.Redis(
+            host=redis_endpoint, port=redis_port, password=redis_password
+        )
     else:
         # injecting a fake redis will always override existing instance
         redis_server = injected_server
@@ -74,22 +75,22 @@ def exists(redis_key: str) -> bool:
 
 def md5_key(brewery: str) -> str:
     """create key for the md5 value"""
-    return brewery.replace(' ', '') + "_md5"
+    return brewery.replace(" ", "") + "_md5"
 
 
 def ssml_key(brewery: str) -> str:
     """create key for the ssml value"""
-    return brewery.replace(' ', '') + "_ssml"
+    return brewery.replace(" ", "") + "_ssml"
 
 
 def timestamp_key(brewery: str) -> str:
     """create key for the timestamp value (an integer)"""
-    return brewery.replace(' ', '') + "_timestamp"
+    return brewery.replace(" ", "") + "_timestamp"
 
 
 def home_key(user_id: str) -> str:
     """create key for the home value (a uuid no doubt)"""
-    return user_id.replace(' ', '') + "_uid"
+    return user_id.replace(" ", "") + "_uid"
 
 
 def flush_cache(brewery: str) -> None:
@@ -118,7 +119,7 @@ def md5_exists(brewery: str, html: str) -> bool:
     # the value exists and it hasn't expired, so check the
     # hash
     md5 = hashlib.md5()
-    md5.update((html+str(config.BUILD_NUMBER)).encode('utf-8'))
+    md5.update((html + str(config.BUILD_NUMBER)).encode("utf-8"))
     current_md5 = md5.digest()
     cached_md5 = REDIS_SERVER.get(md5_key(brewery))
     if cached_md5 == current_md5:
@@ -167,7 +168,7 @@ def ssml_from_cache(brewery: str) -> str:
 
     ssml_output = REDIS_SERVER.get(ssml_key(brewery))
     if isinstance(ssml_output, bytes):
-        ssml_output = ssml_output.decode('utf-8')
+        ssml_output = ssml_output.decode("utf-8")
 
     return ssml_output
 
@@ -182,7 +183,7 @@ def cache_ssml(brewery: str, html: str, ssml: str, cached_time: int) -> None:
     :return:
     """
     md5 = hashlib.md5()
-    md5.update((html+str(config.BUILD_NUMBER)).encode('utf-8'))
+    md5.update((html + str(config.BUILD_NUMBER)).encode("utf-8"))
     md5_response = md5.digest()
     REDIS_SERVER.set(md5_key(brewery), md5_response)
     REDIS_SERVER.set(ssml_key(brewery), ssml)

@@ -1,4 +1,5 @@
 """Test cases for pages hosted by UnTappd"""
+
 from unittest import TestCase
 from models.breweries.untappd import UnTappdPage
 from models.breweries.untappd import BREWERY_INFO
@@ -34,12 +35,12 @@ class TestUntappdpage(TestwithMocking):
             beer_string = untapped_page.ssml_taplist()
             assert beer_string is not None
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            file_name = data_dir() + brewery_name.replace(' ', '') + '.SSML'
-            file_pointer = open(file_name, 'r', encoding='utf-8')
+            file_name = data_dir() + brewery_name.replace(" ", "") + ".SSML"
+            file_pointer = open(file_name, "r", encoding="utf-8")
             tst_data = file_pointer.read()
             file_pointer.close()
             if tst_data != beer_string:
-                assert tst_data == beer_string # anything different, raise hell!
+                assert tst_data == beer_string  # anything different, raise hell!
 
     def test_untied_brewing_mocked(self):
         """Special testing for Untied Brewing since it does special parsing"""
@@ -50,8 +51,8 @@ class TestUntappdpage(TestwithMocking):
         assert beer_string is not None
 
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        file_name = data_dir() + brewery_name.replace(' ', '') + '.SSML'
-        file_pointer = open(file_name, 'r', encoding='utf-8')
+        file_name = data_dir() + brewery_name.replace(" ", "") + ".SSML"
+        file_pointer = open(file_name, "r", encoding="utf-8")
         tst_data = file_pointer.read()
         file_pointer.close()
         if tst_data != beer_string:
@@ -76,12 +77,11 @@ class TestUntappdpage(TestwithMocking):
         assert cached_html == uncached_html
 
         # now check the value returned
-        file_name = data_dir() + brewery_name.replace(' ', '') + '.HTML'
-        file_pointer = open(file_name, mode='r', encoding='utf8')
+        file_name = data_dir() + brewery_name.replace(" ", "") + ".HTML"
+        file_pointer = open(file_name, mode="r", encoding="utf8")
         brewery_html = file_pointer.read()
         file_pointer.close()
         assert cloudredis.is_cached(brewery_name, brewery_html)
-
 
     def test_UnTappd_aliases(self):
         """Test to validate all aliases"""
@@ -111,6 +111,6 @@ class TestUntappdpage(TestwithMocking):
         """Test we have the proper short names"""
         untapped_page = UnTappdPage()
         short_names = untapped_page.short_name()
-        assert 'Man Skirt' in short_names
+        assert "Man Skirt" in short_names
         # assert 'Angry Erik' in short_names
-        assert 'Alementary' in short_names
+        assert "Alementary" in short_names

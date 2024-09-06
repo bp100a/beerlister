@@ -10,8 +10,8 @@ class TestRedis(TestwithMocking):
 
     def test_redis_setup(self):
         redis_host, redis_password, redis_port = cloudredis.read_configuration()
-        assert redis_host == 'bogus.redis.endpoint'
-        assert redis_password == 'bogus.redis.password'
+        assert redis_host == "bogus.redis.endpoint"
+        assert redis_password == "bogus.redis.password"
         assert redis_port == 14405
 
     def test_redis_initialize(self):
@@ -25,7 +25,12 @@ class TestRedis(TestwithMocking):
         html_we_scraped = "html we scraped"
         current_time_as_int = int(time.time())
         brewery_name = "bogus brewing"
-        cloudredis.cache_ssml(brewery=brewery_name, html=html_we_scraped, ssml=ssml_to_cache, cached_time=current_time_as_int)
+        cloudredis.cache_ssml(
+            brewery=brewery_name,
+            html=html_we_scraped,
+            ssml=ssml_to_cache,
+            cached_time=current_time_as_int,
+        )
 
         assert cloudredis.exists(cloudredis.md5_key(brewery_name))
         assert cloudredis.exists(cloudredis.ssml_key(brewery_name))
@@ -39,9 +44,16 @@ class TestRedis(TestwithMocking):
         ssml_to_cache = "ssml that will expire"
         html_we_scraped = "html that will expire"
         CACHE_TIMEOUT = 1
-        past_time_as_int = int(time.time()) - (CACHE_TIMEOUT*60*60+10)  # 1 hour in past (and a little more for skew)
+        past_time_as_int = int(time.time()) - (
+            CACHE_TIMEOUT * 60 * 60 + 10
+        )  # 1 hour in past (and a little more for skew)
         brewery_name = "expiring brewery"
-        cloudredis.cache_ssml(brewery=brewery_name, html=html_we_scraped, ssml=ssml_to_cache, cached_time=past_time_as_int)
+        cloudredis.cache_ssml(
+            brewery=brewery_name,
+            html=html_we_scraped,
+            ssml=ssml_to_cache,
+            cached_time=past_time_as_int,
+        )
 
         assert cloudredis.is_cached(brewery_name, html_we_scraped)
 
@@ -58,12 +70,21 @@ class TestRedis(TestwithMocking):
         ssml_to_cache = "ssml that will expire"
         html_we_scraped = "html that will expire"
         CACHE_TIMEOUT = 1
-        past_time_as_int = int(time.time()) - (CACHE_TIMEOUT*60*60+10)  # 1 hour in past (and a little more for skew)
+        past_time_as_int = int(time.time()) - (
+            CACHE_TIMEOUT * 60 * 60 + 10
+        )  # 1 hour in past (and a little more for skew)
         brewery_name = "expiring brewery"
-        cloudredis.cache_ssml(brewery=brewery_name, html=html_we_scraped, ssml=ssml_to_cache, cached_time=past_time_as_int)
+        cloudredis.cache_ssml(
+            brewery=brewery_name,
+            html=html_we_scraped,
+            ssml=ssml_to_cache,
+            cached_time=past_time_as_int,
+        )
 
         # now overwrite the timestamp entry
-        cloudredis.REDIS_SERVER.set(cloudredis.timestamp_key(brewery_name), float(past_time_as_int))
+        cloudredis.REDIS_SERVER.set(
+            cloudredis.timestamp_key(brewery_name), float(past_time_as_int)
+        )
 
         # now check it
         assert not cloudredis.is_cached(brewery_name, html_we_scraped)
@@ -73,8 +94,15 @@ class TestRedis(TestwithMocking):
         ssml_to_cache = "ssml that will expire"
         html_we_scraped = "old html"
         CACHE_TIMEOUT = 1
-        past_time_as_int = int(time.time()) - (CACHE_TIMEOUT*60*60+10)  # 1 hour in past (and a little more for skew)
+        past_time_as_int = int(time.time()) - (
+            CACHE_TIMEOUT * 60 * 60 + 10
+        )  # 1 hour in past (and a little more for skew)
         brewery_name = "changing brewery"
-        cloudredis.cache_ssml(brewery=brewery_name, html=html_we_scraped, ssml=ssml_to_cache, cached_time=past_time_as_int)
+        cloudredis.cache_ssml(
+            brewery=brewery_name,
+            html=html_we_scraped,
+            ssml=ssml_to_cache,
+            cached_time=past_time_as_int,
+        )
 
         assert not cloudredis.md5_exists(brewery=brewery_name, html="new html")

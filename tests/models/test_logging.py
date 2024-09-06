@@ -2,7 +2,7 @@ from unittest import TestCase
 from models import setuplogging
 
 
-class MockAWSLogging():
+class MockAWSLogging:
 
     @staticmethod
     def info(message: str) -> None:

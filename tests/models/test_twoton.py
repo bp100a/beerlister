@@ -4,16 +4,16 @@ from tests.models.common import data_dir
 from tests.setupmocking import TestwithMocking
 
 
-class ContentTest():
+class ContentTest:
     name = None
     text = None
 
 
-class ContentNoNameTest():
+class ContentNoNameTest:
     text = None
 
 
-class DivTest():
+class DivTest:
     contents = []
 
 
@@ -24,19 +24,19 @@ class TestTwoTonPage(TestwithMocking):
         """Test that we can do basic read of page"""
         two_ton_page = TwoTonPage(mocked=True)
         assert two_ton_page is not None
-        status = two_ton_page.fetch_taplist(brewery='Two Ton')
+        status = two_ton_page.fetch_taplist(brewery="Two Ton")
         assert not status
 
     def test_TwoTonPage_ssml(self):
         two_ton_page = TwoTonPage(mocked=True)
         assert two_ton_page is not None
-        status = two_ton_page.fetch_taplist(brewery='Two Ton')
+        status = two_ton_page.fetch_taplist(brewery="Two Ton")
         assert not status
         ssml = two_ton_page.ssml_taplist()
         assert ssml
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        file_name = data_dir() + two_ton_page._brewery_name.replace(' ', '') + '.SSML'
-        file_pointer = open(file_name, mode='r', encoding='utf8')
+        file_name = data_dir() + two_ton_page._brewery_name.replace(" ", "") + ".SSML"
+        file_pointer = open(file_name, mode="r", encoding="utf8")
         tst_data = file_pointer.read()
         file_pointer.close()
         assert tst_data == ssml  # anything different, raise hell!
@@ -44,7 +44,7 @@ class TestTwoTonPage(TestwithMocking):
     def test_TwoTonPage_div_not_content(self):
         twoton_page = TwoTonPage(mocked=True)
 
-        div_no_contents = {"div_no_contents": 'dummy'}
+        div_no_contents = {"div_no_contents": "dummy"}
         assert not twoton_page.parse_beer(div_no_contents)
 
     def test_TwoTonPage_div_content_no_name(self):
@@ -59,7 +59,7 @@ class TestTwoTonPage(TestwithMocking):
         div_not_h2 = DivTest()
         contents = ContentTest()
         div_not_h2.contents.append(contents)
-        div_not_h2.contents[0].name = 'not h2'
+        div_not_h2.contents[0].name = "not h2"
         assert not twoton_page.parse_beer(div_not_h2)
 
     def test_TwoTonPage_div_text_not_ABV(self):
@@ -68,8 +68,8 @@ class TestTwoTonPage(TestwithMocking):
         div_not_abv = DivTest()
         contents = ContentTest()
         div_not_abv.contents.append(contents)
-        div_not_abv.contents[0].name = 'h2'
-        div_not_abv.contents[0].text = 'not A.B.V.'
+        div_not_abv.contents[0].name = "h2"
+        div_not_abv.contents[0].text = "not A.B.V."
         assert not twoton_page.parse_beer(div_not_abv)
 
     def test_TwoTonPage_div_text_just_ABV(self):
@@ -78,8 +78,8 @@ class TestTwoTonPage(TestwithMocking):
         div_not_abv = DivTest()
         contents = ContentTest()
         div_not_abv.contents.append(contents)
-        div_not_abv.contents[0].name = 'h2'
-        div_not_abv.contents[0].text = 'ABV'
+        div_not_abv.contents[0].name = "h2"
+        div_not_abv.contents[0].text = "ABV"
         assert not twoton_page.parse_beer(div_not_abv)
 
     def test_TwoTonPage_cached(self):
@@ -89,6 +89,6 @@ class TestTwoTonPage(TestwithMocking):
         assert not from_cache
 
         # 2nd read from cache!
-        TwoTon_page.ssml_taplist() # this puts it in the cache
+        TwoTon_page.ssml_taplist()  # this puts it in the cache
         from_cache = TwoTon_page.fetch_taplist(brewery="TwoTon")
         assert from_cache

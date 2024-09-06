@@ -1,10 +1,11 @@
 """"read Digital Pour formatted tap list from web site"""
+
 import bs4 as bs
 from models.breweries.beerlist import BreweryPage
 from models.breweries.beerlist import Beer
 from controllers import brewerylist
 
-BREWERY_INFO = {"Village Idiot": ['556fbbe55e002c0d44d5bd22', 1]}
+BREWERY_INFO = {"Village Idiot": ["556fbbe55e002c0d44d5bd22", 1]}
 
 
 class DigitalPourPage(BreweryPage):
@@ -14,7 +15,9 @@ class DigitalPourPage(BreweryPage):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Village Idiot" : ["Village Idiot Brewery", "Village Idiot Brewing"]}
+        self._alias = {
+            "Village Idiot": ["Village Idiot Brewery", "Village Idiot Brewing"]
+        }
 
     def add_beers(self, beer_div_list) -> None:
         """Take the div list of beers and complete parsing"""
@@ -24,36 +27,44 @@ class DigitalPourPage(BreweryPage):
                 beer_name = beer.contents[3].text
                 beer_style = beer.contents[7].text
                 beer_abv = beer.contents[11].text.strip()
-                beer_ibu = beer.contents[13].text.split(' ')[0]
-                self.add_beer(Beer(name=beer_name, style=beer_style, abv=beer_abv,
-                                   ibu=beer_ibu, desc=None))
+                beer_ibu = beer.contents[13].text.split(" ")[0]
+                self.add_beer(
+                    Beer(
+                        name=beer_name,
+                        style=beer_style,
+                        abv=beer_abv,
+                        ibu=beer_ibu,
+                        desc=None,
+                    )
+                )
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist and scrape out the beer list"""
-        brewery = kwargs['brewery']
+        brewery = kwargs["brewery"]
 
         # construct our URL
         loc_theme = BREWERY_INFO[brewery]
-        url = "http://fbpage.digitalpour.com/?companyID={0}&locationID={1}" \
-            .format(loc_theme[0], loc_theme[1])
+        url = "http://fbpage.digitalpour.com/?companyID={0}&locationID={1}".format(
+            loc_theme[0], loc_theme[1]
+        )
         BreweryPage.fetch_taplist(self, url=url, **kwargs)
-        is_cached = self.read_page(brewery) # read the page
+        is_cached = self.read_page(brewery)  # read the page
         if is_cached:
             return True
 
         assert self._cached_response is not None
-        start_pos = self._cached_response.find('<body>')
-        end_string = '</body>'
+        start_pos = self._cached_response.find("<body>")
+        end_string = "</body>"
         end_pos = self._cached_response.find(end_string)
-        html_menu = self._cached_response[start_pos:end_pos+len(end_string)]
-        assert end_pos is not -1
+        html_menu = self._cached_response[start_pos : end_pos + len(end_string)]
+        assert end_pos != -1
         self._soup = bs.BeautifulSoup(html_menu, "html.parser")
         assert self._soup is not None
 
         beer_div_list = self._soup.find_all("div", {"class": "beverageInfo"})
         self.add_beers(beer_div_list)
 
-        return False # not from cache
+        return False  # not from cache
 
 
 # add this to the list of breweries

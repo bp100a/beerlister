@@ -23,8 +23,8 @@ class TestBeerMenuspage(TestwithMocking):
             assert beer_string is not None
 
             # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-            fn = data_dir() + brewery.replace(' ', '') + '.SSML'
-            fp = open(fn, mode='r', encoding='utf8')
+            fn = data_dir() + brewery.replace(" ", "") + ".SSML"
+            fp = open(fn, mode="r", encoding="utf8")
             tst_data = fp.read()
             fp.close()
             assert tst_data == beer_string  # anything different, raise hell!
@@ -53,7 +53,7 @@ class TestBeerMenuspage(TestwithMocking):
         """Test that we get back the short name for our brewery"""
         bp = BeerMenusPage()
         short_names = bp.short_name()
-        assert 'Rinn Duin' in short_names
+        assert "Rinn Duin" in short_names
         assert len(short_names) == 1
 
     def test_BeerMenus_cached(self):
@@ -65,7 +65,6 @@ class TestBeerMenuspage(TestwithMocking):
         assert not from_cache
 
         # 2nd read from cache!
-        menus_page.ssml_taplist() # this puts it in the cache
+        menus_page.ssml_taplist()  # this puts it in the cache
         from_cache = menus_page.fetch_taplist(brewery=brewery_name)
         assert from_cache
-

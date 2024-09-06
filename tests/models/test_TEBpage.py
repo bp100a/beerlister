@@ -26,8 +26,8 @@ class TestTEBpage(TestwithMocking):
         assert beer_string is not None
 
         # read our pre-canned response to compare with (../tests/data/<brewery>.SSML)
-        file_name = data_dir() + teb._brewery_name.replace(' ', '') + '.SSML'
-        file_pointer = open(file_name, mode='r', encoding='utf8')
+        file_name = data_dir() + teb._brewery_name.replace(" ", "") + ".SSML"
+        file_pointer = open(file_name, mode="r", encoding="utf8")
         tst_data = file_pointer.read()
         file_pointer.close()
         assert tst_data == beer_string  # anything different, raise hell!
@@ -52,7 +52,7 @@ class TestTEBpage(TestwithMocking):
         teb = TEBpage()
         names = teb.short_name()
         assert len(names) == 1
-        assert names[0] == 'Twin Elephant'
+        assert names[0] == "Twin Elephant"
 
     def test_TEB_cached(self):
         """Test we can read the Twin Elephant beer list!"""
@@ -62,7 +62,6 @@ class TestTEBpage(TestwithMocking):
         assert not from_cache
 
         # 2nd read from cache!
-        teb.ssml_taplist() # this puts it in the cache
+        teb.ssml_taplist()  # this puts it in the cache
         from_cache = teb.fetch_taplist(brewery="Twin Elephant")
         assert from_cache
-

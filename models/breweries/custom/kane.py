@@ -1,5 +1,5 @@
 """brewery page to web scrape departed soles website for tap list"""
-import re
+
 from models.breweries.beerlist import BreweryPage
 from models.breweries.beerlist import Beer
 from controllers import brewerylist
@@ -7,16 +7,16 @@ from controllers import brewerylist
 
 class KanePage(BreweryPage):
     """scrape website of Departed Soles Brewing, Jersey City"""
+
     def __init__(self, **kwargs):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Kane": ["Kane Brewing",
-                                "Kane Brewery"]}
+        self._alias = {"Kane": ["Kane Brewing", "Kane Brewery"]}
 
     @staticmethod
     def parse_beer_abv(tag) -> str:
-        abv = tag.contents[3].contents[1].text.split('%')[0]
+        abv = tag.contents[3].contents[1].text.split("%")[0]
         return abv
 
     @staticmethod
@@ -26,11 +26,14 @@ class KanePage(BreweryPage):
 
     @staticmethod
     def filter(tag) -> bool:
-        if (tag.has_attr('class') and
-            "panel" in tag.attrs['class'] and
-                "product" in tag.attrs['class']) or \
-                (tag.has_attr('id') and
-                 ("beers-to-go" in tag.attrs['id'] or "beers-on-tap" in tag.attrs['id'])):
+        if (
+            tag.has_attr("class")
+            and "panel" in tag.attrs["class"]
+            and "product" in tag.attrs["class"]
+        ) or (
+            tag.has_attr("id")
+            and ("beers-to-go" in tag.attrs["id"] or "beers-on-tap" in tag.attrs["id"])
+        ):
             return True
 
         return False
@@ -46,10 +49,12 @@ class KanePage(BreweryPage):
         if is_cached:
             return True
 
-        tag_list = self._soup.find_all(KanePage.filter) #  find_all("div", {"class": "panel", "class": "product"})
+        tag_list = self._soup.find_all(
+            KanePage.filter
+        )  #  find_all("div", {"class": "panel", "class": "product"})
         panel_idx = 0
         for tag in tag_list:
-            if "panel-two-column" in tag['class']:
+            if "panel-two-column" in tag["class"]:
                 panel_idx += 1
                 if panel_idx > 1:
                     break
@@ -59,13 +64,17 @@ class KanePage(BreweryPage):
                 beer_abv = KanePage.parse_beer_abv(tag)
                 if len(tag.contents) > 5:
                     beer_desc = tag.contents[5].text.strip("\n ")
-                    self.add_beer(Beer(name=beer_name,
-                                       style=beer_style,
-                                       abv=beer_abv,
-                                       desc=beer_desc,
-                                       hops=None))
+                    self.add_beer(
+                        Beer(
+                            name=beer_name,
+                            style=beer_style,
+                            abv=beer_abv,
+                            desc=beer_desc,
+                            hops=None,
+                        )
+                    )
 
-        return False # not from cache
+        return False  # not from cache
 
 
 # add this to the list of breweries

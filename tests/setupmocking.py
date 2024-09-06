@@ -1,6 +1,7 @@
 """This is a base class for our Unit Tests that will ensure we
 properly setup our mocked outputs such as Redis and logging
 """
+
 from unittest import TestCase
 import fakeredis
 from models import cloudredis, setuplogging

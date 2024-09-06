@@ -1,4 +1,5 @@
 """brewery page to web scrape departed soles website for tap list"""
+
 from models.breweries.beerlist import BreweryPage
 from models.breweries.beerlist import Beer
 from controllers import brewerylist
@@ -6,20 +7,27 @@ from controllers import brewerylist
 
 class DepartedSolespage(BreweryPage):
     """scrape website of Departed Soles Brewing, Jersey City"""
+
     def __init__(self, **kwargs):
         BreweryPage.__init__(self, **kwargs)
 
         # initialize aliases
-        self._alias = {"Departed Soles" : ["Departed Soles Brewing",
-                                           "Departed Soles Brewery",
-                                           "departed sole",
-                                           "departed sole brewing",
-                                           "departed sole brewery",
-                                           "soul"]}
+        self._alias = {
+            "Departed Soles": [
+                "Departed Soles Brewing",
+                "Departed Soles Brewery",
+                "departed sole",
+                "departed sole brewing",
+                "departed sole brewery",
+                "soul",
+            ]
+        }
 
     def fetch_taplist(self, **kwargs) -> bool:
         """fetch the taplist page for Departed Soles and parse it"""
-        BreweryPage.fetch_taplist(self, url="http://www.departedsoles.com/beer.html", **kwargs)
+        BreweryPage.fetch_taplist(
+            self, url="http://www.departedsoles.com/beer.html", **kwargs
+        )
         assert self._url is not None
         is_cached = self.read_page(brewery=list(self._alias.keys())[0])  # read the page
         if is_cached:
@@ -30,16 +38,16 @@ class DepartedSolespage(BreweryPage):
             name = None
             style = None
             abv = None
-            if beer.contents[1].name == 'h4':
+            if beer.contents[1].name == "h4":
                 name = beer.contents[1].text
-                style = beer.contents[3].text.split(u'\u2022')[0].strip()
-                abv = beer.contents[3].text.split(u'\u2022')[1].strip()
+                style = beer.contents[3].text.split("\u2022")[0].strip()
+                abv = beer.contents[3].text.split("\u2022")[1].strip()
                 # now add the beer to the list
                 self.add_beer(Beer(name=name, style=style, abv=abv, hops=None))
 
         # we now have a list of beers for this brewery
         assert self._beer_list is not None
-        return False # not from cache
+        return False  # not from cache
 
 
 # add this to the list of breweries

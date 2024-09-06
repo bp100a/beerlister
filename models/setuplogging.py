@@ -1,9 +1,10 @@
 """Here's where we manage logging"""
+
 import logging
 
 LOGGING_HANDLER = None
 AWS_LOGGER = None
-MOCK_LOG = "" # this is where mocking will "log" the string
+MOCK_LOG = ""  # this is where mocking will "log" the string
 
 
 def initialize_logging(mocking=True):
@@ -11,9 +12,9 @@ def initialize_logging(mocking=True):
     Note: We stick with the first setup mode, so the call
     in the lambda handler with mocking=True only takes effect
     when it's the first call, so testing isn't overridden"""
-    global AWS_LOGGER   # pylint:disable=W0603
-    global LOGGING_HANDLER # pylint:disable=W0603
-    if LOGGING_HANDLER is not None: # already been setup
+    global AWS_LOGGER  # pylint:disable=W0603
+    global LOGGING_HANDLER  # pylint:disable=W0603
+    if LOGGING_HANDLER is not None:  # already been setup
         return
 
     if not mocking:
@@ -31,5 +32,5 @@ def prod_logging_handler(log_string: str) -> None:
 
 def mock_logging_handler(log_string: str) -> None:
     """where all testing/debugging goes"""
-    global MOCK_LOG # pylint:disable=W0603
+    global MOCK_LOG  # pylint:disable=W0603
     MOCK_LOG = log_string
