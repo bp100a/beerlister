@@ -3,7 +3,6 @@ properly setup our mocked outputs such as Redis and logging
 """
 from unittest import TestCase
 import fakeredis
-from controllers import brewerylist
 from models import cloudredis, setuplogging
 
 

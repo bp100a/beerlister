@@ -81,7 +81,6 @@ class AngryErikPage(BreweryPage):
                 if beer_name:
                     self.parse_beer_text(beer_name)
 
-
         return False # not from cache
 
 

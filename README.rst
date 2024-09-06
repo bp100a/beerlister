@@ -15,11 +15,11 @@ Currently read the following formats:
 
 * UnTappd
     * Man Skirt
-    * Alementary
+    * Alementary (closed)
     * Fort Nonsense
     * Pinelands
     * Untied Brewing
-    * Demented
+    * Demented (closed)
 * Digital Pour
     * Village Idiot
 * Beer Menus
