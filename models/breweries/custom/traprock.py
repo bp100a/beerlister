@@ -22,6 +22,7 @@ class TrapRockPage(BreweryPage):
         beer_name = div.contents[0]
         beer_description = div.nextSibling.text
         abv_pos = beer_description.rfind(';')
+        beer_style: str = ''
         beer_abv = None
         if abv_pos != -1:
             beer_style = beer_description[:abv_pos]
