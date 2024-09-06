@@ -2,7 +2,10 @@
 #
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
-version: 2
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@5.1.0
 jobs:
   build:
     docker:
@@ -126,7 +129,6 @@ jobs:
           command: |
             rm -rf lambda_deploy/pylint*
             rm -rf lambda_deploy/pip*
-            rm -rf lambda_deploy/nose*
             rm -rf lambda_deploy/python_lambda_local*.egg-info
             rm -rf lambda_deploy/fakeredis*
             rm -rf lambda_deploy/coverage*
@@ -147,9 +149,6 @@ jobs:
           command: |
             cd lambda_deploy
             zip -r ../TapList.zip *
-      - run:
-          name: Install AWS client
-          command: sudo pip install awscli
       - run:
           name: upload the package
           command: aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
