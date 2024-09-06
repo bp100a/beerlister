@@ -184,4 +184,6 @@ workflows:
             - build
           filters:
             branches:
-              only: master, fix-deployment
+              only:
+                - master
+                - fix-deployment
