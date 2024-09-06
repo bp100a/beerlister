@@ -124,24 +124,24 @@ jobs:
       - run:
           name: remove unnecessary modules
           command: |
-            rm -r lambda_deploy/pylint*
-            rm -r lambda_deploy/pip*
-            rm -r lambda_deploy/nose*
-            rm -r lambda_deploy/python_lambda_local*.egg-info
-            rm -r lambda_deploy/fakeredis*
-            rm -r lambda_deploy/coverage*
-            rm -r lambda_deploy/codecov*
-            rm -r lambda_deploy/requests_mock*
-            rm -f lambda_deploy/*.so
-            rm -r lambda_deploy/__pycache__
-            rm -r lambda_deploy/docutils*
-            rm -r lambda_deploy/astroid*
-            rm -r lambda_deploy/boto*
-            rm -r lambda_deploy/s3transfer*
-            rm -r lambda_deploy/typed_ast*
-            rm -r lambda_deploy/mccabe*
-            rm lambda_deploy/easy_install*
-            rm -r lambda_deploy/six*
+            rm -rf lambda_deploy/pylint*
+            rm -rf lambda_deploy/pip*
+            rm -rf lambda_deploy/nose*
+            rm -rf lambda_deploy/python_lambda_local*.egg-info
+            rm -rf lambda_deploy/fakeredis*
+            rm -rf lambda_deploy/coverage*
+            rm -rf lambda_deploy/codecov*
+            rm -rf lambda_deploy/requests_mock*
+            rm -rf lambda_deploy/*.so
+            rm -rf lambda_deploy/__pycache__
+            rm -rf lambda_deploy/docutils*
+            rm -rf lambda_deploy/astroid*
+            rm -rf lambda_deploy/boto*
+            rm -rf lambda_deploy/s3transfer*
+            rm -rf lambda_deploy/typed_ast*
+            rm -rf lambda_deploy/mccabe*
+            rm -rf lambda_deploy/easy_install*
+            rm -rf lambda_deploy/six*
       - run:
           name: zip up the package
           command: |
