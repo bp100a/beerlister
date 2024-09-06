@@ -94,10 +94,9 @@ class TestAWSlambda(TestwithMocking):
         assert not response["response"]["shouldEndSession"]
 
     def test_session_state(self):
-
         # create our launch request
-        launch_event = {"request": {"type": "LaunchRequest"}, "session": {"new": True}}
-        response = lambda_function.lambda_handler(event=launch_event, context=None)
+        launch_event: dict[str, dict] = {"request": {"type": "LaunchRequest"}, "session": {"new": True}}
+        response: dict | None = lambda_function.lambda_handler(event=launch_event, context=None)
         assert not response["response"]["shouldEndSession"]
 
         # Session is open, now ask for a list of breweries
