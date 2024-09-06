@@ -101,6 +101,9 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - aws-cli/setup:
+          region: AWS_REGION
+
       - run:
           name: install dependencies
           command: |
@@ -150,16 +153,18 @@ jobs:
             cd lambda_deploy
             zip -r ../TapList.zip *
       - run:
-          name: upload the package
-          command: aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
-      - run:
           name: stash zipfile as an artifact in case we need to check things
           command: |
             mkdir zipfile
             mv TapList.zip zipfile/TapList.zip
       - run:
+          name: upload the package
+          command: |
+            aws lambda update-function-code --function-name TapList --region us-east-1 --zip-file fileb://TapList.zip
+      - run:
           name: publish version
-          command: aws lambda publish-version --function-name TapList --description $CIRCLE_BUILD_NUM --region us-east-1
+          command: |
+            aws lambda publish-version --function-name TapList --description $CIRCLE_BUILD_NUM --region us-east-1
       - run:
           name: update STAGE alias
           command: bash -x ./deploy/update-alias.sh $CIRCLE_BUILD_NUM STAGE
